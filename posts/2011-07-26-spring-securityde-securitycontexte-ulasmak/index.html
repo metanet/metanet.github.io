@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Spring Security’de SecurityContext&#39;e ulaşmak - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Spring Security’de SecurityContext&#39;e ulaşmak" />
+<meta property="og:description" content="Spring Security&rsquo;yle entegre çalışan bir uygulamada, kullanıcıların oturumlarına yönelik bilgiler SecurityContext nesnelerinde tutuluyor. SecurityContext nesneleri ise SecurityContextHolder içerisinde tutuluyor. Varsayılan olarak SecurityContextHolder, SecurityContext nesnelerini ThreadLocal kullanarak saklıyor. Böylelikle aynı thread&rsquo;de çalışan metodlar aynı SecurityContext nesnesine ulaşabiliyorlar. SecurityContextHolderin çalışma modu da istenildiği takdirde değiştirilebiliyor.
+Uygulamanın oturumla alakalı işlerini Spring Security halletse de, bazen oturum açan kullanıcıya yönelik bilgiler bize de gerekebiliyor. Bunun için öncelikle SecurityContext nesnesine ulaşmamız gerekiyor. Onu da şöyle yapabiliyoruz." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/" />
+<meta property="article:published_time" content="2011-07-26T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-07-26T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Security’de SecurityContext&#39;e ulaşmak"/>
+<meta name="twitter:description" content="Spring Security&rsquo;yle entegre çalışan bir uygulamada, kullanıcıların oturumlarına yönelik bilgiler SecurityContext nesnelerinde tutuluyor. SecurityContext nesneleri ise SecurityContextHolder içerisinde tutuluyor. Varsayılan olarak SecurityContextHolder, SecurityContext nesnelerini ThreadLocal kullanarak saklıyor. Böylelikle aynı thread&rsquo;de çalışan metodlar aynı SecurityContext nesnesine ulaşabiliyorlar. SecurityContextHolderin çalışma modu da istenildiği takdirde değiştirilebiliyor.
+Uygulamanın oturumla alakalı işlerini Spring Security halletse de, bazen oturum açan kullanıcıya yönelik bilgiler bize de gerekebiliyor. Bunun için öncelikle SecurityContext nesnesine ulaşmamız gerekiyor. Onu da şöyle yapabiliyoruz."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Spring Security’de SecurityContext&#39;e ulaşmak</h1>
+			<div class="meta">Posted at &mdash; Jul 26, 2011
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring-security">spring security</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			<p>Spring Security&rsquo;yle entegre çalışan bir uygulamada, kullanıcıların oturumlarına yönelik bilgiler <code>SecurityContext</code> nesnelerinde tutuluyor. <code>SecurityContext</code> nesneleri ise <code>SecurityContextHolder</code> içerisinde tutuluyor.
+Varsayılan olarak <code>SecurityContextHolder</code>, <code>SecurityContext</code> nesnelerini <code>ThreadLocal</code> kullanarak saklıyor. Böylelikle aynı thread&rsquo;de çalışan metodlar aynı <code>SecurityContext</code> nesnesine ulaşabiliyorlar. <code>SecurityContextHolder</code>in çalışma modu da istenildiği takdirde değiştirilebiliyor.</p>
+
+<p>Uygulamanın oturumla alakalı işlerini Spring Security halletse de, bazen oturum açan kullanıcıya yönelik bilgiler bize de gerekebiliyor. Bunun için öncelikle <code>SecurityContext</code> nesnesine ulaşmamız gerekiyor. Onu da şöyle yapabiliyoruz.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SecurityContext securityContext = SecurityContextHolder.getContext();</code></pre></div>
+
+<p>Bu çağrıyla elde ettiğimiz <code>securityContext</code> üzerinden <code>Authentication</code> ve <code>UserPrincipal</code>a erişebiliyoruz. Fakat bu kullanım <a href="http://stackoverflow.com/questions/248562/when-using-spring-security-what-is-the-proper-way-to-obtain-current-username-i" target="_blank">şuradaki abimin dediği gibi</a> test edilebilirliği bozuyor. Bunun için bu çağrıyı gizlemek daha uygun bir yaklaşım.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">SecurityContextUtils</span> {
+        <span style="color:#00f">public</span> SecurityContext getSecurityContext() {
+		<span style="color:#00f">return</span> SecurityContext.getContext();
+	}
+}</code></pre></div>
+
+<p><code>SecurityContextUtils</code> sınıfının içine <code>UserPrincipal</code> veya <code>username</code>i de getiren metodlar yazılabilir. Bu yöntemle statik metod çağrısını, normal bir metodun içerisine gizledik ve <code>SecurityContextUtils</code>i ve <code>SecurityContext</code>i mocklayabilir hale geldik.</p>
+
+<p>Uygulamada Spring de kullanıyorsak şöyle bir sınıf da yazabiliriz.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Component
+<span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">SecurityContextUtils</span> {
+	<span style="color:#00f">private</span> SecurityContextHolderStrategy securityContextHolderStrategy;
+
+	@PostConstruct
+	<span style="color:#2b91af">void</span> init() {
+		securityContextHolderStrategy = SecurityContextHolder
+				.getContextHolderStrategy();
+	}
+
+	<span style="color:#00f">public</span> SecurityContext getSecurityContext() {
+		<span style="color:#00f">return</span> securityContextHolderStrategy.getContext();
+	}
+}</code></pre></div>
+
+<p><code>SecurityContext</code> nesneleri HTTP request&rsquo;leri boyunca <code>ThreadLocal</code>de tutuluyor. Request sonlanınca, ilgili SecurityContext <code>ThreadLocal</code>den silinip bir sonra request&rsquo;te tekrar <code>ThreadLocal</code>e alınıyor. Bunun sebebi ise request&rsquo;in sonlandığı thread&rsquo;in, servlet container&rsquo;in thread pool&rsquo;una alınıp başka bir request&rsquo;i ele alması ihtimali. Eski <code>SecurityContext</code> <code>ThreadLocal</code>den silinmezse thread&rsquo;de çalışan yeni request yanlış <code>SecurityContext</code> nesnesine erişir. Bu durumu düşünmemiş olmamdan dolayı, ben bir hatayla karşılaştım; onu da yazmak istiyorum. Spring Security filtrelerini kapattığım bir URL&rsquo;e sahip sayfada, <code>SecurityContext</code>e erişmeye çalıştım. Filtreler kapalı olduğundan <code>SecurityContext</code> nesnesine <code>ThreadLocal</code>e alınmıyordu ve erişmeye çalıştığımda null dönüyordu. Buna dikkat etmek gerekiyor.</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Integration Testing with Maven, Jetty and Selenium 2 - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Integration Testing with Maven, Jetty and Selenium 2" />
+<meta property="og:description" content="For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. Showcase project was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/" />
+<meta property="article:published_time" content="2011-12-25T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-12-25T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Integration Testing with Maven, Jetty and Selenium 2"/>
+<meta name="twitter:description" content="For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. Showcase project was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Integration Testing with Maven, Jetty and Selenium 2</h1>
+			<div class="meta">Posted at &mdash; Dec 25, 2011
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/integration-testing">integration-testing</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jetty">jetty</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/maven">maven</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/maven-surefire">maven surefire</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/maven-failsafe">maven failsafe</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/selenium">selenium</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			<p>For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. <a title="PrimeFaces Showcase Project" href="http://primefaces.googlecode.com/svn/examples/trunk/showcase/" target="_blank">Showcase project</a> was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way.</p>
+
+<p>First of all, maven already has 3 phases for integration testing: <code>pre-integration-test</code>, <code>integration-test</code>, <code>post-integration-test</code>. So I thought that on the <code>pre-integration-test</code> I can start Jetty and deploy the showcase, on the <code>integration-test</code> phase I can run the Selenium tests and on the <code>post-integration-test</code> I can stop Jetty. These steps can be done with <a title="Maven Jetty Plugin" href="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin" target="_blank">Maven Jetty Plugin</a> quite easily.</p>
+
+<p>Another issue I had to deal with was separating integration tests from unit tests and running them only once at their own phases. I used <a title="Maven Failsafe Plugin" href="http://maven.apache.org/plugins/maven-failsafe-plugin/index.html" target="_blank">Failsafe Maven Plugin</a> to run the integration tests. Failsafe plugin is just like the Surefire plugin but it&rsquo;s designed for integration testing. They explain the Failsafe quite well:</p>
+
+<blockquote>
+<p>If you use the Surefire Plugin for running tests, then when you have a test failure, the build will stop at the <tt>integration-test</tt> phase and your integration test environment will not have been torn down correctly.</p>
+
+<p>The Failsafe Plugin is used during the <tt>integration-test</tt> and <tt>verify</tt> phases of the build lifecycle to execute the integration tests of an application. The Failsafe Plugin will not fail the build during the <tt>integration-test</tt> phase thus enabling the <tt>post-integration-test</tt> phase to execute.</p>
+</blockquote>
+
+<p>I also separated unit tests and integration tests by placing integration tests into the <code>integration package, excluding test in the</code>integration<code>package for Surefire, and including them for Failsafe. So Surefire will run only the unit tests, which are not in the</code>integration<code>package, and Failsafe will run the tests in the</code>integration` package only.</p>
+
+<p>Here is part of the pom for the plugins:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">	&lt;plugin&gt;
+		&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+		&lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+		&lt;version&gt;2.11&lt;/version&gt;
+		&lt;configuration&gt;
+			&lt;excludes&gt;
+			<span style="color:#008000">&lt;!-- Exclude integration tests within (unit) test phase. --&gt;</span>
+			&lt;exclude&gt;**/integration/**/*.java&lt;/exclude&gt;
+			&lt;/excludes&gt;
+			&lt;encoding&gt;UTF-8&lt;/encoding&gt;
+		&lt;/configuration&gt;
+		&lt;/plugin&gt;
+
+	&lt;plugin&gt;
+		&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+		&lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
+		&lt;version&gt;2.11&lt;/version&gt;
+		&lt;configuration&gt;
+			&lt;includes&gt;
+            		&lt;include&gt;**/integration/**/IntegrationTest*.java<span style="">&lt;</span>/include
+					&lt;include&gt;**/integration/**/*IntegrationTest.java&lt;/include&gt;
+			&lt;/includes&gt;
+			&lt;encoding&gt;UTF-8&lt;/encoding&gt;
+		&lt;/configuration&gt;
+		&lt;executions&gt;
+			&lt;execution&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;integration-test&lt;/goal&gt;
+					&lt;goal&gt;verify&lt;/goal&gt;
+				&lt;/goals&gt;
+			&lt;/execution&gt;
+		&lt;/executions&gt;
+	&lt;/plugin&gt;
+
+	&lt;plugin&gt;
+		&lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+		&lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+		&lt;version&gt;6.1.16&lt;/version&gt;
+		&lt;configuration&gt;
+			&lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
+			&lt;stopPort&gt;9966&lt;/stopPort&gt;
+			&lt;stopKey&gt;stop&lt;/stopKey&gt;
+			&lt;webAppConfig&gt;
+				&lt;contextPath&gt;/prime-showcase&lt;/contextPath&gt;
+			&lt;/webAppConfig&gt;
+		&lt;/configuration&gt;
+		&lt;executions&gt;
+			&lt;execution&gt;
+				&lt;id&gt;start-jetty&lt;/id&gt;
+				&lt;phase&gt;pre-integration-test&lt;/phase&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;run&lt;/goal&gt;
+				&lt;/goals&gt;
+				&lt;configuration&gt;
+					&lt;daemon&gt;true&lt;/daemon&gt;
+				&lt;/configuration&gt;
+			&lt;/execution&gt;
+			&lt;execution&gt;
+				&lt;id&gt;stop-jetty&lt;/id&gt;
+				&lt;phase&gt;post-integration-test&lt;/phase&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;stop&lt;/goal&gt;
+				&lt;/goals&gt;
+			&lt;/execution&gt;
+		&lt;/executions&gt;
+	&lt;/plugin&gt;</code></pre></div>
+
+<ul>
+<li>Within Surefire&rsquo;s configuration, I excluded the test classes which are in <code>integration</code> package.</li>
+<li>Within Failsafe&rsquo;s configuration, I included the test classes which are in <code>integration</code> package and starts / ends with <code>IntegrationTest</code>. <code>integration-test</code> and <code>verify</code> goals are defined for <code>integration-test</code> phase.</li>
+<li>Within Jetty Plugin&rsquo;s configuration, run and stop goals of the plugin are defined for <code>pre-integration</code> and <code>post-integration</code> phases respectively.
+I do not explain the other parts, you can find information about them in plugins&rsquo; web sites.</li>
+</ul>
+
+<p>Here is a sample integration test class resides under src/test.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#00f">package</span> com.prime.showcase.integration.ajaxengine;
+
+	<span style="color:#00f">import static</span> org.hamcrest.MatcherAssert.assertThat;
+	<span style="color:#00f">import static</span> org.hamcrest.Matchers.equalTo;
+
+	<span style="color:#00f">import</span> java.util.concurrent.TimeUnit;
+
+	<span style="color:#00f">import</span> org.junit.After;
+	<span style="color:#00f">import</span> org.junit.Before;
+	<span style="color:#00f">import</span> org.junit.Test;
+	<span style="color:#00f">import</span> org.openqa.selenium.By;
+	<span style="color:#00f">import</span> org.openqa.selenium.WebDriver;
+	<span style="color:#00f">import</span> org.openqa.selenium.WebElement;
+	<span style="color:#00f">import</span> org.openqa.selenium.firefox.FirefoxDriver;
+	<span style="color:#00f">import</span> org.openqa.selenium.support.ui.ExpectedCondition;
+	<span style="color:#00f">import</span> org.openqa.selenium.support.ui.FluentWait;
+
+	<span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">AjaxCounterIntegrationTest</span> {
+
+		<span style="color:#00f">protected</span> WebDriver driver;
+
+		<span style="color:#00f">private</span> String testUrl = <span style="color:#a31515">&#34;http://localhost:8080/prime-showcase/ui/pprCounter.jsf&#34;</span>;
+
+		@Before
+		<span style="color:#00f">public</span> <span style="color:#2b91af">void</span> before() {
+			driver = <span style="color:#00f">new</span> FirefoxDriver();
+		}
+
+		@After
+		<span style="color:#00f">public</span> <span style="color:#2b91af">void</span> after() {
+			driver.quit();
+		}
+
+		@Test
+		<span style="color:#00f">public</span> <span style="color:#2b91af">void</span> shouldIncreaseCounter() {
+			driver.get(testUrl);
+
+			WebElement button = driver.findElement(By.id((<span style="color:#a31515">&#34;j_idt14:j_idt17&#34;</span>)));
+			button.click();
+
+			<span style="color:#00f">new</span> FluentWait&lt;WebDriver&gt;(driver).withTimeout(10, TimeUnit.SECONDS).pollingEvery(2, TimeUnit.SECONDS).until(<span style="color:#00f">new</span> ExpectedCondition&lt;Boolean&gt;() {
+				<span style="color:#00f">public</span> Boolean apply(WebDriver wd) {
+					WebElement element = wd.findElement(By.id(<span style="color:#a31515">&#34;j_idt14:txt_count&#34;</span>));
+					<span style="color:#00f">return</span> element.getText().equals(<span style="color:#a31515">&#34;1&#34;</span>);
+				}
+			});
+
+			<span style="color:#00f">final</span> WebElement numberText = driver.findElement(By.id((<span style="color:#a31515">&#34;j_idt14:txt_count&#34;</span>)));
+			assertThat(numberText.getText(), equalTo(<span style="color:#a31515">&#34;1&#34;</span>));
+			button.click();
+
+		}
+	}</code></pre></div>
+
+<p>With this configuration, when I type the <code>mvn integration-test</code> command from the terminal, Maven builds the project, runs the unit tests, starts Jetty and deploys the application, runs integration tests and stops Jetty.</p>
+
+<p>You can also look the the pom.xml of the showcase project when we update it on the SVN repository.</p>
+
+<p><em>PS: Here are the dependencies for the example test class:</em></p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">	&lt;dependency&gt;
+		&lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+		&lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+		&lt;version&gt;2.15.0&lt;/version&gt;
+	&lt;/dependency&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.hamcrest&lt;/groupId&gt;
+		&lt;artifactId&gt;hamcrest-all&lt;/artifactId&gt;
+		&lt;version&gt;1.1&lt;/version&gt;
+		&lt;scope&gt;test&lt;/scope&gt;
+	&lt;/dependency&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;junit&lt;/groupId&gt;
+		&lt;artifactId&gt;junit&lt;/artifactId&gt;
+		&lt;version&gt;4.8.2&lt;/version&gt;
+		&lt;scope&gt;test&lt;/scope&gt;
+	&lt;/dependency&gt;</code></pre></div>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

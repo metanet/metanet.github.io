@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java server faces on Ensar Basri Kahveci</title>
+    <link>https://basrikahveci.com/tags/java-server-faces/</link>
+    <description>Recent content in java server faces on Ensar Basri Kahveci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 Oct 2011 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://basrikahveci.com/tags/java-server-faces/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Writing a custom Facelet EL function makes authorization check using Spring Security</title>
+      <link>https://basrikahveci.com/posts/2011-10-03-writing-a-custom-facelet-el-function/</link>
+      <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-10-03-writing-a-custom-facelet-el-function/</guid>
+      <description>It&amp;rsquo;s common that you may want to show some part of your pages to the user with certain roles. Writing a custom Facelet EL function makes doing authorization checks for viewing parts of pages really easy. If you are using Spring Security in the background, you can use its SecurityContext object to get authorities of the user and use them in your EL function implementation.
+Here, there is a simple EL function implementation that users Spring Security to get roles of user and controls if the user has a certain role or not.</description>
+    </item>
+    
+    <item>
+      <title>JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile)</title>
+      <link>https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</link>
+      <pubDate>Fri, 11 Feb 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</guid>
+      <description>Acayip bir dil in, Türkçe yine out. Dependency Injection&amp;rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği &amp;ldquo;bağımlılık zerketme&amp;rdquo;.
+Efenim JSF bize bean&amp;rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&amp;rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz.</description>
+    </item>
+    
+  </channel>
+</rss>

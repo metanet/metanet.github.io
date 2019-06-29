@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Spring ile konfigürasyon değerlerini property dosyalarına almak - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Spring ile konfigürasyon değerlerini property dosyalarına almak" />
+<meta property="og:description" content="Başlık konusunda çok sıkıntı çekiyorum ya. Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegrasyon arayüzleri (interface) ve bu arayüzlerin -out of the box- gerçekleştirimlerini (implementation) sunuyor. BeanPostProcessor bunlardan biri. BeanPostProcessor kullanarak, Spring container’i bir bean’i yaratıp ilklendirdikten (initialize) sonra, bean üzerinde istediğimiz işlemleri gerçekleştirebiliyoruz. Önceki yazılardan birinde bahsettiğim Spring ile Logger enjektesi, bunun bir örneği. BeanPostProcessor gerçekleştirimlerinin bir diğer örneği ise Spring ile gelen RequiredAnnotationBeanPostProcessor sınıfı.
+BeanFactoryPostProcessor arayüzü ise, Spring IoC container’ının bir başka genişleme noktası." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/" />
+<meta property="article:published_time" content="2011-07-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-07-10T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring ile konfigürasyon değerlerini property dosyalarına almak"/>
+<meta name="twitter:description" content="Başlık konusunda çok sıkıntı çekiyorum ya. Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegrasyon arayüzleri (interface) ve bu arayüzlerin -out of the box- gerçekleştirimlerini (implementation) sunuyor. BeanPostProcessor bunlardan biri. BeanPostProcessor kullanarak, Spring container’i bir bean’i yaratıp ilklendirdikten (initialize) sonra, bean üzerinde istediğimiz işlemleri gerçekleştirebiliyoruz. Önceki yazılardan birinde bahsettiğim Spring ile Logger enjektesi, bunun bir örneği. BeanPostProcessor gerçekleştirimlerinin bir diğer örneği ise Spring ile gelen RequiredAnnotationBeanPostProcessor sınıfı.
+BeanFactoryPostProcessor arayüzü ise, Spring IoC container’ının bir başka genişleme noktası."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Spring ile konfigürasyon değerlerini property dosyalarına almak</h1>
+			<div class="meta">Posted at &mdash; Jul 10, 2011
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			<p>Başlık konusunda çok sıkıntı çekiyorum ya.
+Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegrasyon arayüzleri (interface) ve bu arayüzlerin -out of the box- gerçekleştirimlerini (implementation) sunuyor. <code>BeanPostProcessor</code> bunlardan biri. <code>BeanPostProcessor</code> kullanarak, Spring container’i bir bean’i yaratıp ilklendirdikten (initialize) sonra, bean üzerinde istediğimiz işlemleri gerçekleştirebiliyoruz. Önceki yazılardan birinde bahsettiğim Spring ile Logger enjektesi, bunun bir örneği. BeanPostProcessor gerçekleştirimlerinin bir diğer örneği ise Spring ile gelen <code>RequiredAnnotationBeanPostProcessor</code> sınıfı.</p>
+
+<p><code>BeanFactoryPostProcessor</code> arayüzü ise, Spring IoC container’ının bir başka genişleme noktası. Bu arayüz sayesinde konfigürasyon metadata’sı üzerinde çalışabiliyoruz. Spring IoC container’ı bean’leri yaratmaya başlamadan önce <code>BeanFactoryPostProcessor</code> gerçekleştirimlerine konfigürasyon metadata’larını okuma ve değiştirme imkanı sağlıyor.</p>
+
+<p><code>ApplicationContext</code>, içerisinde tanımlanan <code>BeanFactoryPostProcessor</code> gerçekleştirimlerini otomatik olarak saptayıp konfigürasyon metadata’sı üzerinde çalışmaları için otomatik olarak işletiyor. Birden fazla <code>BeanFactoryPostProcessor</code>umuz varsa ve işletim sırası önemliyse order değeri ile işletim sıralarını da ayarlayabiliyoruz.</p>
+
+<p>Yazının asıl mevzusu ise, Spring ile gelen ve esasında <code>BeanFactoryPostProcessor</code> arayüzünün bir gerçekleştirimi olan <code>PropertyPlaceHolderConfigurer</code> sınıfı. <code>PropertyPlaceHolderConfigurer</code> sınıfı sayesinde, kodumuza yönelik konfigürasyon parametrelerini bean tanımlarından ayırıp standart java property dosyalarına koyabiliyoruz. JDBC parametreleri mesela. Böylelikle parametrelerde bir değişiklik yapacağımız zaman bean tanımlarıyla uğraşmak yerine property dosyalarından kolayca değişiklikleri hallediyoruz.</p>
+
+<p>Şu örnek XML parçasına bir bakalım:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">&lt;bean&gt;
+&lt;property name=<span style="color:#a31515">&#34;locations&#34;</span> value=<span style="color:#a31515">&#34;classpath:com/foo/jdbc.properties”/&gt;
+</span><span style="color:#a31515">&lt;/bean&gt;
+</span><span style="color:#a31515">
+</span><span style="color:#a31515">&lt;bean id=&#34;</span><span style="">dataSource&#34;</span> destroy-method=<span style="color:#a31515">&#34;close”&gt;
+</span><span style="color:#a31515">&lt;property name=&#34;</span><span style="">driverClassName&#34;</span> value=<span style="color:#a31515">&#34;${jdbc.driverClassName}”/&gt;
+</span><span style="color:#a31515">&lt;property name=&#34;</span><span style="">url&#34;</span> value=<span style="color:#a31515">&#34;${jdbc.url}”/&gt;
+</span><span style="color:#a31515">&lt;property name=&#34;</span><span style="">username&#34;</span> value=<span style="color:#a31515">&#34;${jdbc.username}”/&gt;
+</span><span style="color:#a31515">&lt;property name=&#34;</span><span style="">password&#34;</span> value=<span style="color:#a31515">&#34;${jdbc.password}”/</span>&gt;
+&lt;/bean&gt;</code></pre></div>
+
+<p><code>dataSource</code> bean’inin property’lerinde, gerçek değerler yerine placeholder değerler verilmiş. Placeholder’ların yerine de <code>dataSource</code>un üstünde tanımlanan <code>PropertyPlaceHolderConfigurer</code> bean’i property dosyasından okuduğu değerleri yerleştiriyor. Örnek olarak <code>jdbc.properties</code> dosyasında bulunan</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">jdbc.driverClassName=org.hsqldb.jdbcDriver
+jdbc.url=jdbc:hsqldb:hsql://production:9002
+jdbc.username=sa
+jdbc.password=root</pre></div>
+<p>Değerleri, Spring IoC’u bean’leri yaratmaya başlamadan önce, placeholder değerlerine yerleştiriliyor.</p>
+
+<p>Spring 2.5 ile gelen <code>context namespace</code>i ile, <code>PropertyPlaceHolderConfigurer</code> tanımlamasını <code>&lt;context:property-placeholder location=&quot;classpath:com/foo/jdbc.properties”/&gt;</code> şeklinde yapabiliyoruz. location değeri ise  virgül ile ayrılmış birden fazla property dosyası alabiliyor.</p>
+
+<p>Ayrıca, Annotation kullanarak yaptığımız konfigürasyonda ise, bean’imiz içinde <code>@Value(“${propertyName}”)</code> annotation&rsquo;u ile konfigürasyon değerlerini <code>attribute</code>lara alabiliyoruz. Bu kullanım adeta beni benden aldı :D Upload edilen bir resmi bir dizine yazıyordum, ama hangi dizine yazılacağını bean içinde amele gibi tanımlamak yerine, konfigüre edilebilir bir şekilde nasıl yaparım derken, bu olayı kurcalayıp keşfettim.</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

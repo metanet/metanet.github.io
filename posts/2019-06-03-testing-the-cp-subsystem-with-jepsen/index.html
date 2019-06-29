@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Testing the CP Subsystem with Jepsen - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Testing the CP Subsystem with Jepsen" />
+<meta property="og:description" content="In this blog post I’ll try to demystify the linearizability semantics of the CP Subsystem and explore our Jepsen test suite. 
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/" />
+<meta property="article:published_time" content="2019-06-03T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-03T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Testing the CP Subsystem with Jepsen"/>
+<meta name="twitter:description" content="In this blog post I’ll try to demystify the linearizability semantics of the CP Subsystem and explore our Jepsen test suite. 
+"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Testing the CP Subsystem with Jepsen</h1>
+			<div class="meta">Posted at &mdash; Jun 3, 2019
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/distributed-locks">distributed locks</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/distributed-locking">distributed locking</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/fencedlock">fencedlock</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/raft-consensus-algorithm">raft consensus algorithm</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/cap-theorem">cap theorem</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jepsen-testing">jepsen testing</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<p><strong><em>I published this post at <a href="https://hazelcast.com/blog/testing-the-cp-subsystem-with-jepsen/" target=“\_blank">Hazelcast blog</a> and put a copy here.</em></strong></p>
+
+<p>At Hazelcast we take reliability very seriously. With the new CP Subsystem module, Hazelcast has become the first and only IMDG that offers a linearizable distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm. In addition to well-grounded designs and proven algorithms, reliability also requires a substantial amount of testing. We have been working hard to ensure the validity of our consistency claims.</p>
+
+<p>In this blog post I’ll try to demystify the linearizability semantics of the CP Subsystem and explore our Jepsen test suite. This blog post is the fourth installment of <a href="/tags/hazelcast-imdg-cp-subsystem/">my CP Subsystem blog post series</a>.</p>
+
+<p>Our work with Jepsen has now become a part of the official Jepsen repo so it’s <a href="https://github.com/jepsen-io/jepsen/tree/master/hazelcast" target=“\_blank">easily accessible</a> to everyone interested. To avoid any confusion, let me point out that we didn’t conduct any joint work with Kyle Kingsbury. His involvement with our work started after we sent <a href="https://github.com/jepsen-io/jepsen/pull/325" target=“\_blank">our pull request</a>.</p>
+
+<h1 id="jepsen-the-kryptonite-of-distributed-databases">Jepsen: The Kryptonite of Distributed Databases</h1>
+
+<p>I discovered Jepsen shortly after joining Hazelcast in 2015. Hazelcast engineers were already big fans of the Jepsen reports back then and they welcomed me to the club. Over the years, we witnessed how Jepsen became the industry-standard tool for testing consistency claims of distributed databases and made significant contributions to the industry. We are grateful that Kyle Kingsbury put Hazelcast on his radar in 2017 as <a href="https://jepsen.io/analyses/hazelcast-3-8-3" target=“\_blank">his analysis and recommendations</a> were very helpful. In <a href="https://hazelcast.com/blog/hazelcast-imdg-3-10-released/" target=“\_blank">Hazelcast IMDG 3.10</a>, we introduced flake ID generators and CRDT counters, enhanced our split-brain handling mechanisms, and revised our consistency claims in our documentation. We finally introduced the CP Subsystem module in <a href="/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/">Hazelcast IMDG 3.12</a>.</p>
+
+<p>Running a Jepsen test on a distributed database is like sneaking up on Superman with kryptonite while he is trying to overcome his biggest challenge. Jepsen subjects the database to various system failures while running a test case and checks whether the database is able to maintain its consistency promises. It can create chaos in many ways: make a single node or multiple nodes crash or hiccup, partition the network, or even make clocks go crazy.</p>
+
+<h1 id="the-linearizability-semantics-of-cp-subsystem">The Linearizability Semantics of CP Subsystem</h1>
+
+<p>We wrote our Jepsen tests to verify that the new implementations of our concurrency APIs work as expected with respect to the linearizability semantics of the CP Subsystem. We should first clarify our linearizability semantics before talking about the tests.</p>
+
+<p>If you aren’t yet familiar with CP Subsystem, you can read <a href="/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/">our CP Subsystem primer</a>. In short, we have a notion of <em>CP groups</em>. A CP group is a cluster on its own with respect to the CP services it provides. You can run multiple CP groups and distribute your CP concurrency primitives to them. Each CP group executes the Raft consensus algorithm independently. The Raft consensus algorithm provides a single serial commit order for submitted operations and guarantees that each committed operation runs on the latest state of the CP group.</p>
+
+<p>This design implies that each CP group will have its own availability. Consider a scenario where the <em>CP group size</em> is set to 3 and there are 4 CP members. We run 2 CP groups in this setup and they are initialized as shown below. Suppose that we create an <code>IAtomicLong</code> instance in each CP group. If a network partition splits our cluster as in the figure below, our CP groups will have their majority on different sides of the partition. It means that we will preserve the availability of the first <code>IAtomicLong</code> instance, but lose it for the second <code>IAtomicLong</code> instance on the left side, and vice-versa for the right side.</p>
+
+<figure>
+    <img src="/figures/jepsen_post_figure.png"/> 
+</figure>
+
+
+<p>Having the Raft consensus algorithm under the hood is not sufficient itself to guarantee linearizability for the operations running on all concurrency APIs of the CP Subsystem. We need to make sure that the internal state machines are implemented correctly. This requires all operations to be deterministic, but there is always some source of non-determinism in real-world APIs. For instance, <code>FencedLock</code> offers locking methods, i.e., the variances of <code>tryLock(timeout)</code>, that take a timeout parameter to specify how long a call should be blocked if the lock is already held. We must extract non-determinism from the <code>FencedLock</code> state machine while handling <code>tryLock(timeout)</code> calls. It means that replicas of the <code>FencedLock</code> state machine should not apply timeouts independently. What we do is, we make the Raft leader of the underlying CP group responsible for timeout decisions. The Raft leader keeps track of committed <code>tryLock(timeout)</code> calls to decide which calls should time-out and commits those timeouts to the CP group. Through this method, we handle <code>tryLock()</code> timeouts deterministically. The very same logic applies to tracking liveness of CP sessions.</p>
+
+<p>We also need to think about retries of in-flight operations. Consider a scenario where the Raft leader node of a CP group receives an operation from a client, but crashes before responding to the client. In this case, the client cannot easily determine if its operation was committed or not. If the client retries its call naively, it can cause the operation to be committed and executed twice, if the leader managed to commit the operation before crashing. We have an internal interface that is implemented by the operations committed in CP groups. This interface denotes if an operation can be retried safely if its current status is indeterminate. If the operation is idempotent, a duplicate commit does not create a problem because the result will be the same as if the operation is committed only once. For instance, read-only operations are always retried. However, all write operations are not idempotent by nature, so we need to implement a generic de-duplication mechanism to safely handle retries of all kinds of write operations and maintain the exactly-once semantics. Diego Ongaro does not cover de-duplication in the core Raft consensus algorithm, but discusses it as an extension in his <a href="https://purl.stanford.edu/qr033xr6097" target=“\_blank">Ph.D. thesis</a> (Section 6.3: Implementing linearizable semantics). Since a generic de-duplication mechanism brings a significant amount of complexity into the implementation, we preferred to skip it in our initial release. Instead, we handled internal retries of the CP Subsystem API calls in different ways. We managed to offer the exactly-once execution semantics on <code>FencedLock</code>, <code>ISemaphore</code>, and <code>ICountDownLatch</code> by taking advantage of the restrictions on these APIs and marking their internal operations as retryable. We run a simple and effective de-duplication mechanism for them behind the scenes. On the other hand, we don’t offer the exactly-once semantics for <code>IAtomicReference</code> and <code>IAtomicLong</code>. Instead, we allow developers to decide between the at-most-once and at-least-once execution semantics for these APIs via configuration. The internal operations of <code>IAtomicReference</code> and <code>IAtomicLong</code> primitives return their retryable status by checking this configuration. We are planning to extend our de-duplication mechanism to cover the whole CP Subsystem API suite.</p>
+
+<p>The linearizability semantics of the CP Subsystem are summarized as follows:</p>
+
+<ul>
+<li>Each CP group runs the Raft consensus algorithm independently. The Raft consensus algorithm provides a single serial commit order for submitted operations and guarantees that each committed operation runs on the latest state of the CP group.</li>
+<li>All kinds of non-determinism and randomness are extracted from the core Raft mechanics. All API methods provided by the CP concurrency primitives, including the ones that work with timeouts, internally run on CP group members deterministically.</li>
+<li><code>FencedLock</code>, <code>ISemaphore</code>, and <code>ICountDownLatch</code> APIs offer linearizability with exactly-once execution semantics, including the case of Raft leader failures. However, in order to get linearizability for <code>IAtomicReference</code> and <code>IAtomicLong</code> primitives, you need to disable automatic retries in case of Raft leader failures.</li>
+</ul>
+
+<h1 id="cp-subsystem-jepsen-test-setup">CP Subsystem Jepsen Test Setup</h1>
+
+<p>In order to minimize the bias for testing our own system, we built our test setup on top of the infrastructure Kyle Kingsbury introduced in his Hazelcast analysis. We run the CP Subsystem with 5 CP members and use a single CP group <em>(the Default CP group)</em>. The timeouts are tuned to react to failures quickly. Raft leader heartbeat timeout is set to 5 seconds, which implies that the follower nodes of the Default CP group try to elect a new leader 5 seconds after they don’t receive any heartbeat from the current leader. Hazelcast operation call timeout is also set to 5 seconds. Last, <code>CPSubsystemConfig.isFailOnIndeterminateOperationState()</code> is set to <code>true</code> to disable automatic retries for <code>IAtomicLong</code> and <code>IAtomicReference</code>.</p>
+
+<p>Each test performs a sequence of operations on the new concurrency primitives via Hazelcast clients. While running those tests, we introduce network partitions lasting 20 seconds via the <code>partition-majorities-ring</code> nemesis, followed by 20 seconds of full connectivity for recovery. Jepsen logs every performed operation with its result. At the end, the linearizability checker validates that the results are consistent with the operation history with respect to the invariants offered by the tested concurrency primitive.</p>
+
+<p>For instance, we use the <code>IAtomicLong.compareAndSet()</code> method in our <code>IAtomicLong</code> tests. These calls can have 3 different outcomes. A <code>compareAndSet()</code> call succeeds if the current value of the <code>IAtomicLong</code> instance is equal to the expected value when the call is committed on the CP group. Since we are making <code>compareAndSet()</code> calls from multiple clients concurrently, a <code>compareAndSet()</code> call can return with failure if the value of the <code>IAtomicLong</code> instance changes in the meantime. It can also have an indeterminate result, for instance if the operation times out or the Raft leader becomes unreachable due to a network partition problem. Since an indeterminate <code>compareAndSet()</code> call could be applied or not applied, it causes a fork in the operation history during the validation phase.</p>
+
+<p>We run our Jepsen test suite in our continuous integration pipeline using Docker containers. You can also run our tests on your computer by following <a href="https://github.com/jepsen-io/jepsen/tree/master/hazelcast" target=“\_blank">the instructions given in the Jepsen repository</a>.</p>
+
+<h1 id="cp-subsystem-jepsen-test-cases">CP Subsystem Jepsen Test Cases</h1>
+
+<p>We have 8 test cases for the CP Subsystem:</p>
+
+<ul>
+<li>Non-reentrancy of <code>FencedLock</code>: In this test case, and also in the other <code>FencedLock</code> tests, clients make <code>tryLock()</code> and <code>unlock()</code> calls. Then, we check if <code>FencedLock</code> behaves as a non-reentrant mutex, i.e., it can be held by a single endpoint at a time and only the lock holder endpoint can release it. Moreover, the lock cannot be acquired by the same endpoint reentrantly.</li>
+<li>Reentrancy of <code>FencedLock</code>: We test if <code>FencedLock</code> behaves as a reentrant mutex. The lock instance can be held by a single endpoint at a time and only the lock holder endpoint can release it. Moreover, the current lock holder can reentrantly acquire the lock one more time. Reentrant lock acquire limit is 2 for this test.</li>
+<li>Monotonicity of fencing tokens for non-reentrant <code>FencedLock</code>: <code>FencedLock</code> orders lock holders by a monotonic fencing token, which is incremented each time the lock switches from the free state to the held state. In this test case, we validate monotonicity of fencing tokens assigned to subsequent lock holders. Moreover, the lock cannot be acquired by the same endpoint reentrantly.</li>
+<li>Monotonicity of fencing tokens for reentrant <code>FencedLock</code>: <code>FencedLock</code> orders lock holders by a monotonic fencing token, which is incremented each time the lock switches from the free state to the held state. However, if the current lock holder acquires the lock reentrantly, it will get the same fencing token. Reentrant lock acquire limit is 2 for this test.</li>
+<li><code>ISemaphore</code> permits: In this test, we initialize an <code>ISemaphore</code> instance with 2 permits. Each client tries to acquire and release a permit in a loop and we validate that permits are held by at most 2 clients at any time.</li>
+<li>Unique ID generation with <code>IAtomicLong</code>: In this test, each client generates a unique <code>long</code> id by using an <code>IAtomicLong</code> instance and we validate uniqueness of generated ids.</li>
+<li><code>Compare-and-swap</code> register with <code>IAtomicLong</code>: In this test, clients randomly perform <code>read</code>, <code>write</code> and <code>compare-and-set</code> operations. We validate the history with the <code>cas-register</code> model of Jepsen.</li>
+<li><code>Compare-and-swap</code> register with <code>IAtomicReference</code>: In this test, clients randomly perform <code>read</code>, <code>write</code> and <code>compare-and-set</code> operations. We validate the history with the <code>cas-register</code> model of Jepsen.</li>
+</ul>
+
+<p>We fixed all the bugs revealed by these test cases and currently do not have any known bugs.</p>
+
+<p>The current test suite uses a static CP member set. Even though we may have multiple Raft leader elections because of network partitions, we do not crash CP members and replace them with new ones during test runs. We are planning to extend our test suite with crash failures and dynamic CP membership changes.</p>
+
+<h1 id="revealing-issues-and-evolving-a-design">Revealing Issues and Evolving a Design</h1>
+
+<p>The roots of CP Subsystem’s testing procedure go back to the early days of its development. We had a <a href="https://github.com/mdogan/jepsen/commit/b609de826c623c6a2318be63841a5e555a7000d6" target=“\_blank">passing Jepsen test</a> three weeks after <a href="https://github.com/mdogan/hazelcast/commit/6b3992b424f2a6537e8f4802419139e082c58eaa" target=“\_blank">the first commit</a> of our Raft consensus algorithm implementation. Once we had the leader election and log replication components of Raft, we implemented our <code>IAtomicLong</code> primitive on top of it and then tested that implementation with Jepsen. As we made progress, a feedback loop came to light by itself between our development and testing efforts. I like to think of our experience as a different form of test-driven development. Our Jepsen tests worked like unit tests and helped not only reveal bugs, but also improve the internal design and external semantics of our new concurrency primitives. For the <code>FencedLock</code> and <code>ISemaphore</code> tests, most of the test failures were related to the de-duplication mechanism which handles internal retries. In addition, we discovered several problems in the reentrancy logic of <code>FencedLock</code>. Each test failure revealed another corner case missed by our design. We passed through countless iterations until we arrived at the current design and implementation of <code>FencedLock</code> and <code>ISemaphore</code>.</p>
+
+<p>Here is a list of some issues and commits to show the evolution of <code>FencedLock</code> and <code>ISemaphore</code>:</p>
+
+<ul>
+<li><a href="https://github.com/mdogan/hazelcast/commit/e70df3cc3f4fedb05fa58eaa7c4b3bcf47b902d2" target=“\_blank">[1]</a>, <a href="https://github.com/mdogan/hazelcast/commit/a0985c68b583e6669295d564476a39f86e6bb3f9" target=“\_blank”>[2]</a>, <a href="https://github.com/mdogan/hazelcast/commit/60cda091d8a9af13791ea457ea7bbffd12d39632" target=“\_blank">[3]</a>, <a href="https://github.com/mdogan/hazelcast/commit/d547f0d50a7d747cf51e33ad2cb6064f7eb0c950" target=“\_blank”>[4]</a>, <a href="https://github.com/mdogan/hazelcast/commit/b629fc91d1fd52e06e3be7fc90ccb41b71c1837a" target=“\_blank”>[5]</a> <code>FencedLock</code> is reentrant by default. Until we ended up with the current design, we moved back and forth between non-local and local implementation of reentrancy. Handling reentrancy locally means that a <code>FencedLock</code> proxy holds its reentrant lock acquires as local state. Its alternative solution, which is the current solution in place, is to keep no local state for reentrancy and hit the CP group for every <code>lock()</code> / <code>unlock()</code> call. Handling reentrancy locally sounds like a reasonable approach, and we went for it a couple of times. Once an endpoint acquires the lock, other endpoints are usually not interested in how many times the lock is acquired reentrantly. However, the devil is in the details. When we keep reentrancy state locally inside <code>FencedLock</code> proxies, it effectively becomes another replica of the <code>FencedLock</code> state and several problems appear if failures occur while communicating with the CP group. We repeated a <em>“discover a problem -&gt; spend days thinking about possible solutions -&gt; try these solutions -&gt; discover another problem”</em> loop for weeks and finally decided to abandon the local reentrancy approach. If you want to learn more about FencedLock, you can check our <a href="/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/">“Distributed Locks are Dead; Long Live Distributed Locks!”</a> blogpost.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/b629fc91d1fd52e06e3be7fc90ccb41b71c1837a" target=“\_blank”>[6]</a> We also enabled a configurable reentrancy behavior for <code>FencedLock</code>. You can use it as a binary mutex, set a custom reentrancy limit, or keep the default behavior where there is no limit for non-reentrancy. This configuration option has been very useful for testing FencedLock properly.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/f160d0bf48e0ccf68132c62f9249641cb3d9f607" target=“\_blank">[7]</a>, <a href="https://github.com/mdogan/hazelcast/commit/135162e6c48640ffeb1264a6489741445463b71a" target=“\_blank">[8]</a>, <a href="https://github.com/mdogan/hazelcast/commit/062cd77c6406524abff48a51d5f37e1e4189bdbd" target=“\_blank">[9]</a>, <a href="https://github.com/mdogan/hazelcast/commit/5cc891650929392307ae6c344c759f1e63501cf2" target=“\_blank”>[10]</a> Several problems related to making <code>FencedLock</code> and <code>ISemaphore</code> APIs idempotent were found and fixed.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/4214776dd35bbead33209ceb2fb52fe9656b334e" target=“\_blank">[11]</a> Suppose you make a <code>tryLock(timeout)</code> call while the lock is already being held. If the lock is not released before the timeout occurs, your <code>tryLock()</code> call returns <code>false</code>, meaning that you could not acquire the lock. However, if the lock is released just after that, the lock could be assigned to you faultily, because of an internal retry previously done for your <code>tryLock()</code> call.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/066364821848efaba115a1a07af5d469d3a13998" target=“\_blank">[12]</a>, <a href="https://github.com/mdogan/hazelcast/commit/550ddb4a85ab899fa41fddd5e7c265db1c658cf3" target=“\_blank">[13]</a> We built an internal generic solution for automatic retries of CP API calls. If an API method can be implemented in a way that is safe to retry, i.e, idempotent, it is automatically retried on certain failures. Otherwise, <code>CPSubsystemConfig.failOnIndeterminateOperationState</code> is respected.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/aa9d156bfc724e6b8aa0fbbe9458bfe5ad4ce107" target=“\_blank">[14]</a> Several problems were found and fixed for taking snapshots of the blocking concurrency primitives’ state machines.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/fdd134c1f2a0fb1f0279ce13c28053c6aedd1340" target=“\_blank">[15]</a>, <a href="https://github.com/mdogan/hazelcast/commit/a871011e35ccc1fcee040ad13469510c50f4482c" target=“\_blank">[16]</a>, <a href="https://github.com/mdogan/hazelcast/commit/0bb668380aeae3a371acd9e3ea7dfc221470ab81" target=“\_blank">[17]</a> Several problems related to handling of operation timeouts were found and fixed.</li>
+</ul>
+
+<h1 id="the-many-faces-of-distributed-systems-resiliency-testing">The Many Faces of Distributed Systems Resiliency Testing</h1>
+
+<p>One interesting fact about our testing experience is that our Jepsen tests did not reveal any correctness bug in the leader election and log replication components of our Raft implementation. All bugs and problems discovered turned out to be related to the state machine implementations of our concurrency primitives.</p>
+
+<p>This is not to say that our Raft algorithm implementation has been bulletproof from day one. <a href="https://github.com/hazelcast/hazelcast/tree/master/hazelcast/src/main/java/com/hazelcast/cp/internal/raft" target=“\_blank">Our Raft algorithm implementation</a> lives in the Hazelcast codebase, but it is highly isolated from the rest of the Hazelcast code. It depends on Hazelcast mostly for the logging and testing utilities. We developed and tested our core Raft implementation by running Raft nodes on multiple threads of a single process and making them communicate via message passing. We also managed to build a comprehensive unit and micro-integration test suite for this implementation.</p>
+
+<p>Micro-integration test is a term we coined in Hazelcast a couple of years ago. In fact, most of the tests in the whole Hazelcast codebase can be classified as micro-integration tests. Its scope is wider than a unit test, but it usually does not use a real network or a file system. We mimic message losses, delays, crashes in our micro-integration tests. When we suspect a weird behavior related to the Raft logic, we first write a micro-integration test for it. Our micro-integration test suite revealed several problems related to log replication, leader election, snapshotting, membership changes, and performance optimizations on Raft. As of now, we have <a href="https://github.com/hazelcast/hazelcast/tree/master/hazelcast/src/test/java/com/hazelcast/cp/internal/raft/impl" target=“\_blank">120 unit and micro-integration tests</a> for our Raft algorithm implementation. In addition to these tests, we also have a bundle of <a href="https://github.com/hazelcast/hazelcast/tree/master/hazelcast/src/test/java/com/hazelcast/cp/internal" target=“\_blank">562 micro-integration tests</a> that covers the whole CP Subsystem module.</p>
+
+<p>We also have our in-house “Chaos Monkey” tool. We have been using it to test the resiliency of Hazelcast IMDG for a long time. It puts an Hazelcast IMDG cluster under varying degrees of workloads and troubles the cluster in parallel to check if the cluster members fall into latency spikes, long GC cycles, deadlocks, or OOMEs. We also used our chaos testing tool to write 35 different chaos tests for the CP Subsystem. In these tests, most of which are running for hours, we drop network connections between cluster members, create and resolve network partitions, randomly crash and restart CP members, and invoke the dynamic clustering APIs of the CP Subsystem. Then, we check if the CP Subsystem encounters a deadlock, an internal exception leaks to the user, internal state of the concurrency primitives gets corrupted, etc. These chaos tests turned out to be another pillar of our testing process. They revealed a few critical issues in the leader election, snapshotting and membership change components of the Raft algorithm implementation:</p>
+
+<ul>
+<li><a href="https://github.com/mdogan/hazelcast/commit/45917e927e1efef705388a0371183077bd18afec" target=“\_blank">[18]</a> If a snapshot is already installed by a follower, it must reply to the leader on a duplicate <code>InstallSnapshotRPC</code> so that the leader can advance its <code>match index</code>.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/55bd69c7e3f4c02d536210c4e5eea6a691e894a0" target=“\_blank">[19]</a> Multiple membership changes can be committed before a slow follower appends and commits them. When a slow follower appends these changes, it needs to commit each membership change one by one.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/658115e5950ecba0beeab51c3b4fdd280b3be5ef" target=“\_blank">[20]</a> A Raft leader can take a snapshot using the committed member list even when there is an ongoing membership change.</li>
+<li><a href="https://github.com/mdogan/hazelcast/commit/92b126f7beb94cde8f80b5036802ad415e0b17d3" target=“\_blank">[21]</a> If a Raft leader is elected very quickly, even before some of the CP group members initialize their Raft state, those late members can get stuck in the pre-voting phase because of a racy initial term.</li>
+</ul>
+
+<p>Last, our chaos tests revealed many problems also in the dynamic clustering capabilities of the CP Subsystem.</p>
+
+<h1 id="wrapping-up">Wrapping up</h1>
+
+<p>Jepsen has became one of the pillars of our test suite to ensure the reliability of the CP Subsystem. In this blog post, I was planning to give more details about how we coped with several challenges while trying to test FencedLock with Jepsen and how we improved the design of FencedLock throughout our testing process. However, this post has become longer than I anticipated. So I will do it in another blog post…</p>
+
+<p>Happy hacking until then.</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ensar Basri Kahveci</title>
+    <link>https://basrikahveci.com/</link>
+    <description>Recent content on Ensar Basri Kahveci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://basrikahveci.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>“About“</title>
+      <link>https://basrikahveci.com/about/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/about/</guid>
+      <description>Hi,
+My name is Ensar Basri Kahveci. I am a distributed systems engineer. I live in Ankara and work remotely for Hazelcast.
+I have a passion and hands-on experience for distributed systems building. I have grasped the theoretical foundation of distributed systems and developed a &amp;ldquo;distributed thinking&amp;rdquo; approach. I conduct independent research and turn research results into top-class engineering solutions. I own the design, implementation and verification phases, and leverage the industry-standard techniques, frameworks and methodologies.</description>
+    </item>
+    
+    <item>
+      <title>Testing the CP Subsystem with Jepsen</title>
+      <link>https://basrikahveci.com/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+At Hazelcast we take reliability very seriously. With the new CP Subsystem module, Hazelcast has become the first and only IMDG that offers a linearizable distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm. In addition to well-grounded designs and proven algorithms, reliability also requires a substantial amount of testing. We have been working hard to ensure the validity of our consistency claims.</description>
+    </item>
+    
+    <item>
+      <title>java.util.concurrent for Distributed Coordination
+</title>
+      <link>https://basrikahveci.com/talks/2019-java-util-concurrent-for-distributed-coordination/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/talks/2019-java-util-concurrent-for-distributed-coordination/</guid>
+      <description>I gave this talk at the following conferences:
+ Devoxx Poland, June 2019 IMC Summit Europe - London, June 2019 Riga Dev Days, May 2019 GeeCON Krakow, May 2019 JEEConf Kyiv, April 2019  Abstract The evolution of distributed coordination tools shows that high-level APIs ease implementation of coordination tasks, such as leader election, locking, synchronized actions. For instance, the Chubby paper highlights familiarity of lock-based interfaces. Similarly, Apache Curator hides complexity of ZooKeeper recipes behind Java APIs, while etcd and Consul implement concurrency primitives on their own.</description>
+    </item>
+    
+    <item>
+      <title>Distributed Locks are Dead; Long Live Distributed Locks!
+</title>
+      <link>https://basrikahveci.com/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/</link>
+      <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+“Distributed locks aren’t real”, some like to remind us. “Anyone who’s trying to sell you a distributed lock is selling you sawdust and lies.” This may sound rather bleak, but it doesn’t say that locking itself is impossible in a distributed system: it’s just that all of the system’s components must participate in the protocol. This blog post is the story of how we implemented a distributed locking protocol that gives your components a straightforward way of joining in.</description>
+    </item>
+    
+    <item>
+      <title>Riding the CP Subsystem</title>
+      <link>https://basrikahveci.com/posts/2019-03-18-riding-the-cp-subsystem/</link>
+      <pubDate>Mon, 18 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2019-03-18-riding-the-cp-subsystem/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+The CP Subsystem of Hazelcast IDMG 3.12 offers a new linearizable implementation of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. These implementations live alongside AP data structures in the same Hazelcast IMDG cluster (new BFFs, yay!). You can store large data sets on hundreds of Hazelcast members and coordinate your operations using the new safe concurrency primitives that reside in the very same cluster.</description>
+    </item>
+    
+    <item>
+      <title>Hazelcast IMDG 3.12 Introduces CP Subsystem</title>
+      <link>https://basrikahveci.com/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+We put Java locks on steroids! Hazelcast is now the first and only In-Memory Data Grid (IMDG) to offer a linearizable and distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm. Sounds interesting? Just keep calm and carry on reading…
+Hazelcast IMDG has been offering a set of concurrency APIs for a long time.</description>
+    </item>
+    
+    <item>
+      <title>Replication Distilled: Hazelcast Deep Dive
+</title>
+      <link>https://basrikahveci.com/talks/2018-replication-distilled-hazelcast-deep-dive/</link>
+      <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/talks/2018-replication-distilled-hazelcast-deep-dive/</guid>
+      <description>I gave this talk at the following conferences:
+ Topconf Tallinn, November 2018 IMC Summit NA - San Francisco, October 2018 Berlin Expert Days, September 2018 JDK.IO, July 2018  Abstract Distributed data stores cope with the challenges of managing replicated data. Building a distributed data store is hard, and clarifying its high level properties is even harder. Hazelcast makes use of several replication techniques to offer choices for the trade-offs between consistency, availability, and latency properties.</description>
+    </item>
+    
+    <item>
+      <title>Hazelcast Jet 0.6: Dynamic Scale out of Streaming Jobs
+</title>
+      <link>https://basrikahveci.com/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</link>
+      <pubDate>Mon, 21 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+In Hazelcast Jet 0.5, we introduced fault tolerance for streaming computations. Hazelcast Jet periodically takes snapshots of the state of a running job and stores these snapshots in Hazelcast IMaps. In case of a failure, the job is restarted from the last successful snapshot. Hazelcast Jet 0.6 uses the same snapshotting mechanism to enable dynamic scaling of streaming jobs.</description>
+    </item>
+    
+    <item>
+      <title>Processing Guarantees in Hazelcast Jet</title>
+      <link>https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+Stream processing is a paradigm for on-the-fly processing of unbounded data feeds. We have been witnessing that stream processing engines (SPEs) get more attention every day in the era of fast data and become a fundamental component of data processing pipelines. They usually run in distributed settings to be able to cope with the flood of incoming data entries.</description>
+    </item>
+    
+    <item>
+      <title>Hazelcast Jet 0.5: Fault Tolerant Stream Processing Made Easy
+</title>
+      <link>https://basrikahveci.com/posts/2017-12-06-hazelcast-jet-05/</link>
+      <pubDate>Wed, 06 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2017-12-06-hazelcast-jet-05/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
+Stream processing is an emerging computational paradigm for on-the-fly processing of live data feeds, targeting low latency and high throughput. Streaming applications are usually deployed on multiple servers to achieve these requirements. Since even a single failure may lead to incorrect results or long interruptions in result delivery, fault tolerance is of paramount importance in such long-running distributed applications.</description>
+    </item>
+    
+    <item>
+      <title>Distributed Systems Theory for Mere Mortals
+</title>
+      <link>https://basrikahveci.com/talks/2017-distributed-systems-theory-for-mere-mortals/</link>
+      <pubDate>Wed, 17 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/talks/2017-distributed-systems-theory-for-mere-mortals/</guid>
+      <description>I gave this talk at the following conferences and meetups:
+ Software Craftsmanship Turkey Meetup Istanbul, December 2017 Topconf Dusseldorf, October 2017 GeeCON Krakow, May 2017 Javaday Istanbul, May 2017 Goto Chicago (Sponsored), May 2017  Abstract This is a light talk about the fundamental topics of distributed systems theory. It introduces a few theoretical system models, and briefly discusses how they reflect to real world problems. It talks about the concept of time, how we perceive and use it to order things in distributed systems.</description>
+    </item>
+    
+    <item>
+      <title>Replication in the Wild
+</title>
+      <link>https://basrikahveci.com/talks/2017-replication-in-the-wild/</link>
+      <pubDate>Wed, 17 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/talks/2017-replication-in-the-wild/</guid>
+      <description> I gave this talk at the following meetups:
+ Warsaw Cloud Native Meetup, May 2017 Ankara Cloud Meetup - London, March 2017  Abstract A survey-like presentation about various replication techniques widely-used in distributed databases and NoSQL products.
+Slides You can view and download the slides here.
+Recording in English You can watch the English version of this talk here.
+Recording in Turkish   </description>
+    </item>
+    
+    <item>
+      <title>Client-centric Consistency Models
+</title>
+      <link>https://basrikahveci.com/talks/2017-client-centric-consistency-models/</link>
+      <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/talks/2017-client-centric-consistency-models/</guid>
+      <description>I gave this talk at an internal engineering event of Hazelcast.
+Abstract A brief presentation about client-centric consistency models and how they can be modeled on Hazelcast.
+Slides You can view and download the slides here.
+Recording There is no recording available for this talk.</description>
+    </item>
+    
+    <item>
+      <title>A simple unstructured P2P network implementation in Java</title>
+      <link>https://basrikahveci.com/posts/2016-01-22-a-simple-unstructured-p2p-network-implementation-in-java/</link>
+      <pubDate>Fri, 22 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2016-01-22-a-simple-unstructured-p2p-network-implementation-in-java/</guid>
+      <description>Hello everyone,
+I have developed an unstructured P2P network using Java and Netty recently. You can check its source code on Github. Any contribution is welcomed.</description>
+    </item>
+    
+    <item>
+      <title>K-Means Clustering with 80 lines of Scala</title>
+      <link>https://basrikahveci.com/posts/2015-06-03-k-means-clustering-with-80-lines-of-scala/</link>
+      <pubDate>Wed, 03 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2015-06-03-k-means-clustering-with-80-lines-of-scala/</guid>
+      <description>I just implemented the K-Means clustering algorithm with 80 lines of Scala. read and createRandomCentroids methods are quite dummy and can be written much better. You can access to the gist via https://gist.github.com/metanet/a385d42fd2cab9f3d20e
+ </description>
+    </item>
+    
+    <item>
+      <title>cd to the directories you &#34;frequently and recently&#34; use pretty easily with Z</title>
+      <link>https://basrikahveci.com/posts/2014-10-12-cd-to-the-directories-you-frequently-and-recently-use-pretty-easily-with-z/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2014-10-12-cd-to-the-directories-you-frequently-and-recently-use-pretty-easily-with-z/</guid>
+      <description>Z is a command line tool that helps you to cd to directories you use with just a few key stores. It manages this by tracking the directories you visit, and weighting them by how frequently and how recently they have been visited. I have been using it happily for a long time, and now I think that I can recommend it to other people. It uses a term frecent for ranking directories.</description>
+    </item>
+    
+    <item>
+      <title>Embedding Groovy scripts into your Java application</title>
+      <link>https://basrikahveci.com/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/</link>
+      <pubDate>Sun, 02 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/</guid>
+      <description>I like Groovy for a lot of things like being easy to learn, its dynamic feature, readable syntax etc. But one of the things I like and utilize most is its embedding feature which helps you to run Groovy scripts in your already-running Java application. If you have a stateful Java application, running arbitrary Groovy scripts to examine your state can be very useful when things screw up on run-time.</description>
+    </item>
+    
+    <item>
+      <title>A Simple Jedis Publish / Subscribe Example</title>
+      <link>https://basrikahveci.com/posts/2012-06-20-a-simple-jedis-publish-subscribe-example/</link>
+      <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2012-06-20-a-simple-jedis-publish-subscribe-example/</guid>
+      <description>Hello again, after more than 4 months :) So many things have changed in my life since my last blog post. I will try to talk about them from time to time, which I am not very sure about that actually :)
+I have been playing with Redis and its Java client Jedis lately. It looks very promising. I&amp;rsquo;m making experimental things on it and I really liked it. I will probably use it one of my personal projects for some use cases.</description>
+    </item>
+    
+    <item>
+      <title>Integration Testing with Maven, Jetty and Selenium 2</title>
+      <link>https://basrikahveci.com/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/</link>
+      <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/</guid>
+      <description>For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. Showcase project was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way.</description>
+    </item>
+    
+    <item>
+      <title>Configuring Spring Security to persist the SecurityContext to places other than session between requests</title>
+      <link>https://basrikahveci.com/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/</link>
+      <pubDate>Fri, 21 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/</guid>
+      <description>Yeah I agree, I suck at titles :) But, again and again, Spring guys are real badasses :)
+By default, Spring Security keeps the SecurityContext object in session objects of user between requests. SecurityContextPersistenceFilter manages this task. When a request comes, it reads the SecurityContext object from a security context repository (which I will mention in a second), puts it to SecurityContextHolder to be used by other filters and the application.</description>
+    </item>
+    
+    <item>
+      <title>Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources</title>
+      <link>https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</link>
+      <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</guid>
+      <description>If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&amp;rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &amp;ldquo;*.jsf&amp;rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary.</description>
+    </item>
+    
+    <item>
+      <title>Writing a custom Facelet EL function makes authorization check using Spring Security</title>
+      <link>https://basrikahveci.com/posts/2011-10-03-writing-a-custom-facelet-el-function/</link>
+      <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-10-03-writing-a-custom-facelet-el-function/</guid>
+      <description>It&amp;rsquo;s common that you may want to show some part of your pages to the user with certain roles. Writing a custom Facelet EL function makes doing authorization checks for viewing parts of pages really easy. If you are using Spring Security in the background, you can use its SecurityContext object to get authorities of the user and use them in your EL function implementation.
+Here, there is a simple EL function implementation that users Spring Security to get roles of user and controls if the user has a certain role or not.</description>
+    </item>
+    
+    <item>
+      <title>Integrating Spring Security with LDAP</title>
+      <link>https://basrikahveci.com/posts/2011-09-29-integrating-spring-security-with-ldap/</link>
+      <pubDate>Thu, 29 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-09-29-integrating-spring-security-with-ldap/</guid>
+      <description>To integrate Spring Security with Ldap, add the dependency to your build path first. You don&amp;rsquo;t have to define the second dependency, it is for using the latest version of spring ldap core.
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.security&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-security-ldap&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.0.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.ldap&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-ldap-core&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.3.1.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Spring LDAP&amp;rsquo;s LdapTemplate makes doing LDAP operations too much easy. But for simple authentication mechanism, you don&amp;rsquo;t need to use it actually. Although I will talk about LdapTemplate a little bit.</description>
+    </item>
+    
+    <item>
+      <title>Hibernate &#34;A component cannot hold properties split into 2 different tables&#34; hatası</title>
+      <link>https://basrikahveci.com/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/</link>
+      <pubDate>Thu, 22 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/</guid>
+      <description>Bugün Hibernate&amp;rsquo;den çok güzel bir Exception yedim. Başta Exception biraz ilginç geldi ama, sebebini anlayınca Hibernate&amp;rsquo;e acayip hak verdim. @Embeddable ile annotate ettiğim bir sınıfı başka bir entity sınıfının içinde @Embedded ile tanımladığımda, Hibernate ayağa kalkarken şu hatayı attı:
+ org.hibernate.AnnotationException: A component cannot hold properties split into 2 different tables
+ @Embeddable dediğim sınıfın içeriği şuna benzer bişeydi:
+@Embeddablepublic class Details {// ...		// fields	// .</description>
+    </item>
+    
+    <item>
+      <title>Spring ile bir paket altındaki sınıfları taramak</title>
+      <link>https://basrikahveci.com/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/</link>
+      <pubDate>Tue, 06 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/</guid>
+      <description>Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.
+Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yapmamızı sağlayan sınıflar sağlıyor. Spring’in sunduğu sınıflar ile bir paket altındaki sınıfları tarayabiliyor, sınıfı yüklemeden sınıfın metadatasına, annotationlarına ulaşabiliyor; sınıfı Class.</description>
+    </item>
+    
+    <item>
+      <title>Spring Security’de SecurityContext&#39;e ulaşmak</title>
+      <link>https://basrikahveci.com/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/</link>
+      <pubDate>Tue, 26 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/</guid>
+      <description>Spring Security&amp;rsquo;yle entegre çalışan bir uygulamada, kullanıcıların oturumlarına yönelik bilgiler SecurityContext nesnelerinde tutuluyor. SecurityContext nesneleri ise SecurityContextHolder içerisinde tutuluyor. Varsayılan olarak SecurityContextHolder, SecurityContext nesnelerini ThreadLocal kullanarak saklıyor. Böylelikle aynı thread&amp;rsquo;de çalışan metodlar aynı SecurityContext nesnesine ulaşabiliyorlar. SecurityContextHolderin çalışma modu da istenildiği takdirde değiştirilebiliyor.
+Uygulamanın oturumla alakalı işlerini Spring Security halletse de, bazen oturum açan kullanıcıya yönelik bilgiler bize de gerekebiliyor. Bunun için öncelikle SecurityContext nesnesine ulaşmamız gerekiyor. Onu da şöyle yapabiliyoruz.</description>
+    </item>
+    
+    <item>
+      <title>Hibernate&#39;de ResultTransformer kullanımı</title>
+      <link>https://basrikahveci.com/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/</link>
+      <pubDate>Sun, 24 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/</guid>
+      <description>ResultTransformer, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri bean, map, list gibi nesnelere dönüştürmeye yarıyor.
+Ogrenci, Ders, DersKaydi entity&amp;rsquo;lerimiz olduğunu varsayalım. Ogrenci entity&amp;rsquo;miz sistemde kayıtlı öğrencileri, Ders entity&amp;rsquo;si açılan dersleri, DersKaydi entity&amp;rsquo;miz de Ogrenci ile Ders nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.
+Yazacağımız sorguyla sadece ihtiyacımız olan &amp;lt;öğrenci adı, kayıt yaptığı ders adı&amp;gt; ikilisini çekmek isteyelim. OgrenciDTO sınıfımızda da ogrenciAdi ve dersAdi alanlarının olduğunu varsayalım.</description>
+    </item>
+    
+    <item>
+      <title>Spring ile konfigürasyon değerlerini property dosyalarına almak</title>
+      <link>https://basrikahveci.com/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/</link>
+      <pubDate>Sun, 10 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/</guid>
+      <description>Başlık konusunda çok sıkıntı çekiyorum ya. Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegrasyon arayüzleri (interface) ve bu arayüzlerin -out of the box- gerçekleştirimlerini (implementation) sunuyor. BeanPostProcessor bunlardan biri. BeanPostProcessor kullanarak, Spring container’i bir bean’i yaratıp ilklendirdikten (initialize) sonra, bean üzerinde istediğimiz işlemleri gerçekleştirebiliyoruz. Önceki yazılardan birinde bahsettiğim Spring ile Logger enjektesi, bunun bir örneği. BeanPostProcessor gerçekleştirimlerinin bir diğer örneği ise Spring ile gelen RequiredAnnotationBeanPostProcessor sınıfı.
+BeanFactoryPostProcessor arayüzü ise, Spring IoC container’ının bir başka genişleme noktası.</description>
+    </item>
+    
+    <item>
+      <title>JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile)</title>
+      <link>https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</link>
+      <pubDate>Fri, 11 Feb 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</guid>
+      <description>Acayip bir dil in, Türkçe yine out. Dependency Injection&amp;rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği &amp;ldquo;bağımlılık zerketme&amp;rdquo;.
+Efenim JSF bize bean&amp;rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&amp;rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz.</description>
+    </item>
+    
+    <item>
+      <title>Spring Bean&#39;lerine otomatik olarak Logger enjekte etmek</title>
+      <link>https://basrikahveci.com/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</link>
+      <pubDate>Tue, 08 Feb 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://basrikahveci.com/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</guid>
+      <description>Öncelikle başlıkta bir kısmına şahit olduğunuz ve birazdan fazlasına maruz kalacağınız kötü Türkçe için sizden özür diliyorum.
+Bir projede, log tutmak için SLF4J, Dependency Injection için de Spring kullanıyorken, bean&amp;rsquo;lerin SLF4J logger&amp;rsquo;larına statik olarak bağımlı olması yerine logger&amp;rsquo;ların bean&amp;rsquo;lere Spring ile enjekte etmenin daha güzel, aradaki bağımlılığı azaltıcı yönde bir yaklaşım olacağını düşündüm (enjekte edilecek loggerların SLF4J logger&amp;rsquo;ı olması gerekmiyor). Bunu nasıl yaparım diye düşünürken Spring&amp;rsquo;in tam da düşündüğüm gibi bir güzellik sağladığını, insanların da benden çok çok evvel o güzellikten bir çözüm elde ettiğini araştırırken buldum.</description>
+    </item>
+    
+  </channel>
+</rss>

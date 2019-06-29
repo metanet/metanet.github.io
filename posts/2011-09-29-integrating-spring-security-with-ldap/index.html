@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Integrating Spring Security with LDAP - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Integrating Spring Security with LDAP" />
+<meta property="og:description" content="To integrate Spring Security with Ldap, add the dependency to your build path first. You don&rsquo;t have to define the second dependency, it is for using the latest version of spring ldap core.
+&lt;dependency&gt; &lt;groupId&gt;org.springframework.security&lt;/groupId&gt; &lt;artifactId&gt;spring-security-ldap&lt;/artifactId&gt; &lt;version&gt;3.0.5&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.ldap&lt;/groupId&gt; &lt;artifactId&gt;spring-ldap-core&lt;/artifactId&gt; &lt;version&gt;1.3.1.RELEASE&lt;/version&gt; &lt;/dependency&gt; Spring LDAP&rsquo;s LdapTemplate makes doing LDAP operations too much easy. But for simple authentication mechanism, you don&rsquo;t need to use it actually. Although I will talk about LdapTemplate a little bit." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-09-29-integrating-spring-security-with-ldap/" />
+<meta property="article:published_time" content="2011-09-29T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-09-29T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Integrating Spring Security with LDAP"/>
+<meta name="twitter:description" content="To integrate Spring Security with Ldap, add the dependency to your build path first. You don&rsquo;t have to define the second dependency, it is for using the latest version of spring ldap core.
+&lt;dependency&gt; &lt;groupId&gt;org.springframework.security&lt;/groupId&gt; &lt;artifactId&gt;spring-security-ldap&lt;/artifactId&gt; &lt;version&gt;3.0.5&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.ldap&lt;/groupId&gt; &lt;artifactId&gt;spring-ldap-core&lt;/artifactId&gt; &lt;version&gt;1.3.1.RELEASE&lt;/version&gt; &lt;/dependency&gt; Spring LDAP&rsquo;s LdapTemplate makes doing LDAP operations too much easy. But for simple authentication mechanism, you don&rsquo;t need to use it actually. Although I will talk about LdapTemplate a little bit."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Integrating Spring Security with LDAP</h1>
+			<div class="meta">Posted at &mdash; Sep 29, 2011
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/ldap">ldap</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring-security">spring security</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			<p>To integrate Spring Security with Ldap, add the dependency to your build path first. You don&rsquo;t have to define the second dependency, it is for using the latest version of spring ldap core.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">	&lt;dependency&gt;
+		&lt;groupId&gt;org.springframework.security&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-security-ldap&lt;/artifactId&gt;
+		&lt;version&gt;3.0.5&lt;/version&gt;
+	&lt;/dependency&gt;
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.springframework.ldap&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-ldap-core&lt;/artifactId&gt;
+		&lt;version&gt;1.3.1.RELEASE&lt;/version&gt;
+	&lt;/dependency&gt;</code></pre></div>
+
+<p>Spring LDAP&rsquo;s <code>LdapTemplate</code> makes doing LDAP operations too much easy. But for simple authentication mechanism, you don&rsquo;t need to use it actually. Although I will talk about <code>LdapTemplate</code> a little bit.</p>
+
+<p>I put the LDAP - related Spring Security config xml below.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">	<span style="color:#00f">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+	&lt;beans xmlns=<span style="color:#a31515">&#34;http://www.springframework.org/schema/beans&#34;</span> xmlns:xsi=<span style="color:#a31515">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> xsi:schemaLocation=<span style="color:#a31515">&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd&#34;</span>  xmlns:sec=<span style="color:#a31515">&#34;http://www.springframework.org/schema/security&#34;</span>&gt;
+
+		&lt;sec:http auto-config=<span style="color:#a31515">&#34;false&#34;</span> &gt;
+			<span style="color:#008000">&lt;!-- ... --&gt;</span>
+		&lt;/sec:http&gt;
+
+		&lt;sec:ldap-server url=<span style="color:#a31515">&#34;http://localhost:389&#34;</span> manager-dn=<span style="color:#a31515">&#34;dc=companyname,dc=foo,dc=bar&#34;</span> manager-password=<span style="color:#a31515">&#34;yourNot123456Password&#34;</span> /&gt;
+
+		&lt;sec:authentication-manager&gt;
+			&lt;sec:ldap-authentication-provider user-search-filter=<span style="color:#a31515">&#34;(uid={0})&#34;</span> user-context-mapper-ref=<span style="color:#a31515">&#34;ldapContextMapperImpl&#34;</span>/&gt;
+		&lt;/sec:authentication-manager&gt;
+		<span style="color:#008000">&lt;!-- define ldapContextMapperImpl here or annotate your implementation with @Component(&#34;ldapContextMapperImpl&#34;) --&gt;</span>
+	&lt;/beans&gt;</code></pre></div>
+
+<p>3 lines of configuration are enough to integrate it with LDAP basically. To modify the integration details, there are also various configuration options.</p>
+
+<p>Let me explain the configuration above.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">&lt;sec:ldap-server url=<span style="color:#a31515">&#34;...&#34;</span> manager-dn=<span style="color:#a31515">&#34;...&#34;</span> manager-password=<span style="color:#a31515">&#34;...&#34;</span> /&gt;</code></pre></div>
+
+<p>It defines the server the authentication takes place. Take your url, directory name, password parameters from your system staff (we did it that way) or configure it by yourself if you are familiar with LDAP.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">&lt;sec:ldap-authentication-provider user-search-filter=<span style="color:#a31515">&#34;(uid={0})&#34;</span> user-context-mapper-ref=<span style="color:#a31515">&#34;ldapContextMapperImpl&#34;</span>/&gt;</code></pre></div>
+
+<p><code>ldap-authentication-provider</code> definition uses <code>(uid={0})</code> as search filter, and our special <code>UserDetailsContextMapper</code> implementation. With our <code>ldapContextMapperImpl</code>, we populate our <code>UserDetails</code> object with successfully authenticated user info. It has one method with signature as follows:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">public</span> UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection authority);</code></pre></div>
+
+<p>It gives you the authenticated username, authorities and <code>ctx</code> object. Actually, we didn&rsquo;t need the <code>ctx</code> object. username was enough for us to load authorities from a different data source.</p>
+
+<p>If you want to make operations on your LDAP server, configure a <code>LdapTemplate</code> in your security context. <code>LdapTemplate</code> needs a <code>ContextSource</code> implementation. Configure your <code>ContextSource</code> with <code>org.springframework.ldap.core.support.LdapContextSource</code> and pass it to <code>LdapTemplate</code> like:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">	&lt;bean id=<span style="color:#a31515">&#34;contextSource&#34;</span> class=<span style="color:#a31515">&#34;org.springframework.ldap.core.support.LdapContextSource&#34;</span>&gt;
+    	&lt;property name=<span style="color:#a31515">&#34;url&#34;</span> value=<span style="color:#a31515">&#34;ldap://localhost:389&#34;</span> /&gt;
+	    &lt;property name=<span style="color:#a31515">&#34;base&#34;</span> value=<span style="color:#a31515">&#34;dc=javachap,dc=com&#34;</span> /&gt;
+    	&lt;property name=<span style="color:#a31515">&#34;userDn&#34;</span> value=<span style="color:#a31515">&#34;cn=Manager,dc=javachap,dc=com&#34;</span> /&gt;
+	    &lt;property name=<span style="color:#a31515">&#34;password&#34;</span> value=<span style="color:#a31515">&#34;mypassword&#34;</span> /&gt;
+	&lt;/bean&gt;
+
+	&lt;bean id=<span style="color:#a31515">&#34;ldapTemplate&#34;</span>&gt;
+    	&lt;constructor-arg ref=<span style="color:#a31515">&#34;contextSource&#34;</span> /&gt;
+	&lt;/bean&gt;</code></pre></div>
+
+<p>Now you can do a lot of operations on your <code>LdapTemplate</code>. Here is an example:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Filter ldapFilter = <span style="color:#00f">new</span> EqualsFilter(<span style="color:#a31515">&#34;uid&#34;</span>, username));
+ldapTemplate.authenticate(DistinguishedName.EMPTY_PATH, filter.toString(), password);</code></pre></div>
+
+<p>You can also use <code>AndFilter</code>, <code>LikeFilter</code>, etc to make operations with <code>LdapTemplate</code>, for example try <code>ldapTemplate.search()</code> method.</p>
+
+<p>To make things work, we read a bunch of <a href="http://static.springsource.org/spring-security/site/docs/3.0.x/reference/ldap.html" target="_blank">docs </a>and tried a lot of implementation classes I did not mention here like <code>LdapAuthenticator</code> implementations, <code>FilterBasedLdapUserSearch</code>. So I got a little bit familiar with them. If you want to make a detail configuration for Ldap integration, I recommend you to read the docs <a href="http://static.springsource.org/spring-security/site/docs/3.0.x/reference/ldap.html" target="_blank">here</a>. If you have questions, I will try to answer them. There are also a lot of useful blog posts about the subject which you can find with a simple Google search.</p>
+
+<p>Finally, I thank to <a href="http://www.linkedin.com/in/berkayaktan" target="_blank">Berkay Aktan</a>. We made some kind of pair programming for various Spring Security tasks for a couple of days. I learned a lot of things from him and we had great fun :)</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

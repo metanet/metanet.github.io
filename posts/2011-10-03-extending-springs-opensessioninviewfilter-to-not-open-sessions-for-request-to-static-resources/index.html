@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources" />
+<meta property="og:description" content="If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/" />
+<meta property="article:published_time" content="2011-10-03T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-10-03T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources"/>
+<meta name="twitter:description" content="If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources</h1>
+			<div class="meta">Posted at &mdash; Oct 3, 2011
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hibernate">hibernate</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			<p>If you are using <code>OpenSessionInViewFilter</code> in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with <code>OpenSessionInView</code> filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary.</p>
+
+<p>To avoid this, it&rsquo;s an option to extend Spring&rsquo;s <code>OpenSessionInViewFilter</code> and ignoring requests of that kind. Thank to Spring guys, it&rsquo;s easy peasy.</p>
+
+<p><code>OpenSessionInViewFilter</code> is extended from <code>OncePerRequestFilter</code>class. <code>OncePerRequestFilter</code> class is implemented the <code>doFilter()</code> method in a Template Method pattern way. It has <code>shouldNotFilter(request)</code> and <code>doInternalFilter(request, response)</code> methods. <code>shouldNotFilter()</code> method is put there to be implemented by subclasses and it simply returns false in <code>OncePerRequestFilter</code> class. In <code>OpenSessionInViewFilter</code>, <code>doInternalFilter()</code> is implemented to handle to session-related stuff and <code>shouldNotFilter()</code> method is not overriden to filter all the requests and open sessions for them.</p>
+
+<p>So, to avoid not opening sessions for some kinds of requests, its is enough to extend <code>OpenSessionInViewFilter</code> and override the <code>shouldNotFilter()</code> method for the URLs that you don&rsquo;t want to filter. For the JSF situation, you can write a method like this:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">MyOpenSessionInViewFilter</span> <span style="color:#00f">extends</span> OpenSessionInViewFilter {
+
+		Override
+		<span style="color:#00f">public</span> <span style="color:#2b91af">boolean</span> shouldNotFilter(HttpServletRequest request) {
+			<span style="color:#00f">return</span> request.getRequestURI().contains(<span style="color:#a31515">&#34;javax.faces.resource&#34;</span>);
+		}	
+	}</code></pre></div>
+
+<p>If you put this filter to your <code>web.xml</code> instead of <code>OpenSessionInViewFilter</code>, you will not open sessions for the requests like &ldquo;javax.faces.resource/jsf.js.jsf&rdquo; no more.</p>
+
+<p>Viva la resistance!</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

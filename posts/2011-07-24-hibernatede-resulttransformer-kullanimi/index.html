@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Hibernate&#39;de ResultTransformer kullanımı - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Hibernate&#39;de ResultTransformer kullanımı" />
+<meta property="og:description" content="ResultTransformer, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri bean, map, list gibi nesnelere dönüştürmeye yarıyor.
+Ogrenci, Ders, DersKaydi entity&rsquo;lerimiz olduğunu varsayalım. Ogrenci entity&rsquo;miz sistemde kayıtlı öğrencileri, Ders entity&rsquo;si açılan dersleri, DersKaydi entity&rsquo;miz de Ogrenci ile Ders nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.
+Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yaptığı ders adı&gt; ikilisini çekmek isteyelim. OgrenciDTO sınıfımızda da ogrenciAdi ve dersAdi alanlarının olduğunu varsayalım." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/" />
+<meta property="article:published_time" content="2011-07-24T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-07-24T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hibernate&#39;de ResultTransformer kullanımı"/>
+<meta name="twitter:description" content="ResultTransformer, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri bean, map, list gibi nesnelere dönüştürmeye yarıyor.
+Ogrenci, Ders, DersKaydi entity&rsquo;lerimiz olduğunu varsayalım. Ogrenci entity&rsquo;miz sistemde kayıtlı öğrencileri, Ders entity&rsquo;si açılan dersleri, DersKaydi entity&rsquo;miz de Ogrenci ile Ders nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.
+Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yaptığı ders adı&gt; ikilisini çekmek isteyelim. OgrenciDTO sınıfımızda da ogrenciAdi ve dersAdi alanlarının olduğunu varsayalım."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Hibernate&#39;de ResultTransformer kullanımı</h1>
+			<div class="meta">Posted at &mdash; Jul 24, 2011
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hibernate">hibernate</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hql">hql</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/orm">orm</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			<p><code>ResultTransformer</code>, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri <code>bean</code>, <code>map</code>, <code>list</code> gibi nesnelere dönüştürmeye yarıyor.</p>
+
+<p><em>Ogrenci</em>, <em>Ders</em>, <em>DersKaydi</em> entity&rsquo;lerimiz olduğunu varsayalım. <em>Ogrenci</em> entity&rsquo;miz sistemde kayıtlı öğrencileri, <em>Ders</em> entity&rsquo;si açılan dersleri, <em>DersKaydi</em> entity&rsquo;miz de <em>Ogrenci</em> ile <em>Ders</em> nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.</p>
+
+<p>Yazacağımız sorguyla sadece ihtiyacımız olan <em>&lt;öğrenci adı, kayıt yaptığı ders adı&gt;</em> ikilisini çekmek isteyelim. <em>OgrenciDTO</em> sınıfımızda da <em>ogrenciAdi</em> ve <em>dersAdi</em> alanlarının olduğunu varsayalım.</p>
+
+<p><em>&lt;öğrenci adı, kayıt yaptığı ders adı&gt;</em> bilgisini çekmek için yazacağımız <em>HQL</em> veya <em>Criteria</em> sorgusu default olarak bize bir <code>Object[]</code> listesi döner. Listenin her bir elemanı olan <code>Object[]</code>in ilk elemanı öğrenci adı iken, ikinci elemanı da kayıt yaptığı dersin adı olur. Bu davranışı <em>Criteria</em> veya <em>Query</em> nesnesi üzerinde <code>setResultTransformer(Transformers(Transformers.ALIAS_TO_ENTITY_MAP);</code> çağrısı ile <code>Object[]</code> yerine <code>Map</code> dönecek şekilde değiştirebiliriz. Bu çağrı ile dönen listenin her elemanı <code>Object[]</code> yerine <code>Map</code> olur ve sorgudan dönen  listeden aldığımız map nesnelerinin üzerinde <code>map.get(&quot;ogrenciAdi”);</code> gibi bir çağrı ile öğrenci adı değerine ulaşabiliriz.</p>
+
+<p>Daha da güzeli, sorgudan dönen değerleri doğrudan bir sınıfın alanlarına eşleştirip Hibernate&rsquo;in bizim için sorgudan dönen değerleri nesnelere dönüştürmesini sağlayabiliriz. Az önce bahsettiğim <em>OgrenciDTO</em> nesnesi üzerinde bunu mesela şöyle yapıyoruz.</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">OgrenciDTO</span> {
+  <span style="color:#00f">private</span> String ogrenciAdi;
+  <span style="color:#00f">private</span> String dersAdi;
+
+  <span style="color:#00f">public</span> OgrenciDTO() { }
+
+  <span style="color:#008000">// getter, setter metodlar...
+</span><span style="color:#008000"></span>}</code></pre></div>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List ogrencilerinDersleri = s.createCriteria(DersKaydi.class)
+  .createAlias(<span style="color:#a31515">&#34;ogrenci&#34;</span>, <span style="color:#a31515">&#34;ogr&#34;</span>).createAlias(<span style="color:#a31515">&#34;ders&#34;</span>, <span style="color:#a31515">&#34;drs&#34;</span>)
+  .setProjection(Projections.projectionList()
+                   .add(Projections.property(<span style="color:#a31515">&#34;ogr.ad&#34;</span>), <span style="color:#a31515">&#34;ogrenciAdi&#34;</span>)
+                   .add(Projections.property(<span style="color:#a31515">&#34;drs.ad&#34;</span>), <span style="color:#a31515">&#34;dersAdi&#34;</span>)
+          )
+          .setResultTransformer(Transformers.aliasToBean(OgrenciDTO.class))
+          .list();</code></pre></div>
+
+<p>Gördüğünüz gibi <em>DersKaydi</em> sınıfı üzerinde yarattığımız <em>Criteria</em>&lsquo;da öncelikle <em>DersKaydi</em> sınıfının ogrenci ve ders alanlarına <em>alias</em>&lsquo;lar atadık. Sonra öğrenci adı ve ders adı değerleri üzerinde <em>Projection</em> yaparak sorgumuzdan yalnızca bu değerlerin dönmesini sağladık ve son olarak yaptığımız <code>.setResultTransformer(Transformers.aliasToBean(OgrenciDTO.class))</code> çağrısı ile dönen ikilileri üzerinden <em>OgrenciDTO</em> nesneleri yaratılmasını ve değerlerinin atanmasını sağladık.</p>
+
+<p>Hibernate içerisinde bir çok <code>ResultTransformer</code> gerçekleştirimi hazır olarak geliyor. <a title="Hibernate ResultTransformer" href="http://docs.jboss.org/hibernate/core/3.6/javadocs/org/hibernate/transform/ResultTransformer.html" target="_blank">Şu bağlantıdan</a> <code>ResultTransformer</code> gerçekleştirimlerine göz atabilirsiniz.</p>
+
+<p>Bilgiyi HQL ile çekseydik de şöyle yapacaktık:</p>
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List ogrencilerinDersleri = s.createQuery(
+  <span style="color:#a31515">&#34;SELECT dk.ogrenci.ad AS ogrenciAdi, dk.ders.ad AS dersAdi&#34;</span> +
+  <span style="color:#a31515">&#34;FROM DersKaydi AS dk&#34;</span>)
+  .setResultTransformer(Transformers.aliasToBean(OgrenciDTO.class))
+  .list();</code></pre></div>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

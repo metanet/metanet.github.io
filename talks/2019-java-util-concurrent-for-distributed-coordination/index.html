@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>java.util.concurrent for Distributed Coordination
+ - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="java.util.concurrent for Distributed Coordination
+" />
+<meta property="og:description" content="I gave this talk at the following conferences:
+ Devoxx Poland, June 2019 IMC Summit Europe - London, June 2019 Riga Dev Days, May 2019 GeeCON Krakow, May 2019 JEEConf Kyiv, April 2019  Abstract The evolution of distributed coordination tools shows that high-level APIs ease implementation of coordination tasks, such as leader election, locking, synchronized actions. For instance, the Chubby paper highlights familiarity of lock-based interfaces. Similarly, Apache Curator hides complexity of ZooKeeper recipes behind Java APIs, while etcd and Consul implement concurrency primitives on their own." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basrikahveci.com/talks/2019-java-util-concurrent-for-distributed-coordination/" />
+<meta property="article:published_time" content="2019-04-26T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-26T00:00:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="java.util.concurrent for Distributed Coordination
+"/>
+<meta name="twitter:description" content="I gave this talk at the following conferences:
+ Devoxx Poland, June 2019 IMC Summit Europe - London, June 2019 Riga Dev Days, May 2019 GeeCON Krakow, May 2019 JEEConf Kyiv, April 2019  Abstract The evolution of distributed coordination tools shows that high-level APIs ease implementation of coordination tasks, such as leader election, locking, synchronized actions. For instance, the Chubby paper highlights familiarity of lock-based interfaces. Similarly, Apache Curator hides complexity of ZooKeeper recipes behind Java APIs, while etcd and Consul implement concurrency primitives on their own."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">Ensar Basri Kahveci</h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">java.util.concurrent for Distributed Coordination
+</h1>
+			<div class="meta">Posted at &mdash; Apr 26, 2019
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/untagged">untagged</a>&nbsp;
+			</p>
+			
+			</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<p>I gave this talk at the following conferences:</p>
+
+<ul>
+<li>Devoxx Poland, June 2019</li>
+<li>IMC Summit Europe - London, June 2019</li>
+<li>Riga Dev Days, May 2019</li>
+<li>GeeCON Krakow, May 2019</li>
+<li>JEEConf Kyiv, April 2019</li>
+</ul>
+
+<h1 id="abstract">Abstract</h1>
+
+<p>The evolution of distributed coordination tools shows that high-level APIs ease implementation of coordination tasks, such as leader election, locking, synchronized actions. For instance, the Chubby paper highlights familiarity of lock-based interfaces. Similarly, Apache Curator hides complexity of ZooKeeper recipes behind Java APIs, while etcd and Consul implement concurrency primitives on their own.</p>
+
+<p>A different path in this journey would be extending the long-lasting java.util.concurrent APIs, such as Lock, Semaphore, etc. Simplicity of these APIs makes them very useful in distributed coordination use cases.</p>
+
+<p>Join this talk to explore Hazelcast’s brand new implementation of java.util.concurrent APIs on top of the Raft consensus algorithm. I will run demos to show how Java locks, semaphores, etc. can be used in distributed environments that involve partial failures. I will also share our experience of how we coped with several challenges we faced while developing and testing our Raft implementation.</p>
+
+<h1 id="slides">Slides</h1>
+
+<p>You can view and download the slides <a href="https://www.slideshare.net/basrikahveci/javautilconcurrent-for-distributed-coordination-devoxx-poland-2019-151527815">here</a>.</p>
+
+<h1 id="demo">Demo</h1>
+
+<p>You can find my demo at <a href="https://github.com/metanet/juc-talk">this github repo</a>.</p>
+
+<h1 id="recording">Recording</h1>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/n14QCujDwKc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>
