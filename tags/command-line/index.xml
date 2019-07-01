@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>command line on Ensar Basri Kahveci</title>
-    <link>https://basrikahveci.com/tags/command-line/</link>
+    <link>https://basri.dev/tags/command-line/</link>
     <description>Recent content in command line on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 12 Oct 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basrikahveci.com/tags/command-line/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basri.dev/tags/command-line/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>cd to the directories you &#34;frequently and recently&#34; use pretty easily with Z</title>
-      <link>https://basrikahveci.com/posts/2014-10-12-cd-to-the-directories-you-frequently-and-recently-use-pretty-easily-with-z/</link>
+      <link>https://basri.dev/posts/2014-10-12-cd-to-the-directories-you-frequently-and-recently-use-pretty-easily-with-z/</link>
       <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2014-10-12-cd-to-the-directories-you-frequently-and-recently-use-pretty-easily-with-z/</guid>
+      <guid>https://basri.dev/posts/2014-10-12-cd-to-the-directories-you-frequently-and-recently-use-pretty-easily-with-z/</guid>
       <description>Z is a command line tool that helps you to cd to directories you use with just a few key stores. It manages this by tracking the directories you visit, and weighting them by how frequently and how recently they have been visited. I have been using it happily for a long time, and now I think that I can recommend it to other people. It uses a term frecent for ranking directories.</description>
     </item>
     

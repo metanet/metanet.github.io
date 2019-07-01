@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hibernate on Ensar Basri Kahveci</title>
-    <link>https://basrikahveci.com/tags/hibernate/</link>
+    <link>https://basri.dev/tags/hibernate/</link>
     <description>Recent content in hibernate on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 03 Oct 2011 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basrikahveci.com/tags/hibernate/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basri.dev/tags/hibernate/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources</title>
-      <link>https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</link>
+      <link>https://basri.dev/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</link>
       <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</guid>
+      <guid>https://basri.dev/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</guid>
       <description>If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&amp;rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &amp;ldquo;*.jsf&amp;rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary.</description>
     </item>
     
     <item>
       <title>Hibernate &#34;A component cannot hold properties split into 2 different tables&#34; hatası</title>
-      <link>https://basrikahveci.com/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/</link>
+      <link>https://basri.dev/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/</link>
       <pubDate>Thu, 22 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/</guid>
+      <guid>https://basri.dev/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/</guid>
       <description>Bugün Hibernate&amp;rsquo;den çok güzel bir Exception yedim. Başta Exception biraz ilginç geldi ama, sebebini anlayınca Hibernate&amp;rsquo;e acayip hak verdim. @Embeddable ile annotate ettiğim bir sınıfı başka bir entity sınıfının içinde @Embedded ile tanımladığımda, Hibernate ayağa kalkarken şu hatayı attı:
  org.hibernate.AnnotationException: A component cannot hold properties split into 2 different tables
  @Embeddable dediğim sınıfın içeriği şuna benzer bişeydi:
@@ -34,10 +34,10 @@
     
     <item>
       <title>Hibernate&#39;de ResultTransformer kullanımı</title>
-      <link>https://basrikahveci.com/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/</link>
+      <link>https://basri.dev/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/</link>
       <pubDate>Sun, 24 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/</guid>
+      <guid>https://basri.dev/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/</guid>
       <description>ResultTransformer, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri bean, map, list gibi nesnelere dönüştürmeye yarıyor.
 Ogrenci, Ders, DersKaydi entity&amp;rsquo;lerimiz olduğunu varsayalım. Ogrenci entity&amp;rsquo;miz sistemde kayıtlı öğrencileri, Ders entity&amp;rsquo;si açılan dersleri, DersKaydi entity&amp;rsquo;miz de Ogrenci ile Ders nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.
 Yazacağımız sorguyla sadece ihtiyacımız olan &amp;lt;öğrenci adı, kayıt yaptığı ders adı&amp;gt; ikilisini çekmek isteyelim. OgrenciDTO sınıfımızda da ogrenciAdi ve dersAdi alanlarının olduğunu varsayalım.</description>

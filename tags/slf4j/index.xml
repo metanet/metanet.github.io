@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>slf4j on Ensar Basri Kahveci</title>
-    <link>https://basrikahveci.com/tags/slf4j/</link>
+    <link>https://basri.dev/tags/slf4j/</link>
     <description>Recent content in slf4j on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 08 Feb 2011 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basrikahveci.com/tags/slf4j/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basri.dev/tags/slf4j/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Spring Bean&#39;lerine otomatik olarak Logger enjekte etmek</title>
-      <link>https://basrikahveci.com/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</link>
+      <link>https://basri.dev/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</link>
       <pubDate>Tue, 08 Feb 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</guid>
+      <guid>https://basri.dev/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</guid>
       <description>Öncelikle başlıkta bir kısmına şahit olduğunuz ve birazdan fazlasına maruz kalacağınız kötü Türkçe için sizden özür diliyorum.
 Bir projede, log tutmak için SLF4J, Dependency Injection için de Spring kullanıyorken, bean&amp;rsquo;lerin SLF4J logger&amp;rsquo;larına statik olarak bağımlı olması yerine logger&amp;rsquo;ların bean&amp;rsquo;lere Spring ile enjekte etmenin daha güzel, aradaki bağımlılığı azaltıcı yönde bir yaklaşım olacağını düşündüm (enjekte edilecek loggerların SLF4J logger&amp;rsquo;ı olması gerekmiyor). Bunu nasıl yaparım diye düşünürken Spring&amp;rsquo;in tam da düşündüğüm gibi bir güzellik sağladığını, insanların da benden çok çok evvel o güzellikten bir çözüm elde ettiğini araştırırken buldum.</description>
     </item>
