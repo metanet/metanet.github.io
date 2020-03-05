@@ -6,9 +6,9 @@
 	<meta property="og:title" content="Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources" />
 <meta property="og:description" content="If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/" />
-<meta property="article:published_time" content="2011-10-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2011-10-03T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/" />
+<meta property="article:published_time" content="2011-10-03T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-10-03T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources"/>
 <meta name="twitter:description" content="If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary."/>
@@ -54,7 +54,7 @@
 		<div class="post-header">
 			<h1 class="title">Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources</h1>
 			<div class="meta">Posted at &mdash; Oct 3, 2011
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hibernate">hibernate</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/spring">spring</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hibernate">hibernate</a>&nbsp;
 			</p>
 			
 			</div>
@@ -62,9 +62,13 @@
 
 		<div class="markdown">
 			<p>If you are using <code>OpenSessionInViewFilter</code> in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with <code>OpenSessionInView</code> filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary.</p>
+
 <p>To avoid this, it&rsquo;s an option to extend Spring&rsquo;s <code>OpenSessionInViewFilter</code> and ignoring requests of that kind. Thank to Spring guys, it&rsquo;s easy peasy.</p>
-<p><code>OpenSessionInViewFilter</code> is extended from <code>OncePerRequestFilter </code>class. <code>OncePerRequestFilter</code> class is implemented the <code>doFilter()</code> method in a Template Method pattern way. It has <code>shouldNotFilter(request)</code> and <code>doInternalFilter(request, response)</code> methods. <code>shouldNotFilter()</code> method is put there to be implemented by subclasses and it simply returns false in <code>OncePerRequestFilter</code> class. In <code>OpenSessionInViewFilter</code>, <code>doInternalFilter()</code> is implemented to handle to session-related stuff and <code>shouldNotFilter()</code> method is not overriden to filter all the requests and open sessions for them.</p>
+
+<p><code>OpenSessionInViewFilter</code> is extended from <code>OncePerRequestFilter</code>class. <code>OncePerRequestFilter</code> class is implemented the <code>doFilter()</code> method in a Template Method pattern way. It has <code>shouldNotFilter(request)</code> and <code>doInternalFilter(request, response)</code> methods. <code>shouldNotFilter()</code> method is put there to be implemented by subclasses and it simply returns false in <code>OncePerRequestFilter</code> class. In <code>OpenSessionInViewFilter</code>, <code>doInternalFilter()</code> is implemented to handle to session-related stuff and <code>shouldNotFilter()</code> method is not overriden to filter all the requests and open sessions for them.</p>
+
 <p>So, to avoid not opening sessions for some kinds of requests, its is enough to extend <code>OpenSessionInViewFilter</code> and override the <code>shouldNotFilter()</code> method for the URLs that you don&rsquo;t want to filter. For the JSF situation, you can write a method like this:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">MyOpenSessionInViewFilter</span> <span style="color:#00f">extends</span> OpenSessionInViewFilter {
 
 		Override
@@ -72,7 +76,9 @@
 			<span style="color:#00f">return</span> request.getRequestURI().contains(<span style="color:#a31515">&#34;javax.faces.resource&#34;</span>);
 		}	
 	}</code></pre></div>
+
 <p>If you put this filter to your <code>web.xml</code> instead of <code>OpenSessionInViewFilter</code>, you will not open sessions for the requests like &ldquo;javax.faces.resource/jsf.js.jsf&rdquo; no more.</p>
+
 <p>Viva la resistance!</p>
 
 		</div><div id="disqus_thread"></div>
@@ -95,7 +101,7 @@
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

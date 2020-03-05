@@ -7,9 +7,9 @@
 <meta property="og:description" content="Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.
 Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yapmamızı sağlayan sınıflar sağlıyor. Spring’in sunduğu sınıflar ile bir paket altındaki sınıfları tarayabiliyor, sınıfı yüklemeden sınıfın metadatasına, annotationlarına ulaşabiliyor; sınıfı Class." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/" />
-<meta property="article:published_time" content="2011-09-06T00:00:00+00:00" />
-<meta property="article:modified_time" content="2011-09-06T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/" />
+<meta property="article:published_time" content="2011-09-06T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-09-06T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring ile bir paket altındaki sınıfları taramak"/>
 <meta name="twitter:description" content="Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.
@@ -56,7 +56,7 @@ Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yap
 		<div class="post-header">
 			<h1 class="title">Spring ile bir paket altındaki sınıfları taramak</h1>
 			<div class="meta">Posted at &mdash; Sep 6, 2011
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/spring">spring</a>&nbsp;
 			</p>
 			
 			</div>
@@ -64,7 +64,9 @@ Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yap
 
 		<div class="markdown">
 			<p>Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.</p>
+
 <p>Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yapmamızı sağlayan sınıflar sağlıyor. Spring’in sunduğu sınıflar ile bir paket altındaki sınıfları tarayabiliyor, sınıfı yüklemeden sınıfın metadatasına, annotationlarına ulaşabiliyor; sınıfı <code>Class.forName()</code> ile class nesnesine erişebiliyoruz.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">public</span> List scan(String packageToScan) {
 		ResourcePatternResolver resourcePatternResolver = <span style="color:#00f">new</span> PathMatchingResourcePatternResolver();
 		MetadataReaderFactory metadataReaderFactory = <span style="color:#00f">new</span> CachingMetadataReaderFactory(resourcePatternResolver);
@@ -94,16 +96,27 @@ Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yap
 		<span style="color:#00f">return</span> ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils
 				.resolvePlaceholders(packageToScan));
 }</code></pre></div>
+
 <p>Öncelikle <code>PathMatchingResourcePatternResolver</code> gerçekleştirimi ile bir <code>ResourcePatternResolver</code> tanımlıyoruz. <code>ResourcePatternResolver</code> interface’i, location pattern’larını <code>Resource</code> nesnelerine dönüştürme işlemini tanımlıyor. <code>MetadataReaderFactory</code> interface’i ise, <code>ResourcePatternResolver</code> ile elde ettiğimiz Resource nesnelerinin bilgilerini okumamızı sağlayacak olan <code>MetadataReader</code> nesnelerinin yaratılmasını işlemini tanımlayan interface. <code>CachingMetadataReaderFactory</code> gerçekleştirimi, Resource nesnelerine karşılık olan <code>MetadataReader</code> nesnelerini, her çağrıda yaratmak yerine cacheliyor.</p>
+
 <p><code>ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX</code> ise <code>classpath*:</code> stringini tutuyor ki bu string, <code>PathMatchingResourcePatternResolver</code>in classes dizininin yanısıra classpath’teki jar’ları da taramasını sağlıyor.</p>
+
 <p>Elde ettiğimiz <code>MetadataReader</code> nesnesi üzerinden, <code>ClassMetadata</code> ve <code>AnnotationMetadata</code> gerçekleştirimlerine ulaşarak, ilgili sınıfa ait metadata bilgilerine ulaşabiliyoruz. Ayrıca <code>ClassMetadata.getClassName()</code> çağrısı sınıfın adına ulaştıktan sonra <code>Class.forName()</code> çağrısı ile sınıfın <code>Class</code> nesnesine ulaşabilir, reflection api ile <code>Class</code> nesnesi üzerinde işlem yapabiliriz.</p>
+
 <p>Yukarıdaki kodda yer almıyor ama <code>TypeFilter</code> interface’i sayesinde de, <code>MetadataReader</code>ı kullanarak filtreleme yapabiliyoruz. <code>TypeFilter</code>ın <code>AnnotationTypeFilter</code>, <code>AssignableTypeFilter</code> gibi gerçekleştirimleri bulunuyor.</p>
-<p><!-- raw HTML omitted --><a href="http://stackoverflow.com/questions/1456930/read-all-classes-from-java-package-in-classpath">http://stackoverflow.com/questions/1456930/read-all-classes-from-java-package-in-classpath</a><!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/io/support/ResourcePatternResolver.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/io/support/ResourcePatternResolver.html</a><!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReader.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReader.html</a><!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReaderFactory.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReaderFactory.html</a><!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/ClassMetadata.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/ClassMetadata.html</a><!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/AnnotationMetadata.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/AnnotationMetadata.html</a><!-- raw HTML omitted --></p>
+
+<p><a href="http://stackoverflow.com/questions/1456930/read-all-classes-from-java-package-in-classpath">http://stackoverflow.com/questions/1456930/read-all-classes-from-java-package-in-classpath</a></p>
+
+<p><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/io/support/ResourcePatternResolver.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/io/support/ResourcePatternResolver.html</a></p>
+
+<p><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReader.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReader.html</a></p>
+
+<p><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReaderFactory.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/classreading/MetadataReaderFactory.html</a></p>
+
+<p><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/ClassMetadata.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/ClassMetadata.html</a></p>
+
+<p><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/AnnotationMetadata.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/AnnotationMetadata.html</a></p>
+
 <p><a href="http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/filter/TypeFilter.html">http://static.springsource.org/spring/docs/3.1.0.M2/javadoc-api/org/springframework/core/type/filter/TypeFilter.html</a></p>
 
 		</div><div id="disqus_thread"></div>
@@ -126,7 +139,7 @@ Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yap
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

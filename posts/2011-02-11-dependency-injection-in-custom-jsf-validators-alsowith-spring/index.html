@@ -4,15 +4,15 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile) - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile)" />
-<meta property="og:description" content="Acayip bir dil in, Türkçe yine out. Dependency Injection&#39;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği&ldquo;bağımlılık zerketme&rdquo;.
+<meta property="og:description" content="Acayip bir dil in, Türkçe yine out. Dependency Injection&rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği &ldquo;bağımlılık zerketme&rdquo;.
 Efenim JSF bize bean&rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/" />
-<meta property="article:published_time" content="2011-02-11T00:00:00+00:00" />
-<meta property="article:modified_time" content="2011-02-11T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/" />
+<meta property="article:published_time" content="2011-02-11T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-02-11T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile)"/>
-<meta name="twitter:description" content="Acayip bir dil in, Türkçe yine out. Dependency Injection&#39;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği&ldquo;bağımlılık zerketme&rdquo;.
+<meta name="twitter:description" content="Acayip bir dil in, Türkçe yine out. Dependency Injection&rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği &ldquo;bağımlılık zerketme&rdquo;.
 Efenim JSF bize bean&rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz."/>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
 
@@ -56,25 +56,34 @@ Efenim JSF bize bean&rsquo;lerimiz içerisinde validator metodlar tanımlama imk
 		<div class="post-header">
 			<h1 class="title">JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile)</h1>
 			<div class="meta">Posted at &mdash; Feb 11, 2011
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/java-server-faces">java server faces</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jsf">jsf</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jsf-validator">jsf-validator</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/spring">spring</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/java-server-faces">java server faces</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jsf">jsf</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jsf-validator">jsf-validator</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/spring">spring</a>&nbsp;
 			</p>
 			
 			</div>
 		</div>
 
 		<div class="markdown">
-			<p>Acayip bir dil in, Türkçe yine out. Dependency Injection'ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi <!-- raw HTML omitted -->şu abimin dediği<!-- raw HTML omitted --> &ldquo;bağımlılık zerketme&rdquo;.</p>
+			<p>Acayip bir dil in, Türkçe yine out. Dependency Injection&rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi <a href="http://www.javaturk.org/?tag=j2ee-nedir" target="_blank">şu abimin dediği</a> &ldquo;bağımlılık zerketme&rdquo;.</p>
+
 <p>Efenim JSF bize bean&rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz. Bu kontrol bize yalnızca üye kayıt esnasında gerekiyorsa bean içinde tanımlamak uygun olabilir, bean ayrıca JSF tarafından yönetildiğinden, asıl sorguyu yapacağımız sınıfı JSF bize inject edecektir ve doğrudan sorgumuzu yapıp işi halledebiliriz. Ama örneğin başka bir kaç noktada daha verilen bir eposta adresinin veritabanında kayıtlı olup olmadığının kontrolü gerekebilir. Bu durumda, işlemi bir (custom) validator sınıfa koymak kod tekrarı yapmamak ve bu sınıfı gerektiği noktalarda kullanabilmek açısından gayet mantıklı.</p>
+
 <p>Ama burda da şöyle bir durumla karşılaşıyoruz. <code>Validator</code> ve <code>PhaseListener</code>larda JSF bize Dependency Injection güzelliği sağlamıyor. Biz validator içinde eposta kontrolünü UserService.checkEmailExists() gibi bir metod üzerinden yapacaksak, o UserService referansını bize JSF inject etmiyor.</p>
-<p>Yahut validator içerisinde <code>SessionScope</code>da yer alan bir bean'ın içerdiği bir değeri kullanmamız gerekebilir ve o bean&rsquo;e erişmek isteyebilirdik. <code>ManagedBean</code> içerisinde olsaydık, <code>@ManagedProperty</code> diyerek ihtiyaç duyduğumuz bean&rsquo;in JSF tarafından bize verilmesini sağlayabilirdik, ama dediğim gibi validator içinde böyle bir şansımız yok.</p>
+
+<p>Yahut validator içerisinde <code>SessionScope</code>da yer alan bir bean&rsquo;ın içerdiği bir değeri kullanmamız gerekebilir ve o bean&rsquo;e erişmek isteyebilirdik. <code>ManagedBean</code> içerisinde olsaydık, <code>@ManagedProperty</code> diyerek ihtiyaç duyduğumuz bean&rsquo;in JSF tarafından bize verilmesini sağlayabilirdik, ama dediğim gibi validator içinde böyle bir şansımız yok.</p>
+
 <p>E o zaman ne yapacağız? JSF&rsquo;in yaptığı Dependency Injection güzelliğini, biz programatik olarak yapacağız.</p>
+
 <p>Şu kod parçası, bize, erişmek istediğimiz bean&rsquo;i getiriyor.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 MyBean myBean = (MyBean) FacesContext.getCurrentInstance()
 		.getApplication().getELResolver()
 		.getValue(elContext, <span style="color:#00f">null</span>, <span style="color:#a31515">&#34;myBean&#34;</span>);</code></pre></div>
+
 <p>Örneğin bizim yukarıda bahsettiğimiz <code>UserService</code>, <code>ApplicationScope</code> (<code>SessionScope</code> vs de olabilir) bir bean olsaydı, bu kod ile onu elde edip, veritabanındaki kontrolü ona yaptırabilirdik.</p>
-<p>Peki JSF ile birlikte Spring de kullanıyorsak ve bizim UserService&rsquo;in yaşam döngüsünü Spring yönetiyorsa? <code>UserService</code>e erişmek için yine aynı mantığı kullanacak, bu kez <code>UserService</code>i Spring&rsquo;in container'ından isteyecektik. Onu da şöyle yapıyoruz:</p>
+
+<p>Peki JSF ile birlikte Spring de kullanıyorsak ve bizim UserService&rsquo;in yaşam döngüsünü Spring yönetiyorsa? <code>UserService</code>e erişmek için yine aynı mantığı kullanacak, bu kez <code>UserService</code>i Spring&rsquo;in container&rsquo;ından isteyecektik. Onu da şöyle yapıyoruz:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ServletContext servletContext = (ServletContext) FacesContext
 				.getCurrentInstance().getExternalContext().getContext();
 
@@ -82,7 +91,9 @@ WebApplicationContext wac = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(servletContext);
 
 UserService userService = (UserService) wac.getBean(<span style="color:#a31515">&#34;userService&#34;</span>);</code></pre></div>
-<p>Bu kod ile, önce <code>ServletContext</code>e, onun üzerinden Spring Container'ına, onun üzerinden de bize lazım olan gerçekleştirime ulaştık.</p>
+
+<p>Bu kod ile, önce <code>ServletContext</code>e, onun üzerinden Spring Container&rsquo;ına, onun üzerinden de bize lazım olan gerçekleştirime ulaştık.</p>
+
 <p>JSF&rsquo;e de, <code>Validator</code> ve <code>PhaseListener</code>larda Dependency Injection yapmadığı için çok kırıldım, onlar üvey evlat mı?</p>
 
 		</div><div id="disqus_thread"></div>
@@ -105,7 +116,7 @@ UserService userService = (UserService) wac.getBean(<span style="color:#a31515">
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

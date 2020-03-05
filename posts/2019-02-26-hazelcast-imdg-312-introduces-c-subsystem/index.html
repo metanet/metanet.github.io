@@ -7,9 +7,9 @@
 <meta property="og:description" content="We put Java locks on steroids! Hazelcast is now the first and only In-Memory Data Grid (IMDG) to offer a linearizable and distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm.
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/" />
-<meta property="article:published_time" content="2019-02-26T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-02-26T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/" />
+<meta property="article:published_time" content="2019-02-26T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-26T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hazelcast IMDG 3.12 Introduces CP Subsystem"/>
 <meta name="twitter:description" content="We put Java locks on steroids! Hazelcast is now the first and only In-Memory Data Grid (IMDG) to offer a linearizable and distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm.
@@ -56,22 +56,33 @@
 		<div class="post-header">
 			<h1 class="title">Hazelcast IMDG 3.12 Introduces CP Subsystem</h1>
 			<div class="meta">Posted at &mdash; Feb 26, 2019
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/cap-theorem">cap theorem</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/raft-consensus-algorithm">raft consensus algorithm</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/fencedlock">fencedlock</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/distributed-locks">distributed locks</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/distributed-locking">distributed locking</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jepsen-testing">jepsen testing</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/cap-theorem">cap theorem</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/raft-consensus-algorithm">raft consensus algorithm</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/fencedlock">fencedlock</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/distributed-locks">distributed locks</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/distributed-locking">distributed locking</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jepsen-testing">jepsen testing</a>&nbsp;
 			</p>
 			
 			</div>
 		</div>
 
 		<div class="markdown">
-			<p><em><strong>I published this post at &lt;a href=&quot;https://hazelcast.com/blog/hazelcast-imdg-3-12-introduces-cp-subsystem/&rdquo; target=“_blank&quot;&gt;Hazelcast blog<!-- raw HTML omitted --> and put a copy here.</strong></em></p>
+			
+
+<p><strong><em>I published this post at <a href="https://hazelcast.com/blog/hazelcast-imdg-3-12-introduces-cp-subsystem/" target=“\_blank">Hazelcast blog</a> and put a copy here.</em></strong></p>
+
 <p><em>We put Java locks on steroids! Hazelcast is now the first and only In-Memory Data Grid (IMDG) to offer a linearizable and distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm. Sounds interesting? Just keep calm and carry on reading…</em></p>
+
 <p>Hazelcast IMDG has been offering a set of concurrency APIs for a long time. We have IAtomicLong. IAtomicReference, ILock, ISemaphore, ICountDownLatch APIs, which are basically distributed versions of Java’s fundamental concurrency APIs. Although Hazelcast is mostly used for storing large amounts of data in memory, these concurrency APIs can be used for distributed coordination in many forms. For instance, multiple instances of a service can be running to provide high availability. These instances may use an ILock to enable only one instance to handle incoming requests. Another example of coordination could be that worker nodes can use an ICountDownLatch to meet with each other or with a master node to make progress. Coordination can be also required when processes try to agree on metadata information, such as discovery, system configuration, connection settings, feature flags, etc. For the locking scenario above, the service instance that acquires the lock can use an IAtomicRefence to advertise itself.</p>
+
 <p>Strong consistency is a fundamental requirement for coordination tasks. A distributed coordination tool must maintain its consistency in failure cases. However, Hazelcast IMDG is mainly designed for high availability. In this regard, Hazelcast IMDG gracefully handles server, client, and network failures to maintain availability, but its core replication mechanisms, which are basically built on top of asynchronous replication, do not guarantee strong consistency in every failure scenario. In terms of the CAP principle, Hazelcast IMDG is AP.</p>
-<p>We have been aware that this situation creates a drawback for our concurrency APIs. We tried to improve the reliability of these APIs in &lt;a href=&quot;https://hazelcast.com/blog/hazelcast-imdg-3-10-released/&rdquo; target=“_blank&quot;&gt;the previous releases<!-- raw HTML omitted -->, and be &lt;a href=&quot;https://docs.hazelcast.org/docs/3.11.2/manual/html-single/index.html#consistency-and-replication-model&rdquo; target=“_blank&quot;&gt;open<!-- raw HTML omitted --> about it. However, we knew that we could not provide a correct distributed implementation without abandoning asynchronous replication. For this reason, we decided to work on a new implementation of our concurrency APIs. That is what we have been busy with for the last year.</p>
+
+<p>We have been aware that this situation creates a drawback for our concurrency APIs. We tried to improve the reliability of these APIs in <a href="https://hazelcast.com/blog/hazelcast-imdg-3-10-released/" target=“\_blank">the previous releases</a>, and be <a href="https://docs.hazelcast.org/docs/3.11.2/manual/html-single/index.html#consistency-and-replication-model" target=“\_blank">open</a> about it. However, we knew that we could not provide a correct distributed implementation without abandoning asynchronous replication. For this reason, we decided to work on a new implementation of our concurrency APIs. That is what we have been busy with for the last year.</p>
+
 <h1 id="cp-subsystem">CP Subsystem</h1>
-<p>With Hazelcast IMDG 3.12, we are thrilled to announce a new module, CP Subsystem. CP Subsystem contains new implementations of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. As the name of the module implies, these implementations are CP with respect to the CAP principle and they live alongside AP data structures in the same Hazelcast IMDG cluster. They maintain linearizability in all cases, including client and server failures, network partitions, and prevent split-brain situations. We also reiterated and clarified distributed execution and failure semantics of our APIs, as well as made a lot of improvements on the API level. Last, we introduce a new API, <code>FencedLock</code>, that extends the semantics of <code>java.util.concurrent.locks.Lock</code> to cover various failures models we can face in distributed environments. We have been also verifying the new CP Subsystem via an extensive &lt;a href=&quot;https://github.com/hazelcast/jepsen/tree/master/hazelcast&rdquo; target=“_blank&quot;&gt;Jepsen test suite<!-- raw HTML omitted -->. We made use of the Jepsen tool to discover many subtle bugs as we were developing the new system. We have Jepsen tests for <code>IAtomicLong</code>, <code>IAtomicReference</code>, <code>ISemaphore</code>, and <code>FencedLock</code>.</p>
+
+<p>With Hazelcast IMDG 3.12, we are thrilled to announce a new module, CP Subsystem. CP Subsystem contains new implementations of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. As the name of the module implies, these implementations are CP with respect to the CAP principle and they live alongside AP data structures in the same Hazelcast IMDG cluster. They maintain linearizability in all cases, including client and server failures, network partitions, and prevent split-brain situations. We also reiterated and clarified distributed execution and failure semantics of our APIs, as well as made a lot of improvements on the API level. Last, we introduce a new API, <code>FencedLock</code>, that extends the semantics of <code>java.util.concurrent.locks.Lock</code> to cover various failures models we can face in distributed environments. We have been also verifying the new CP Subsystem via an extensive <a href="https://github.com/hazelcast/jepsen/tree/master/hazelcast" target=“\_blank">Jepsen test suite</a>. We made use of the Jepsen tool to discover many subtle bugs as we were developing the new system. We have Jepsen tests for <code>IAtomicLong</code>, <code>IAtomicReference</code>, <code>ISemaphore</code>, and <code>FencedLock</code>.</p>
+
 <p>Hazelcast is the first and only IMDG that offers a linearizable and distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm.</p>
+
 <p>Let’s see CP Subsystem in action:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 config.getCPSubsystemConfig().setCPMemberCount(3);
 
@@ -81,10 +92,15 @@ HazelcastInstance instance3 = Hazelcast.newHazelcastInstance(config);
 
 IAtomicLong counter = instance1.getCPSubsystem().getAtomicLong(<span style="color:#a31515">&#34;counter&#34;</span>);
 counter.incrementAndGet();</code></pre></div>
+
 <p>In this code sample, we configure the CP Subsystem to be formed from 3 Hazelcast members. We call these members CP members. Once we start 3 members, the CP Subsystem is initialized in the background. Then, we fetch a IAtomicLong proxy from the CP Subsystem module offered by HazelcastInstance interface.</p>
+
 <p>The current set of CP data structures (IAtomicLong, IAtomicReference, ICountDownLatch, ISemaphore, FencedLock) have relatively small memory footprints. Therefore, all members of your Hazelcast IMDG cluster do not have to be CP members. It is perfectly fine to configure only 3 or 5 CP members in a 100-member Hazelcast cluster. All members of a cluster have access to the CP Subsystem APIs.</p>
+
 <p>When the CP subsystem starts, it internally creates 2 consensus groups. We call these groups CP groups. Each CP group runs the Raft consensus algorithm to elect a leader node and commit operations. The first CP group is the Metadata CP group that manages CP members and CP groups created for data structures. The second CP group is the Default CP group. When you do not specify a CP group name while fetching a CP data structure proxy, the proxy internally talks to the Default CP group.</p>
+
 <p>It should be sufficient to use the Default CP group for most use-cases. However, you can create custom CP groups at run-time, for instance, if Raft leader node of the Default group becomes a bottleneck under your workload. You can distribute CP groups into CP members as shown in the following code sample:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 config.getCPSubsystemConfig().setCPMemberCount(5);
 config.getCPSubsystemConfig().setGroupSize(3);
@@ -100,10 +116,15 @@ counter1.incrementAndGet();
 
 IAtomicLong counter2 = instance1.getCPSubsystem().getAtomicLong(<span style="color:#a31515">&#34;counter2@custom&#34;</span>);
 counter2.decrementAndGet();</code></pre></div>
+
 <p>Here, we configure the CP group size and CP member count parameters separately. What we do is, we form the CP subsystem with 5 CP members. However, CP groups will be created with 3 CP members. It means that when a CP group is created, its members will be randomly selected among all CP members available in the CP subsystem. With this method, you can improve throughput by running multiple instances of the Raft consensus algorithm via CP groups and having multiple Raft leaders. This approach is basically partitioning (sharding) and you decide how partitions will be created.</p>
+
 <p>You can manage your CP members in the Hazelcast way. If a CP member crashes, you can remove it from the CP subsystem and promote another Hazelcast member to CP role. Hazelcast IMDG can also remove a CP member from the CP subsystem automatically if it is absent in the cluster for a configured duration. You can manage the CP subsystem programmatically or via the REST API. Dynamicity of the CP subsystem greatly helps to preserve the availability of the CP subsystem when failures occur.</p>
+
 <h1 id="closing-words">Closing Words</h1>
-<p>We believe that the simplicity of our concurrency APIs will help developers implement coordination tasks with ease. With the new CP subsystem, we will work hard to make Hazelcast IMDG a good citizen of distributed coordination use cases. If you want to give it a try, just download &lt;a href=&quot;https://hazelcast.org/download/&rdquo; target=“_blank&quot;&gt;the latest Hazelcast IMDG 3.12 release<!-- raw HTML omitted -->. You can also check out our &lt;a href=&quot;https://docs.hazelcast.org/docs/3.12-BETA-1/manual/html-single/index.html&rdquo; target=“_blank&quot;&gt;reference manual<!-- raw HTML omitted --> or take a look at &lt;a href=&quot;https://download.hazelcast.com/code-samples/hazelcast-code-samples-3.12-BETA-1.zip&rdquo; target=“_blank&quot;&gt;the code samples<!-- raw HTML omitted --> to learn more about the CP subsystem. We are looking forward to hearing your feedback!</p>
+
+<p>We believe that the simplicity of our concurrency APIs will help developers implement coordination tasks with ease. With the new CP subsystem, we will work hard to make Hazelcast IMDG a good citizen of distributed coordination use cases. If you want to give it a try, just download <a href="https://hazelcast.org/download/" target=“\_blank">the latest Hazelcast IMDG 3.12 release</a>. You can also check out our <a href="https://docs.hazelcast.org/docs/3.12-BETA-1/manual/html-single/index.html" target=“\_blank">reference manual</a> or take a look at <a href="https://download.hazelcast.com/code-samples/hazelcast-code-samples-3.12-BETA-1.zip" target=“\_blank">the code samples</a> to learn more about the CP subsystem. We are looking forward to hearing your feedback!</p>
+
 <p>More posts coming soon!</p>
 
 		</div><div id="disqus_thread"></div>
@@ -126,7 +147,7 @@ counter2.decrementAndGet();</code></pre></div>
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

@@ -9,9 +9,9 @@
 <meta property="og:description" content="This blog post is the story of how we implemented a distributed locking protocol that gives your components a straightforward way of joining in.
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/" />
-<meta property="article:published_time" content="2019-04-02T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-04-02T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/" />
+<meta property="article:published_time" content="2019-04-02T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-02T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distributed Locks are Dead; Long Live Distributed Locks!
 "/>
@@ -60,32 +60,47 @@
 			<h1 class="title">Distributed Locks are Dead; Long Live Distributed Locks!
 </h1>
 			<div class="meta">Posted at &mdash; Apr 2, 2019
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/distributed-locks">distributed locks</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/distributed-locking">distributed locking</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/fencedlock">fencedlock</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/raft-consensus-algorithm">raft consensus algorithm</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/cap-theorem">cap theorem</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jepsen-testing">jepsen testing</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/distributed-locks">distributed locks</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/distributed-locking">distributed locking</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/fencedlock">fencedlock</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/raft-consensus-algorithm">raft consensus algorithm</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/cap-theorem">cap theorem</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jepsen-testing">jepsen testing</a>&nbsp;
 			</p>
 			
 			</div>
 		</div>
 
 		<div class="markdown">
-			<p><em><strong>I published this post at &lt;a href=&quot;https://hazelcast.com/blog/long-live-distributed-locks/&rdquo; target=“_blank&quot;&gt;Hazelcast blog<!-- raw HTML omitted --> and put a copy here.</strong></em></p>
-<p>“Distributed locks aren’t real”, &lt;a href=&quot;https://youtu.be/tRc0O9VgzB0?t=1526&rdquo; target=“_blank&quot;&gt;some like to remind us<!-- raw HTML omitted -->. “Anyone who’s trying to sell you a distributed lock is selling you sawdust and lies.” This may sound rather bleak, but it doesn’t say that locking itself is impossible in a distributed system: it’s just that <em>all</em> of the system’s components must participate in the protocol. This blog post is the story of how we implemented a distributed locking protocol that gives your components a straightforward way of joining in.</p>
-<p>In line with Hazelcast’s tradition, the coordinating component of the protocol is an object that extends the semantics of <code>java.util.concurrent.locks.Lock</code>. We call it <code>FencedLock</code>, following the naming used in Martin Kleppmann’s 2016 post &lt;a href=&quot;https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html&rdquo; target=“_blank&quot;&gt;“How to Do Distributed Locking”<!-- raw HTML omitted -->.</p>
-<p><em>You can also check out my follow-up blog post about &lt;a href=&rdquo;/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/&rdquo; target=“_blank&quot;&gt;how we tested the CP Subsystem APIs, including FencedLock, with Jepsen.<!-- raw HTML omitted --></em></p>
+			
+
+<p><strong><em>I published this post at <a href="https://hazelcast.com/blog/long-live-distributed-locks/" target=“\_blank">Hazelcast blog</a> and put a copy here.</em></strong></p>
+
+<p>“Distributed locks aren’t real”, <a href="https://youtu.be/tRc0O9VgzB0?t=1526" target=“\_blank">some like to remind us</a>. “Anyone who’s trying to sell you a distributed lock is selling you sawdust and lies.” This may sound rather bleak, but it doesn’t say that locking itself is impossible in a distributed system: it’s just that <em>all</em> of the system’s components must participate in the protocol. This blog post is the story of how we implemented a distributed locking protocol that gives your components a straightforward way of joining in.</p>
+
+<p>In line with Hazelcast’s tradition, the coordinating component of the protocol is an object that extends the semantics of <code>java.util.concurrent.locks.Lock</code>. We call it <code>FencedLock</code>, following the naming used in Martin Kleppmann’s 2016 post <a href="https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target=“\_blank">“How to Do Distributed Locking”</a>.</p>
+
+<p><em>You can also check out my follow-up blog post about <a href="/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/" target=“\_blank">how we tested the CP Subsystem APIs, including FencedLock, with Jepsen.</a></em></p>
+
 <p>For the impatient reader, here are the takeaways of this blog post:</p>
+
 <ul>
 <li>FencedLock is a linearizable distributed implementation of the <code>java.util.concurrent.locks.Lock</code> interface with well-defined execution and failure semantics. It can be used for both coarse-grained and fine-grained locking.</li>
 <li>FencedLock replicates its state over a group of Hazelcast members via the Raft consensus algorithm. It is not vulnerable to split-brain problems.</li>
 <li>FencedLock tracks liveness of lock holders via a session mechanism that works in a unified manner for both Hazelcast servers and clients.</li>
 <li><strong>FencedLock allows 3rd-party systems to participate in the locking protocol and achieve mutual exclusion for the side-effects performed on them.</strong> This is the “fenced” part of the story.</li>
-<li>FencedLock is battle-tested with an &lt;a href=&quot;https://github.com/jepsen-io/jepsen/tree/master/hazelcast&rdquo; target=“_blank&quot;&gt;extensive Jepsen test suite<!-- raw HTML omitted -->. We have been testing its non-reentrant and reentrant behavior, as well as the monotonicity of the fencing tokens. <strong>To the best of our knowledge, FencedLock is the first open source distributed lock implementation that is tested with such a comprehensive approach.</strong></li>
+<li>FencedLock is battle-tested with an <a href="https://github.com/jepsen-io/jepsen/tree/master/hazelcast" target=“\_blank">extensive Jepsen test suite</a>. We have been testing its non-reentrant and reentrant behavior, as well as the monotonicity of the fencing tokens. <strong>To the best of our knowledge, FencedLock is the first open source distributed lock implementation that is tested with such a comprehensive approach.</strong></li>
 </ul>
+
 <p>Concurrency and nondeterminism are the main reasons that make multithreaded programming difficult. When there are multiple threads of execution, even a simple algorithm can produce a different result on every new run. Conceptually, distributed applications are not much different from multithreaded applications, so they need to deal with concurrency and nondeterminism as well. Distributed applications contain another underlying complexity that does not exist in multithreaded applications: partial failures. A distributed application is expected to keep running while some of its components have failed.</p>
+
 <p>We can capitalize on this conceptual similarity to make concurrency primitives useful in distributed applications. Take JDK’s <code>java.util.concurrent.locks.Lock</code> interface for example. It defines an API to coordinate access to a shared resource by multiple threads. Lock implementations can either enforce mutual exclusion to preserve correctness or efficiency, or allow concurrent access to a shared resource in a controlled manner, like <code>ReadWriteLock</code>. Moreover, the <code>Lock</code> interface is general enough to enable a distributed implementation where lock-acquiring threads live in different processes and/or the lock state is replicated over multiple processes.</p>
+
 <p>Hazelcast IMDG 3.12 introduces a linearizable distributed implementation of the <code>java.util.concurrent.locks.Lock</code> interface in its CP Subsystem: <code>FencedLock</code>. It is efficient for both coarse-grained and fine-grained locking. You can use the monotonic fencing tokens provided by FencedLock to achieve mutual exclusion across multiple threads that live in different processes. In this blog post, you’ll discover how we extended the semantics of the Lock interface for distributed execution and covered several failure modes that we can face in a distributed setting.</p>
-<p>If you aren’t yet familiar with Hazelcast’s CP Subsystem, you can read &lt;a href=&rdquo;/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/&rdquo; target=“_blank&quot;&gt;our CP Subsystem primer<!-- raw HTML omitted -->. One basic fact about it is this: a Hazelcast cluster may have not one, but several subclusters that we call <em>CP groups</em>. Each CP group is a cluster on its own with respect to the CP services it provides.</p>
-<p><em>The code samples in this blog post start one JVM and form a three-member CP group within it. We do this strictly for simplicity because the members still communicate over the network and aren’t even aware that they are sharing the JVM. Their behavior is equivalent to each Hazelcast member running concurrently on its own JVM and the events occur in the order shown in the code samples. All code samples shown in this blog post are also placed in our &lt;a href=&quot;https://github.com/hazelcast/hazelcast-code-samples/tree/master/cp-subsystem&rdquo; target=“_blank&quot;&gt;code samples repository<!-- raw HTML omitted -->.</em></p>
+
+<p>If you aren’t yet familiar with Hazelcast’s CP Subsystem, you can read <a href="/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/" target=“\_blank">our CP Subsystem primer</a>. One basic fact about it is this: a Hazelcast cluster may have not one, but several subclusters that we call <em>CP groups</em>. Each CP group is a cluster on its own with respect to the CP services it provides.</p>
+
+<p><em>The code samples in this blog post start one JVM and form a three-member CP group within it. We do this strictly for simplicity because the members still communicate over the network and aren’t even aware that they are sharing the JVM. Their behavior is equivalent to each Hazelcast member running concurrently on its own JVM and the events occur in the order shown in the code samples. All code samples shown in this blog post are also placed in our <a href="https://github.com/hazelcast/hazelcast-code-samples/tree/master/cp-subsystem" target=“\_blank">code samples repository</a>.</em></p>
+
 <h1 id="basic-semantics">Basic Semantics</h1>
+
 <p>Let’s start with a basic example and proceed by solving one problem at a time. Here’s all the code you need to write to begin using a FencedLock:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 config.getCPSubsystemConfig().setCPMemberCount(3);
 
@@ -111,15 +126,20 @@ FencedLock hz2Lock = hz2.getCPSubsystem().getLock(<span style="color:#a31515">&#
 <span style="color:#008000">// Now Instance 2 can acquire the lock:
 </span><span style="color:#008000"></span>lockedByHz2 = hz2Lock.tryLock();
 <span style="color:#00f">assert</span> lockedByHz2;</code></pre></div>
+
 <p>In a nutshell,</p>
+
 <ul>
 <li>Instance One acquires the lock</li>
 <li>Instance Two fails to acquire the lock</li>
 <li>Instance One releases the lock</li>
 <li>Instance Two acquires the lock</li>
 </ul>
+
 <p>We can conclude that, once a Hazelcast instance has acquired the lock, no other instance can acquire it until the holder explicitly releases it (or the system does it after the holder fails – see below for details). The instance can be either a server or a client instance; it works the same way.</p>
+
 <p>FencedLock is reentrant by default:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#008000">// Acquire the lock on instance 1:
 </span><span style="color:#008000"></span>hz1Lock.lock();
 
@@ -140,7 +160,9 @@ FencedLock hz2Lock = hz2.getCPSubsystem().getLock(<span style="color:#a31515">&#
 <span style="color:#008000">// Now instance 2 can acquire it:
 </span><span style="color:#008000"></span>heldByHz2 = hz2Lock.tryLock();
 <span style="color:#00f">assert</span> heldByHz2;</code></pre></div>
+
 <p>If you try to re-acquire the lock from the same instance, but on a different thread, you won’t be allowed to:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#008000">// Acquire the lock on instance 1:
 </span><span style="color:#008000"></span>hz1Lock.lock();
 
@@ -149,23 +171,41 @@ FencedLock hz2Lock = hz2.getCPSubsystem().getLock(<span style="color:#a31515">&#
     <span style="color:#2b91af">boolean</span> acquired = hz1Lock.tryLock();
     <span style="color:#00f">assert</span> !acquired;
 }).start();</code></pre></div>
+
 <p>This behavior is vital to the lock behaving the way you expect: protecting a single critical section at a time.</p>
+
 <p>Java’s <code>Lock</code> interface does not enforce a particular approach to reentrancy. Given this freedom, FencedLock offers configurable behavior and is reentrant by default, as shown above. You can disable reentrancy and use FencedLock as a non-reentrant mutex or set a custom reentrancy limit. When the configured reentrancy limit is reached, further lock acquire attempts fail with <code>LockAcquireLimitReachedException</code>.</p>
+
 <p>FencedLock also offers a set of utility methods to query its status. You can check whether the lock is held and how many times it was reentrantly acquired (this fact is also committed to the CP group). You can query the lock-acquire count from anywhere, not necessarily from the lock-holding Hazelcast member and thread. Just keep in mind that you can use these facts only in an informative fashion – you can’t rely on them for correctness because you’d be committing the <em>check-then-act</em> fallacy. For example, between the time you get the response <em>“you have the lock”</em> and the time you take some action on the assumption you have the lock, you may already have lost it.</p>
+
 <p>While we’re on this subject, the same logic applies even to the primary <code>FencedLock.lock()</code> call: at the very next line of code in your program, you may no longer be holding the lock. This is what the <em>fencing token</em> is for and we discuss it later on in this post.</p>
+
 <p>FencedLock provides fairness. If a <code>lock()</code> request from <code>caller1</code> is committed before another <code>lock()</code> request from <code>caller2</code>, <code>caller1</code> wins.</p>
+
 <p>We pretty much covered the most relevant parts of FencedLock’s distributed execution semantics. Let’s dive a bit deeper and investigate how FencedLock deals with failures. I have to admit, this is my favorite part!</p>
+
 <h1 id="server-side-failures">Server-Side Failures</h1>
+
 <p>The good thing about using the Raft consensus algorithm under the hood is not having to worry about the consistency of the lock state. Each operation on a FencedLock gets committed to the majority of the CP group and each change in the lock state is guaranteed to be persisted as long as the CP group majority is alive. This means our FencedLock is invulnerable to split-brain problems. It preserves linearizability in case of network partitions and remains available on the side where the majority of the CP group is present.</p>
+
 <p>FencedLock additionally achieves <em>exactly-once</em> semantics thanks to the idempotent implementations of its internal operations. For instance, even if the implementation retries a <code>lock()</code> operation because of a failed Raft leader, the lock is still acquired just once. The same rule applies to the other methods in the API.</p>
+
 <p>This is a very useful guarantee because CP member failures can create a bit of trouble for in-flight operations. Say the Raft leader commits a lock-acquire request but then fails before sending the response to the caller. If we present the failure directly to the caller, how can it know whether the leader committed the request or not? In the reentrant mode, a naive retry performed by the client-side proxy would increment the acquisition count again and then a subsequent <code>unlock()</code> wouldn’t release it. In the non-reentrant mode, if the first <code>lock()</code> request acquired the lock, the retried one would fail with <code>LockAcquireLimitReachedException</code>.</p>
+
 <p>To avoid these pitfalls, we built the client side of the FencedLock to retry operations internally in an idempotent manner, providing the user with an end-to-end <code>exactly-once</code> execution guarantee.</p>
+
 <h1 id="client-side-failures">Client-side Failures</h1>
+
 <h2 id="what-happens-if-a-lock-holder-dies">What Happens if a Lock Holder Dies?</h2>
-<p>We rely on the mechanics of the Raft consensus algorithm and the idempotence technique to tolerate failures of CP members, i.e., replicas of the lock state. However, there is another critical participant: our client, the lock holder! What if a caller acquires a FencedLock and then crashes (or experiences a long-lasting hiccup) while still holding it? If we don’t perform some cleanup, the entire application will suffer because the lock remains forever unavailable. This situation is equivalent to a Java program that calls <code>Thread.suspend()</code> or <code>Thread.destroy()</code> on a thread that is holding a lock. The Java designers got the easy way out: they simply &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html&rdquo; target=“_blank&quot;&gt;banned<!-- raw HTML omitted --> thread suspension and destruction. Unfortunately, in the distributed world this is an unavoidable fact of life.</p>
+
+<p>We rely on the mechanics of the Raft consensus algorithm and the idempotence technique to tolerate failures of CP members, i.e., replicas of the lock state. However, there is another critical participant: our client, the lock holder! What if a caller acquires a FencedLock and then crashes (or experiences a long-lasting hiccup) while still holding it? If we don’t perform some cleanup, the entire application will suffer because the lock remains forever unavailable. This situation is equivalent to a Java program that calls <code>Thread.suspend()</code> or <code>Thread.destroy()</code> on a thread that is holding a lock. The Java designers got the easy way out: they simply <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html" target=“\_blank">banned</a> thread suspension and destruction. Unfortunately, in the distributed world this is an unavoidable fact of life.</p>
+
 <p>In order to deal with client failures, we introduced a mechanism to track the liveness of Hazelcast servers and clients in a unified manner: <em>CP Sessions</em>. We use this mechanism in the CP data structures that manage resource ownership; currently, there are two: <em>FencedLock</em> and <em>ISemaphore</em>. We create a new CP session when a Hazelcast server or client makes its very first lock or semaphore acquire request. After that, all lock and semaphore requests of the caller are associated with this CP session. Note that a Hazelcast server or a client maintains only a single CP session for a given CP group. Even if it is interacting with dozens of FencedLock instances in the same CP group, they will be all associated with a single CP session.</p>
+
 <p>We keep the CP session alive for some time after we committed the last operation associated with it. If a client doesn’t perform any operations on its own but is otherwise live, its proxy implementation will automatically send periodic <em>heartbeat</em> operations. If the client dies or has a very long hiccup, the session times out. We close it, release all the associated locks and semaphore permits, and cancel all pending requests.</p>
+
 <p>Let’s see the CP session auto-cleanup mechanism in action:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(3);
@@ -188,8 +228,11 @@ FencedLock lock = hz2.getCPSubsystem().getLock(<span style="color:#a31515">&#34;
 }
 
 System.out.println(<span style="color:#a31515">&#34;The lock was automatically released&#34;</span>);</code></pre></div>
+
 <p>In this code sample, a Hazelcast member acquires the lock and then crashes. The rest of the CP group realizes the configured timeout has passed without any operations from that member and closes its session. This causes the lock to be released.</p>
+
 <p>The CP Subsystem also offers the ability to destroy a CP session manually. You can use this when you have the means to find out directly that a CP session owner crashed.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(3);
@@ -212,7 +255,9 @@ CPSession session = sessions.iterator().next();
 
 FencedLock lock = hz2.getCPSubsystem().getLock(<span style="color:#a31515">&#34;my-lock&#34;</span>);
 <span style="color:#00f">assert</span> !lock.isLocked();</code></pre></div>
+
 <p>Finally, a Hazelcast instance (both server and client) automatically closes its CP session on graceful shutdown:</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(3);
@@ -225,28 +270,42 @@ hz1.shutdown();
 
 FencedLock lock = hz2.getCPSubsystem().getLock(<span style="color:#a31515">&#34;my-lock&#34;</span>);
 <span style="color:#00f">assert</span> !lock.isLocked();</code></pre></div>
+
 <p>To be precise, the CP Subsystem resets the CP session timeout in 3 circumstances:</p>
+
 <ul>
 <li>When the session owner performs a FencedLock or ISemaphore operation.</li>
 <li>When the session owner sends a periodic heartbeat.</li>
 <li>When the current Raft leader of the CP group crashes and a new leader is elected. This must be done in order to give the session owner time to discover the new Raft leader and start sending operations/heartbeats to it.</li>
 </ul>
-<p>As veteran distributed systems folks might have already noticed, we borrowed several ideas from Google’s paper &lt;a href=&quot;https://ai.google/research/pubs/pub27897&rdquo; target=“_blank&quot;&gt;“The Chubby lock service for loosely-coupled distributed systems”<!-- raw HTML omitted -->. We believe that the semantics of CP sessions are easy to grasp.</p>
-<h2 id="what-if-a-lock-holder-plays-dead-but-isnt">What if a Lock Holder Plays Dead, But Isn’t?</h2>
+
+<p>As veteran distributed systems folks might have already noticed, we borrowed several ideas from Google’s paper <a href="https://ai.google/research/pubs/pub27897" target=“\_blank">“The Chubby lock service for loosely-coupled distributed systems”</a>. We believe that the semantics of CP sessions are easy to grasp.</p>
+
+<h2 id="what-if-a-lock-holder-plays-dead-but-isn-t">What if a Lock Holder Plays Dead, But Isn’t?</h2>
+
 <p>In an asynchronous system, the locking service cannot ensure that only one process thinks it holds the lock because there is no way to distinguish between a slow and a crashed process. Consider a scenario where a Hazelcast client acquires a FencedLock, then hits a long GC pause or becomes partitioned from the cluster. Since it will not be able to commit session heartbeats in the meantime, its CP session will be eventually closed and another Hazelcast client can acquire this lock. If the first client wakes up again or reconnects to the cluster, it may not immediately notice that it has lost ownership of the lock. In this case, multiple clients think they hold the lock. If they attempt to operate on a shared resource, they can break the system. Even if the first client actually crashes in this scenario, requests sent by 2 clients can be reordered in the network and hit the external resource in reverse order.</p>
+
 <p>To prevent such situations, you can choose to use a long or maybe infinite CP session time-to-live duration, but then you’ll get liveness issues. CP sessions offer a trade-off between liveness and safety. Long story short, no timing assumption can be 100% reliable in asynchronous networks.</p>
+
 <p>We offer a fencing mechanism to deal with these situations and achieve mutual exclusion across the whole system without sacrificing liveliness. Namely, we order lock holders by monotonic fencing tokens. <strong>Each FencedLock instance contains a fencing token which is incremented each time the lock instance moves from the available state to the locked state.</strong> Before attempting any side-effectful actions, the lock holder must pass this fencing token to all external services it will use, thereby fencing off previous lock holders. It must also include the token in every request. The service must persist the largest observed fencing token and reject any incoming request whose fencing token is less than the current one. <strong>This approach ensures that no two lock holders can interact with the service concurrently.</strong></p>
+
 <p>Figure 1 below illustrates this idea. In the beginning, <em>Client-1</em> acquires the lock and receives <em>1</em> as its fencing token. It passes this token to the external services. Just after that, <em>Client-1</em> hits a long GC pause and eventually loses ownership of the lock because it isn’t committing CP session heartbeats. Then, <em>Client-2</em> comes in and acquires the lock, receiving <em>2</em> as the fencing token.</p>
+
 <p>Now the most interesting thing happens. Before <em>Client-2</em> had the chance to propagate its fencing token to the services, <em>Client-1</em> wakes up and manages to use its token to execute a request against the service, even though it’s no longer the owner of the lock. This shows us that the fact <em>“Client-N owns the lock”</em> is not linearizable across the whole system (the combination of all the actors: the FencedLock, the clients, and the external services). The services learn the fact indirectly, through the clients’ explicit propagation of the fencing token. <strong>Nevertheless, mutual exclusion on the external services is not jeopardized as long as the clients obey the rules and propagate their fencing tokens before taking any side-effectful actions.</strong></p>
+
 <figure>
     <img src="/figures/fencing_1.png"/> <figcaption>
             <h4>Figure 1: Using fencing tokens to fence off stale lock holders</h4>
         </figcaption>
 </figure>
 
-<p>Note the key message here: all external services <strong>must</strong> participate in the fencing-token protocol, with guaranteed linearizability, for the whole setup to uphold its invariants. You can check Martin Kleppmann’s &lt;a href=&quot;https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html&rdquo; target=“_blank&quot;&gt;“How to do Distributed Locking” blog post<!-- raw HTML omitted --> to learn more about the fencing token idea. &lt;a href=&quot;https://ai.google/research/pubs/pub27897&rdquo; target=“_blank&quot;&gt;Google Chubby<!-- raw HTML omitted --> also implements a very similar solution, which they call <em>“sequence numbers”</em>.</p>
-<p>We have a code sample that demonstrates how to utilize fencing tokens when talking to external services in &lt;a href=&quot;https://github.com/hazelcast/hazelcast-code-samples/blob/master/cp-subsystem/fenced-lock-using-fencing-tokens/src/main/java/com/hazelcast/codesamples/cp/fencedlock/FencingOffStaleLockHolders.java&rdquo; target=“_blank&quot;&gt;our code samples repository<!-- raw HTML omitted -->. It’s too long to show here.</p>
+
+<p>Note the key message here: all external services <strong>must</strong> participate in the fencing-token protocol, with guaranteed linearizability, for the whole setup to uphold its invariants. You can check Martin Kleppmann’s <a href="https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target=“\_blank">“How to do Distributed Locking” blog post</a> to learn more about the fencing token idea. <a href="https://ai.google/research/pubs/pub27897" target=“\_blank">Google Chubby</a> also implements a very similar solution, which they call <em>“sequence numbers”</em>.</p>
+
+<p>We have a code sample that demonstrates how to utilize fencing tokens when talking to external services in <a href="https://github.com/hazelcast/hazelcast-code-samples/blob/master/cp-subsystem/fenced-lock-using-fencing-tokens/src/main/java/com/hazelcast/codesamples/cp/fencedlock/FencingOffStaleLockHolders.java" target=“\_blank">our code samples repository</a>. It’s too long to show here.</p>
+
 <p>Lock holders can query the FencedLock API for their fencing tokens. In the following code sample, the first Hazelcast member acquires the lock and then asks for the fencing token by calling <code>FencedLock.getFence()</code>. Then, the second Hazelcast member acquires the lock. Its fencing token is greater than the fencing token assigned to the first member. Note that fencing tokens are incremented only when the lock moves from the available state to the held state. Hence, the subsequent reentrant lock acquire of the second member returns the same fencing token.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(3);
@@ -283,17 +342,24 @@ hz2Lock.unlock();
 hz2Lock.unlock();
 
 <span style="color:#00f">assert</span> fence4 &gt; fence3;</code></pre></div>
+
 <p>You can use <code>FencedLock.lockAndGetFence()</code> and <code>FencedLock.tryLockAndGetFence()</code> methods to avoid repeated patterns of <code>lock.lock(); lock.getFence();</code> chains.</p>
+
 <p>There’s another subtlety related to reentrancy and the possibility of losing your lock in a hiccup. At the point your code re-acquires the lock, it may have lost it beforehand, so it doesn’t actually re-acquire it, but gets it afresh. Your critical section was broken and other clients did their actions while you were gone, but everything appears to be going on as planned. The external systems agree that you are the lock holder and you proceed on the assumption that no other requests but your own got through. Eventually your code will try to release the lock twice and get an exception on the second release, but at that point the damage has already been done.</p>
+
 <p>FencedLock implements a further mechanism that prevents this from happening: it makes the lock holder aware that it has lost ownership of the lock the next time it interacts with the FencedLock proxy. In Figure 2, <code>Client-1</code> acquires the lock and hits a long GC pause. It loses ownership of the lock after some time due to the failure to commit any heartbeat operations. Then, <code>Client-2</code> acquires and releases the lock while <code>Client-1</code> is still frozen. Eventually, <code>Client-1</code> comes back alive and tries to reentrantly acquire the lock for the second time, thinking it still holds it. Now FencedLock throws <code>LockOwnershipLostException</code> and stops it from proceeding with the happy path.</p>
+
 <p>You can use the same mechanism even without re-acquiring the lock, as an optimization: you can find out at any point in the code that you lost the lock, before trying to access the external system.</p>
+
 <figure>
     <img src="/figures/fencing_2.png"/> <figcaption>
             <h4>Figure 2: Failing stale lock holders</h4>
         </figcaption>
 </figure>
 
+
 <p>We’ll demonstrate the failure with <code>LockOwnershipLostException</code> on an even simpler scenario. In the following code sample, we forcefully close the CP session of the lock-holding Hazelcast member as if its session was closed due to missing heartbeats. Then, the next <code>lock()</code> call of the kicked-out lock holder fails with <code>LockOwnershipLostException</code>. This scenario could occur when a Hazelcast member comes back alive after it was assumed to be crashed and its CP sessions were forcefully closed. Note that <code>LockOwnershipLostException</code> is still thrown even if the lock is not acquired by anyone else after it is forcefully released in the CP group.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(3);
@@ -321,25 +387,40 @@ CPSession session = sessions.iterator().next();
     <span style="color:#00f">assert</span> <span style="color:#00f">false</span>;
 } <span style="color:#00f">catch</span> (LockOwnershipLostException expected) {
 }</code></pre></div>
+
 <h1 id="testing-fencedlock-with-jepsen">Testing FencedLock with Jepsen</h1>
+
 <p>If there is anything harder than building distributed systems, it is validating their behavior. Jepsen has proven to be a very successful tool in this endeavor and became the standard tool to test the safety of distributed systems. It subjects the system to many kinds of failures while running a test case and verifies that the system keeps its promises.</p>
+
 <p>We have been using Jepsen to test the correctness of our new linearizable <code>java.util.concurrent.*</code> implementations under network partition failures. In fact, we followed a process we call “Jepsen-test-driven development”. We wrote our Jepsen tests first. Then, we ran those tests against the implementations to see how they behave and where they fail. After each iteration, we improved both the behavior and reliability of the implementations and then made another test run. This approach has been very fruitful to enable our implementations to preserve safety and remain useful for several edge cases. To the best of our knowledge, FencedLock is the first open source distributed lock implementation that is tested with such a comprehensive approach.</p>
+
 <p>We test FencedLock in 4 different ways:</p>
+
 <ul>
 <li><em>Non-reentrancy</em>: we test if FencedLock behaves as a non-reentrant mutex, i.e., it can be held by a single endpoint at a time and only that endpoint can release it. Moreover, the lock cannot be acquired by the same endpoint reentrantly.</li>
 <li><em>Reentrancy</em>: We test if FencedLock behaves as a reentrant mutex. A single endpoint can hold the lock at a time and that endpoint can acquire the lock reentrantly. The reentrant lock acquire limit is 2 for this test.</li>
 <li><em>Monotonic fencing tokens for non-reentrant FencedLock</em>: We validate the monotonicity of fencing tokens assigned to lock holders.</li>
 <li><em>Monotonic fencing tokens for reentrant FencedLock</em>: Fencing tokens are incremented each time the lock switches from the available state to the held state. However, if the current lock holder acquires the lock reentrantly, it will get the same fencing token. The reentrant lock acquire limit is 2 for this test.</li>
 </ul>
-<p>We fixed all the bugs that these tests revealed so far. You can see our tests in the &lt;a href=&quot;https://github.com/jepsen-io/jepsen/tree/master/hazelcast&rdquo; target=“_blank&quot;&gt;official Jepsen repo<!-- raw HTML omitted -->. We are planning to extend our suite with more test scenarios and failure cases in addition to network partition failures. We are also integrating our Jepsen test suite into our CI system.</p>
+
+<p>We fixed all the bugs that these tests revealed so far. You can see our tests in the <a href="https://github.com/jepsen-io/jepsen/tree/master/hazelcast" target=“\_blank">official Jepsen repo</a>. We are planning to extend our suite with more test scenarios and failure cases in addition to network partition failures. We are also integrating our Jepsen test suite into our CI system.</p>
+
 <h1 id="closing-words">Closing Words</h1>
+
 <p>Locking in a distributed system is possible, but only if all of its components participate in the protocol. Hazelcast provides you with the implementation of such a distributed locking protocol and gives your components a straightforward way to participate in it.</p>
-<p>We are looking forward to hearing about how developers use FencedLock for their needs. You can check &lt;a href=&quot;https://hazelcast.org/documentation/&rdquo; target=“_blank&quot;&gt;our documentation<!-- raw HTML omitted --> and &lt;a href=&quot;https://github.com/hazelcast/hazelcast-code-samples/tree/master/cp-subsystem&rdquo; target=“_blank&quot;&gt;code samples<!-- raw HTML omitted --> to learn more about FencedLock, and use &lt;a href=&quot;https://groups.google.com/forum/#!forum/hazelcast&rdquo; target=“_blank&quot;&gt;our Google groups<!-- raw HTML omitted --> to ask for help.</p>
+
+<p>We are looking forward to hearing about how developers use FencedLock for their needs. You can check <a href="https://hazelcast.org/documentation/" target=“\_blank">our documentation</a> and <a href="https://github.com/hazelcast/hazelcast-code-samples/tree/master/cp-subsystem" target=“\_blank">code samples</a> to learn more about FencedLock, and use <a href="https://groups.google.com/forum/#!forum/hazelcast" target=“\_blank">our Google groups</a> to ask for help.</p>
+
 <p>Until next time…</p>
+
 <h1 id="acknowledgments">Acknowledgments</h1>
+
 <p>I would like to thank Martin Kleppmann for his valuable feedback and insightful comments, Marko Topolnik for his remarkable effort to help me improve this blog post, and Hazelcast folks for their reviews.</p>
+
 <h1 id="edit-log">Edit Log</h1>
+
 <p><strong>(April 4, 2019):</strong> We improved Figure 1 and the explanation of how to use the monotonic fencing tokens to achieve mutual exclusion across external services. In short, although no locking service can ensure only one process thinks it holds the lock, we can use monotonic fencing tokens to ensure that only one process can perform side effects on multiple external services at a time.</p>
+
 <p><strong>(June 6, 2019):</strong> The follow-up blog post is linked in the intro.</p>
 
 		</div><div id="disqus_thread"></div>
@@ -362,7 +443,7 @@ CPSession session = sessions.iterator().next();
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

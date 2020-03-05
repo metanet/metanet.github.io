@@ -7,9 +7,9 @@
 <meta property="og:description" content="In this blog post, I’ll walk through a couple of code samples to demonstrate how you can manage the CP subsystem for several scenarios. You can find all of the code samples shown here in our repo.
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2019-03-18-riding-the-cp-subsystem/" />
-<meta property="article:published_time" content="2019-03-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-03-18T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2019-03-18-riding-the-cp-subsystem/" />
+<meta property="article:published_time" content="2019-03-18T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-03-18T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Riding the CP Subsystem"/>
 <meta name="twitter:description" content="In this blog post, I’ll walk through a couple of code samples to demonstrate how you can manage the CP subsystem for several scenarios. You can find all of the code samples shown here in our repo.
@@ -56,19 +56,27 @@
 		<div class="post-header">
 			<h1 class="title">Riding the CP Subsystem</h1>
 			<div class="meta">Posted at &mdash; Mar 18, 2019
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-imdg">hazelcast imdg</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-imdg-cp-subsystem">hazelcast imdg cp subsystem</a>&nbsp;
 			</p>
 			
 			</div>
 		</div>
 
 		<div class="markdown">
-			<p><em><strong>I published this post at &lt;a href=&quot;https://hazelcast.com/blog/riding-the-cp-subsystem/&rdquo; target=“_blank&quot;&gt;Hazelcast blog<!-- raw HTML omitted --> and put a copy here.</strong></em></p>
-<p>The CP Subsystem of &lt;a href=&quot;https://hazelcast.org/download/&rdquo; target=“_blank&quot;&gt;Hazelcast IDMG 3.12<!-- raw HTML omitted --> offers a new linearizable implementation of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. These implementations live alongside AP data structures in the same Hazelcast IMDG cluster (new BFFs, yay!). You can store large data sets on hundreds of Hazelcast members and coordinate your operations using the new safe concurrency primitives that reside in the very same cluster.</p>
+			
+
+<p><strong><em>I published this post at <a href="https://hazelcast.com/blog/riding-the-cp-subsystem/" target=“\_blank">Hazelcast blog</a> and put a copy here.</em></strong></p>
+
+<p>The CP Subsystem of <a href="https://hazelcast.org/download/" target=“\_blank">Hazelcast IDMG 3.12</a> offers a new linearizable implementation of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. These implementations live alongside AP data structures in the same Hazelcast IMDG cluster (new BFFs, yay!). You can store large data sets on hundreds of Hazelcast members and coordinate your operations using the new safe concurrency primitives that reside in the very same cluster.</p>
+
 <p>This design poses a significant challenge. Hazelcast IMDG is known for its dynamic and elastic clustering capabilities. You can separately configure backups for your data structures, scale out/in your cluster, or replace failed nodes, easy peasy. However, it is quite difficult to propagate dynamicity to a system that works on top of a consensus algorithm. Having membership change capability in the underlying algorithm, i.e., Raft, is one thing, having a full-blown dynamic multi-group consensus system is another thing! We’ve been working hard to make the CP subsystem as easy to use as the rest of the Hazelcast IMDG in terms of clustering and management capabilities.</p>
+
 <p>In this blog post, I’ll walk through a couple of code samples to demonstrate how you can manage the CP subsystem for several scenarios. You can find all of the code samples shown here in our repo.</p>
+
 <p><em>Please note that all the scenarios that are handled programmatically in this blog post can be also handled via our REST API and management scripts.</em></p>
+
 <p>Let’s start with the basics.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 config.getCPSubsystemConfig().setCPMemberCount(3);
 HazelcastInstance hz1 = Hazelcast.newHazelcastInstance(config);
@@ -85,8 +93,11 @@ HazelcastInstance hz4 = Hazelcast.newHazelcastInstance(config);
 <span style="color:#008000">// We can access to the CP data structures from any Hazelcast member
 </span><span style="color:#008000"></span>System.out.println(hz1.getCPSubsystem().getAtomicLong(<span style="color:#a31515">&#34;counter&#34;</span>).incrementAndGet());
 System.out.println(hz4.getCPSubsystem().getAtomicLong(<span style="color:#a31515">&#34;counter&#34;</span>).incrementAndGet());</code></pre></div>
+
 <p>In this code sample, we start a cluster of 4 Hazelcast members and the CP subsystem is configured with 3 CP members. The first 3 members are discovered as CP members and they initialize the CP subsystem in the background. Then, we can start using the new data structures from any Hazelcast member.</p>
+
 <p>Let’s shift up!</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 config.getCPSubsystemConfig().setCPMemberCount(5);
 config.getCPSubsystemConfig().setGroupSize(3);
@@ -123,17 +134,24 @@ hz1.getCPSubsystem().getAtomicLong(<span style="color:#a31515">&#34;counter2@&#3
 CPGroup customGroup = cpSubsystemManagementService.getCPGroup(customCPGroupName).get();
 <span style="color:#00f">assert</span> customGroup.members().size() == 3;
 System.out.println(customCPGroupName + <span style="color:#a31515">&#34; CP group has the following CP members: &#34;</span> + customGroup.members());</code></pre></div>
+
 <p>This time, we configure the CP Subsystem to have 5 CP members, and CP groups will be formed of 3 CP members. Members of a CP group are randomly chosen among all CP members available in the CP subsystem each time a new CP group is created. In our example, we have the Metadata and Default CP groups, and we create another CP group, named: “custom”. These 3 CP groups run independently. Each CP group will have its own Raft leader to commit incoming operations to its majority. By this way, we can distribute our workload among multiple CP groups and Hazelcast members. The following figure presents a simple illustration for this example in which Raft leaders are depicted as bold boxes. The CP groups are formed from a different set of CP members and each CP group elects its Raft leader.</p>
+
 <figure>
     <img src="/figures/cpsubsystem_1.png"/> <figcaption>
             <h4>CP Subsystem with 5 CP members and 3 CP groups</h4>
         </figcaption>
 </figure>
 
+
 <h1 id="no-fun-without-failures">No Fun without Failures</h1>
+
 <p>OK. Let’s talk about failures. Consider the scenario where we run the CP Subsystem with 5 CP members (the CP group size is also 5) and 2 of them crash. Business as usual, but unfortunately this scenario is risky. If another CP member crashes, the majority of the CP groups will not be satisfied anymore and the CP Subsystem will lose its availability.</p>
+
 <p>There is more than one way to deal with this situation. First, we can reduce the size of the CP Subsystem by removing the failed CP members. When we remove those 2 members, the CP Subsystem will have 3 CP members remaining and the majority will be reduced to 2. Now, we can even handle the crash of a 3rd CP member and continue our operation with 2 CP members. If you are not already impressed, we have a few more tricks left! To recover the CP Subsystem back to 5 CP members, we can promote the regular Hazelcast members to the CP role. For instance, if we promote 3 AP members to the CP role, then all CP groups will have 5 members and the majority value will be restored to 3. Please note that a single Hazelcast member can behave as a CP member and AP member at the same time. Hence, an AP member does not delete its AP data structure data when it is promoted to the CP role.</p>
+
 <p>The following code sample demonstrates this scenario.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 config.getCPSubsystemConfig().setCPMemberCount(5);
 HazelcastInstance hz1 = Hazelcast.newHazelcastInstance(config);
@@ -188,8 +206,11 @@ hz8.getCPSubsystem().getCPSubsystemManagementService().promoteToCPMember().get()
 </span><span style="color:#008000"></span>metadataGroup = cpSubsystemManagementService.getCPGroup(CPGroup.METADATA_CP_GROUP_NAME).get();
 <span style="color:#00f">assert</span> metadataGroup.members().size() == 5;
 System.out.println(<span style="color:#a31515">&#34;Metadata CP group has the following CP members: &#34;</span> + metadataGroup.members());</code></pre></div>
+
 <p>We can make the CP Subsystem do all of this for us automatically! When a member is removed from the Hazelcast cluster member list, it is not automatically removed from the CP Subsystem. The reason being, failure detection in asynchronous distributed systems is not perfect. What we actually detect is a member has been unresponsive for some duration. Maybe that member is just slowed down under high load, or it is having a long GC pause. There may be a problem with the network, or the member actually crashed. Since Hazelcast IMDG favors availability, it treats all of these cases with the same approach and removes the unresponsive member from the cluster. However, the CP Subsystem follows a more conservative path. It waits for some configurable duration (4 hours by default) before removing the missing CP member automatically. Here, we assume that no temporary problem in our system will take longer than 4 hours. You can configure your duration based on your operational schedule or disable this feature altogether.</p>
+
 <p>In the following code sample, we configure the CP Subsystem to deal with missing CP members 10 seconds after they leave the Hazelcast cluster. Of course, 10 seconds is very short in duration and should not be used in production environments. We use it here to run the code sample in a short time.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(5);
@@ -229,8 +250,11 @@ CPSubsystemManagementService cpSubsystemManagementService = hz1.getCPSubsystem()
 
     Thread.sleep(1000);
 }</code></pre></div>
-<h1 id="_obliviate_-to-the-rescue"><em>Obliviate</em> to the Rescue!</h1>
+
+<h1 id="obliviate-to-the-rescue"><em>Obliviate</em> to the Rescue!</h1>
+
 <p>Since the CP Subsystem works in memory for now, a sudden loss of majority causes total loss of availability for the CP Subsystem. The only solution left is to swing our wand and say <em>“Obliviate!”</em>. We can forcefully terminate the CP Subsystem on the remaining CP members and start the whole thing from scratch with a single API call. In this way, we reset the CP subsystem without shutting down the whole cluster. A geeky version of the <em>Obliviate</em> charm is below.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Config config = <span style="color:#00f">new</span> Config();
 CPSubsystemConfig cpSubsystemConfig = config.getCPSubsystemConfig();
 cpSubsystemConfig.setCPMemberCount(3);
@@ -272,8 +296,11 @@ cpSubsystemManagementService.restart().get();
 <span style="color:#00f">for</span> (HazelcastInstance hz : Arrays.asList(hz1, hz4, hz5)) {
     hz.getLifecycleService().terminate();
 }</code></pre></div>
+
 <h1 id="welcome-to-the-club">Welcome to the Club!</h1>
-<p>Wow, it has been a long ride… If you are still with me, you have a good potential to be a CP Subsystem rider! You can download the new &lt;a href=&quot;https://hazelcast.org/download/&rdquo; target=“_blank&quot;&gt;Hazelcast IMDG 3.12 release<!-- raw HTML omitted --> and crank your cluster! You can also take a look at our &lt;a href=&quot;https://hazelcast.org/documentation/&rdquo; target=“_blank&quot;&gt;documentation<!-- raw HTML omitted --> and &lt;a href=&quot;https://github.com/hazelcast/hazelcast-code-samples&rdquo; target=“_blank&quot;&gt;code samples<!-- raw HTML omitted --> to learn more about the CP Subsystem.</p>
+
+<p>Wow, it has been a long ride… If you are still with me, you have a good potential to be a CP Subsystem rider! You can download the new <a href="https://hazelcast.org/download/" target=“\_blank">Hazelcast IMDG 3.12 release</a> and crank your cluster! You can also take a look at our <a href="https://hazelcast.org/documentation/" target=“\_blank">documentation</a> and <a href="https://github.com/hazelcast/hazelcast-code-samples" target=“\_blank">code samples</a> to learn more about the CP Subsystem.</p>
+
 <p>Stay tuned until next time!</p>
 
 		</div><div id="disqus_thread"></div>
@@ -296,7 +323,7 @@ cpSubsystemManagementService.restart().get();
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

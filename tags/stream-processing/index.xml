@@ -1,45 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>stream processing on Ensar Basri Kahveci</title>
-    <link>https://basrikahveci.com/tags/stream-processing/</link>
+    <link>https://basri.dev/tags/stream-processing/</link>
     <description>Recent content in stream processing on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 21 May 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basrikahveci.com/tags/stream-processing/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basri.dev/tags/stream-processing/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hazelcast Jet 0.6: Dynamic Scale out of Streaming Jobs
 </title>
-      <link>https://basrikahveci.com/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</link>
+      <link>https://basri.dev/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</link>
       <pubDate>Mon, 21 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</guid>
-      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/hazelcast-jet-0-6-dynamic-scale-streaming-jobs/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
+      <guid>https://basri.dev/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
 In Hazelcast Jet 0.5, we introduced fault tolerance for streaming computations. Hazelcast Jet periodically takes snapshots of the state of a running job and stores these snapshots in Hazelcast IMaps. In case of a failure, the job is restarted from the last successful snapshot. Hazelcast Jet 0.6 uses the same snapshotting mechanism to enable dynamic scaling of streaming jobs.</description>
     </item>
     
     <item>
       <title>Processing Guarantees in Hazelcast Jet</title>
-      <link>https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</link>
+      <link>https://basri.dev/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</link>
       <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</guid>
-      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/processing-guarantees-hazelcast-jet/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
+      <guid>https://basri.dev/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
 Stream processing is a paradigm for on-the-fly processing of unbounded data feeds. We have been witnessing that stream processing engines (SPEs) get more attention every day in the era of fast data and become a fundamental component of data processing pipelines. They usually run in distributed settings to be able to cope with the flood of incoming data entries.</description>
     </item>
     
     <item>
       <title>Hazelcast Jet 0.5: Fault Tolerant Stream Processing Made Easy
 </title>
-      <link>https://basrikahveci.com/posts/2017-12-06-hazelcast-jet-05/</link>
+      <link>https://basri.dev/posts/2017-12-06-hazelcast-jet-05/</link>
       <pubDate>Wed, 06 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2017-12-06-hazelcast-jet-05/</guid>
-      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/hazelcast-jet-0-5-fault-tolerant-stateful-stream-processing-made-easy/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
+      <guid>https://basri.dev/posts/2017-12-06-hazelcast-jet-05/</guid>
+      <description>I published this post at Hazelcast blog and put a copy here.
 Stream processing is an emerging computational paradigm for on-the-fly processing of live data feeds, targeting low latency and high throughput. Streaming applications are usually deployed on multiple servers to achieve these requirements. Since even a single failure may lead to incorrect results or long interruptions in result delivery, fault tolerance is of paramount importance in such long-running distributed applications.</description>
     </item>
     

@@ -1,103 +1,103 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>spring on Ensar Basri Kahveci</title>
-    <link>https://basrikahveci.com/tags/spring/</link>
+    <link>https://basri.dev/tags/spring/</link>
     <description>Recent content in spring on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 21 Oct 2011 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basrikahveci.com/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basri.dev/tags/spring/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configuring Spring Security to persist the SecurityContext to places other than session between requests</title>
-      <link>https://basrikahveci.com/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/</link>
+      <link>https://basri.dev/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/</link>
       <pubDate>Fri, 21 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/</guid>
+      <guid>https://basri.dev/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/</guid>
       <description>Yeah I agree, I suck at titles :) But, again and again, Spring guys are real badasses :)
 By default, Spring Security keeps the SecurityContext object in session objects of user between requests. SecurityContextPersistenceFilter manages this task. When a request comes, it reads the SecurityContext object from a security context repository (which I will mention in a second), puts it to SecurityContextHolder to be used by other filters and the application.</description>
     </item>
     
     <item>
       <title>Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources</title>
-      <link>https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</link>
+      <link>https://basri.dev/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</link>
       <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</guid>
+      <guid>https://basri.dev/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/</guid>
       <description>If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&amp;rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &amp;ldquo;*.jsf&amp;rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary.</description>
     </item>
     
     <item>
       <title>Writing a custom Facelet EL function makes authorization check using Spring Security</title>
-      <link>https://basrikahveci.com/posts/2011-10-03-writing-a-custom-facelet-el-function/</link>
+      <link>https://basri.dev/posts/2011-10-03-writing-a-custom-facelet-el-function/</link>
       <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-10-03-writing-a-custom-facelet-el-function/</guid>
+      <guid>https://basri.dev/posts/2011-10-03-writing-a-custom-facelet-el-function/</guid>
       <description>It&amp;rsquo;s common that you may want to show some part of your pages to the user with certain roles. Writing a custom Facelet EL function makes doing authorization checks for viewing parts of pages really easy. If you are using Spring Security in the background, you can use its SecurityContext object to get authorities of the user and use them in your EL function implementation.
 Here, there is a simple EL function implementation that users Spring Security to get roles of user and controls if the user has a certain role or not.</description>
     </item>
     
     <item>
       <title>Integrating Spring Security with LDAP</title>
-      <link>https://basrikahveci.com/posts/2011-09-29-integrating-spring-security-with-ldap/</link>
+      <link>https://basri.dev/posts/2011-09-29-integrating-spring-security-with-ldap/</link>
       <pubDate>Thu, 29 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-09-29-integrating-spring-security-with-ldap/</guid>
+      <guid>https://basri.dev/posts/2011-09-29-integrating-spring-security-with-ldap/</guid>
       <description>To integrate Spring Security with Ldap, add the dependency to your build path first. You don&amp;rsquo;t have to define the second dependency, it is for using the latest version of spring ldap core.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.security&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-security-ldap&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.0.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.ldap&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-ldap-core&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.3.1.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Spring LDAP&amp;rsquo;s LdapTemplate makes doing LDAP operations too much easy. But for simple authentication mechanism, you don&amp;rsquo;t need to use it actually. Although I will talk about LdapTemplate a little bit.</description>
     </item>
     
     <item>
       <title>Spring ile bir paket altındaki sınıfları taramak</title>
-      <link>https://basrikahveci.com/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/</link>
+      <link>https://basri.dev/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/</link>
       <pubDate>Tue, 06 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/</guid>
+      <guid>https://basri.dev/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/</guid>
       <description>Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.
 Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yapmamızı sağlayan sınıflar sağlıyor. Spring’in sunduğu sınıflar ile bir paket altındaki sınıfları tarayabiliyor, sınıfı yüklemeden sınıfın metadatasına, annotationlarına ulaşabiliyor; sınıfı Class.</description>
     </item>
     
     <item>
       <title>Spring Security’de SecurityContext&#39;e ulaşmak</title>
-      <link>https://basrikahveci.com/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/</link>
+      <link>https://basri.dev/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/</link>
       <pubDate>Tue, 26 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/</guid>
+      <guid>https://basri.dev/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/</guid>
       <description>Spring Security&amp;rsquo;yle entegre çalışan bir uygulamada, kullanıcıların oturumlarına yönelik bilgiler SecurityContext nesnelerinde tutuluyor. SecurityContext nesneleri ise SecurityContextHolder içerisinde tutuluyor. Varsayılan olarak SecurityContextHolder, SecurityContext nesnelerini ThreadLocal kullanarak saklıyor. Böylelikle aynı thread&amp;rsquo;de çalışan metodlar aynı SecurityContext nesnesine ulaşabiliyorlar. SecurityContextHolderin çalışma modu da istenildiği takdirde değiştirilebiliyor.
 Uygulamanın oturumla alakalı işlerini Spring Security halletse de, bazen oturum açan kullanıcıya yönelik bilgiler bize de gerekebiliyor. Bunun için öncelikle SecurityContext nesnesine ulaşmamız gerekiyor. Onu da şöyle yapabiliyoruz.</description>
     </item>
     
     <item>
       <title>Spring ile konfigürasyon değerlerini property dosyalarına almak</title>
-      <link>https://basrikahveci.com/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/</link>
+      <link>https://basri.dev/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/</link>
       <pubDate>Sun, 10 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/</guid>
+      <guid>https://basri.dev/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/</guid>
       <description>Başlık konusunda çok sıkıntı çekiyorum ya. Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegrasyon arayüzleri (interface) ve bu arayüzlerin -out of the box- gerçekleştirimlerini (implementation) sunuyor. BeanPostProcessor bunlardan biri. BeanPostProcessor kullanarak, Spring container’i bir bean’i yaratıp ilklendirdikten (initialize) sonra, bean üzerinde istediğimiz işlemleri gerçekleştirebiliyoruz. Önceki yazılardan birinde bahsettiğim Spring ile Logger enjektesi, bunun bir örneği. BeanPostProcessor gerçekleştirimlerinin bir diğer örneği ise Spring ile gelen RequiredAnnotationBeanPostProcessor sınıfı.
 BeanFactoryPostProcessor arayüzü ise, Spring IoC container’ının bir başka genişleme noktası.</description>
     </item>
     
     <item>
       <title>JSF Validator&#39;larında Dependency Injection (ayrıca Spring ile)</title>
-      <link>https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</link>
+      <link>https://basri.dev/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</link>
       <pubDate>Fri, 11 Feb 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</guid>
-      <description>Acayip bir dil in, Türkçe yine out. Dependency Injection&#39;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği&amp;ldquo;bağımlılık zerketme&amp;rdquo;.
+      <guid>https://basri.dev/posts/2011-02-11-dependency-injection-in-custom-jsf-validators-alsowith-spring/</guid>
+      <description>Acayip bir dil in, Türkçe yine out. Dependency Injection&amp;rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi şu abimin dediği &amp;ldquo;bağımlılık zerketme&amp;rdquo;.
 Efenim JSF bize bean&amp;rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&amp;rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz.</description>
     </item>
     
     <item>
       <title>Spring Bean&#39;lerine otomatik olarak Logger enjekte etmek</title>
-      <link>https://basrikahveci.com/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</link>
+      <link>https://basri.dev/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</link>
       <pubDate>Tue, 08 Feb 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</guid>
+      <guid>https://basri.dev/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</guid>
       <description>Öncelikle başlıkta bir kısmına şahit olduğunuz ve birazdan fazlasına maruz kalacağınız kötü Türkçe için sizden özür diliyorum.
-Bir projede, log tutmak için SLF4J, Dependency Injection için de Spring kullanıyorken, bean&amp;rsquo;lerin SLF4J logger&amp;rsquo;larına statik olarak bağımlı olması yerine logger&amp;rsquo;ların bean&amp;rsquo;lere Spring ile enjekte etmenin daha güzel, aradaki bağımlılığı azaltıcı yönde bir yaklaşım olacağını düşündüm (enjekte edilecek loggerların SLF4J logger&#39;ı olması gerekmiyor). Bunu nasıl yaparım diye düşünürken Spring&amp;rsquo;in tam da düşündüğüm gibi bir güzellik sağladığını, insanların da benden çok çok evvel o güzellikten bir çözüm elde ettiğini araştırırken buldum.</description>
+Bir projede, log tutmak için SLF4J, Dependency Injection için de Spring kullanıyorken, bean&amp;rsquo;lerin SLF4J logger&amp;rsquo;larına statik olarak bağımlı olması yerine logger&amp;rsquo;ların bean&amp;rsquo;lere Spring ile enjekte etmenin daha güzel, aradaki bağımlılığı azaltıcı yönde bir yaklaşım olacağını düşündüm (enjekte edilecek loggerların SLF4J logger&amp;rsquo;ı olması gerekmiyor). Bunu nasıl yaparım diye düşünürken Spring&amp;rsquo;in tam da düşündüğüm gibi bir güzellik sağladığını, insanların da benden çok çok evvel o güzellikten bir çözüm elde ettiğini araştırırken buldum.</description>
     </item>
     
   </channel>

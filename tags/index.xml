@@ -1,391 +1,391 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Ensar Basri Kahveci</title>
-    <link>https://basrikahveci.com/tags/</link>
+    <link>https://basri.dev/tags/</link>
     <description>Recent content in Tags on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basrikahveci.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basri.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>cap theorem</title>
-      <link>https://basrikahveci.com/tags/cap-theorem/</link>
+      <link>https://basri.dev/tags/cap-theorem/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/cap-theorem/</guid>
+      <guid>https://basri.dev/tags/cap-theorem/</guid>
       <description></description>
     </item>
     
     <item>
       <title>distributed locking</title>
-      <link>https://basrikahveci.com/tags/distributed-locking/</link>
+      <link>https://basri.dev/tags/distributed-locking/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/distributed-locking/</guid>
+      <guid>https://basri.dev/tags/distributed-locking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>distributed locks</title>
-      <link>https://basrikahveci.com/tags/distributed-locks/</link>
+      <link>https://basri.dev/tags/distributed-locks/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/distributed-locks/</guid>
+      <guid>https://basri.dev/tags/distributed-locks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fencedlock</title>
-      <link>https://basrikahveci.com/tags/fencedlock/</link>
+      <link>https://basri.dev/tags/fencedlock/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/fencedlock/</guid>
+      <guid>https://basri.dev/tags/fencedlock/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hazelcast</title>
-      <link>https://basrikahveci.com/tags/hazelcast/</link>
+      <link>https://basri.dev/tags/hazelcast/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/hazelcast/</guid>
+      <guid>https://basri.dev/tags/hazelcast/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hazelcast imdg</title>
-      <link>https://basrikahveci.com/tags/hazelcast-imdg/</link>
+      <link>https://basri.dev/tags/hazelcast-imdg/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/hazelcast-imdg/</guid>
+      <guid>https://basri.dev/tags/hazelcast-imdg/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hazelcast imdg cp subsystem</title>
-      <link>https://basrikahveci.com/tags/hazelcast-imdg-cp-subsystem/</link>
+      <link>https://basri.dev/tags/hazelcast-imdg-cp-subsystem/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/hazelcast-imdg-cp-subsystem/</guid>
+      <guid>https://basri.dev/tags/hazelcast-imdg-cp-subsystem/</guid>
       <description></description>
     </item>
     
     <item>
       <title>java</title>
-      <link>https://basrikahveci.com/tags/java/</link>
+      <link>https://basri.dev/tags/java/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/java/</guid>
+      <guid>https://basri.dev/tags/java/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jepsen testing</title>
-      <link>https://basrikahveci.com/tags/jepsen-testing/</link>
+      <link>https://basri.dev/tags/jepsen-testing/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jepsen-testing/</guid>
+      <guid>https://basri.dev/tags/jepsen-testing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>raft consensus algorithm</title>
-      <link>https://basrikahveci.com/tags/raft-consensus-algorithm/</link>
+      <link>https://basri.dev/tags/raft-consensus-algorithm/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/raft-consensus-algorithm/</guid>
+      <guid>https://basri.dev/tags/raft-consensus-algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hazelcast jet</title>
-      <link>https://basrikahveci.com/tags/hazelcast-jet/</link>
+      <link>https://basri.dev/tags/hazelcast-jet/</link>
       <pubDate>Mon, 21 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/hazelcast-jet/</guid>
+      <guid>https://basri.dev/tags/hazelcast-jet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>stream processing</title>
-      <link>https://basrikahveci.com/tags/stream-processing/</link>
+      <link>https://basri.dev/tags/stream-processing/</link>
       <pubDate>Mon, 21 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/stream-processing/</guid>
+      <guid>https://basri.dev/tags/stream-processing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>netty</title>
-      <link>https://basrikahveci.com/tags/netty/</link>
+      <link>https://basri.dev/tags/netty/</link>
       <pubDate>Fri, 22 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/netty/</guid>
+      <guid>https://basri.dev/tags/netty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>p2p</title>
-      <link>https://basrikahveci.com/tags/p2p/</link>
+      <link>https://basri.dev/tags/p2p/</link>
       <pubDate>Fri, 22 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/p2p/</guid>
+      <guid>https://basri.dev/tags/p2p/</guid>
       <description></description>
     </item>
     
     <item>
       <title>peer to peer</title>
-      <link>https://basrikahveci.com/tags/peer-to-peer/</link>
+      <link>https://basri.dev/tags/peer-to-peer/</link>
       <pubDate>Fri, 22 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/peer-to-peer/</guid>
+      <guid>https://basri.dev/tags/peer-to-peer/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k-means clustering</title>
-      <link>https://basrikahveci.com/tags/k-means-clustering/</link>
+      <link>https://basri.dev/tags/k-means-clustering/</link>
       <pubDate>Wed, 03 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/k-means-clustering/</guid>
+      <guid>https://basri.dev/tags/k-means-clustering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>machine learning</title>
-      <link>https://basrikahveci.com/tags/machine-learning/</link>
+      <link>https://basri.dev/tags/machine-learning/</link>
       <pubDate>Wed, 03 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/machine-learning/</guid>
+      <guid>https://basri.dev/tags/machine-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scala</title>
-      <link>https://basrikahveci.com/tags/scala/</link>
+      <link>https://basri.dev/tags/scala/</link>
       <pubDate>Wed, 03 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/scala/</guid>
+      <guid>https://basri.dev/tags/scala/</guid>
       <description></description>
     </item>
     
     <item>
       <title>command line</title>
-      <link>https://basrikahveci.com/tags/command-line/</link>
+      <link>https://basri.dev/tags/command-line/</link>
       <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/command-line/</guid>
+      <guid>https://basri.dev/tags/command-line/</guid>
       <description></description>
     </item>
     
     <item>
       <title>groovy</title>
-      <link>https://basrikahveci.com/tags/groovy/</link>
+      <link>https://basri.dev/tags/groovy/</link>
       <pubDate>Sun, 02 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/groovy/</guid>
+      <guid>https://basri.dev/tags/groovy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jvm</title>
-      <link>https://basrikahveci.com/tags/jvm/</link>
+      <link>https://basri.dev/tags/jvm/</link>
       <pubDate>Sun, 02 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jvm/</guid>
+      <guid>https://basri.dev/tags/jvm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scripting</title>
-      <link>https://basrikahveci.com/tags/scripting/</link>
+      <link>https://basri.dev/tags/scripting/</link>
       <pubDate>Sun, 02 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/scripting/</guid>
+      <guid>https://basri.dev/tags/scripting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jedis</title>
-      <link>https://basrikahveci.com/tags/jedis/</link>
+      <link>https://basri.dev/tags/jedis/</link>
       <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jedis/</guid>
+      <guid>https://basri.dev/tags/jedis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>publish-subscibe</title>
-      <link>https://basrikahveci.com/tags/publish-subscibe/</link>
+      <link>https://basri.dev/tags/publish-subscibe/</link>
       <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/publish-subscibe/</guid>
+      <guid>https://basri.dev/tags/publish-subscibe/</guid>
       <description></description>
     </item>
     
     <item>
       <title>redis</title>
-      <link>https://basrikahveci.com/tags/redis/</link>
+      <link>https://basri.dev/tags/redis/</link>
       <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/redis/</guid>
+      <guid>https://basri.dev/tags/redis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>integration-testing</title>
-      <link>https://basrikahveci.com/tags/integration-testing/</link>
+      <link>https://basri.dev/tags/integration-testing/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/integration-testing/</guid>
+      <guid>https://basri.dev/tags/integration-testing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jetty</title>
-      <link>https://basrikahveci.com/tags/jetty/</link>
+      <link>https://basri.dev/tags/jetty/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jetty/</guid>
+      <guid>https://basri.dev/tags/jetty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>maven</title>
-      <link>https://basrikahveci.com/tags/maven/</link>
+      <link>https://basri.dev/tags/maven/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/maven/</guid>
+      <guid>https://basri.dev/tags/maven/</guid>
       <description></description>
     </item>
     
     <item>
       <title>maven failsafe</title>
-      <link>https://basrikahveci.com/tags/maven-failsafe/</link>
+      <link>https://basri.dev/tags/maven-failsafe/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/maven-failsafe/</guid>
+      <guid>https://basri.dev/tags/maven-failsafe/</guid>
       <description></description>
     </item>
     
     <item>
       <title>maven surefire</title>
-      <link>https://basrikahveci.com/tags/maven-surefire/</link>
+      <link>https://basri.dev/tags/maven-surefire/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/maven-surefire/</guid>
+      <guid>https://basri.dev/tags/maven-surefire/</guid>
       <description></description>
     </item>
     
     <item>
       <title>selenium</title>
-      <link>https://basrikahveci.com/tags/selenium/</link>
+      <link>https://basri.dev/tags/selenium/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/selenium/</guid>
+      <guid>https://basri.dev/tags/selenium/</guid>
       <description></description>
     </item>
     
     <item>
       <title>spring</title>
-      <link>https://basrikahveci.com/tags/spring/</link>
+      <link>https://basri.dev/tags/spring/</link>
       <pubDate>Fri, 21 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/spring/</guid>
+      <guid>https://basri.dev/tags/spring/</guid>
       <description></description>
     </item>
     
     <item>
       <title>spring security</title>
-      <link>https://basrikahveci.com/tags/spring-security/</link>
+      <link>https://basri.dev/tags/spring-security/</link>
       <pubDate>Fri, 21 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/spring-security/</guid>
+      <guid>https://basri.dev/tags/spring-security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hibernate</title>
-      <link>https://basrikahveci.com/tags/hibernate/</link>
+      <link>https://basri.dev/tags/hibernate/</link>
       <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/hibernate/</guid>
+      <guid>https://basri.dev/tags/hibernate/</guid>
       <description></description>
     </item>
     
     <item>
       <title>java server faces</title>
-      <link>https://basrikahveci.com/tags/java-server-faces/</link>
+      <link>https://basri.dev/tags/java-server-faces/</link>
       <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/java-server-faces/</guid>
+      <guid>https://basri.dev/tags/java-server-faces/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jsf</title>
-      <link>https://basrikahveci.com/tags/jsf/</link>
+      <link>https://basri.dev/tags/jsf/</link>
       <pubDate>Mon, 03 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jsf/</guid>
+      <guid>https://basri.dev/tags/jsf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ldap</title>
-      <link>https://basrikahveci.com/tags/ldap/</link>
+      <link>https://basri.dev/tags/ldap/</link>
       <pubDate>Thu, 29 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/ldap/</guid>
+      <guid>https://basri.dev/tags/ldap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jpa</title>
-      <link>https://basrikahveci.com/tags/jpa/</link>
+      <link>https://basri.dev/tags/jpa/</link>
       <pubDate>Thu, 22 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jpa/</guid>
+      <guid>https://basri.dev/tags/jpa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hql</title>
-      <link>https://basrikahveci.com/tags/hql/</link>
+      <link>https://basri.dev/tags/hql/</link>
       <pubDate>Sun, 24 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/hql/</guid>
+      <guid>https://basri.dev/tags/hql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>orm</title>
-      <link>https://basrikahveci.com/tags/orm/</link>
+      <link>https://basri.dev/tags/orm/</link>
       <pubDate>Sun, 24 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/orm/</guid>
+      <guid>https://basri.dev/tags/orm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jsf-validator</title>
-      <link>https://basrikahveci.com/tags/jsf-validator/</link>
+      <link>https://basri.dev/tags/jsf-validator/</link>
       <pubDate>Fri, 11 Feb 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/jsf-validator/</guid>
+      <guid>https://basri.dev/tags/jsf-validator/</guid>
       <description></description>
     </item>
     
     <item>
       <title>slf4j</title>
-      <link>https://basrikahveci.com/tags/slf4j/</link>
+      <link>https://basri.dev/tags/slf4j/</link>
       <pubDate>Tue, 08 Feb 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basrikahveci.com/tags/slf4j/</guid>
+      <guid>https://basri.dev/tags/slf4j/</guid>
       <description></description>
     </item>
     

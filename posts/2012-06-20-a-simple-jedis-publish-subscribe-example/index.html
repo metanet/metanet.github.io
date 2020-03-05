@@ -7,9 +7,9 @@
 <meta property="og:description" content="Hello again, after more than 4 months :) So many things have changed in my life since my last blog post. I will try to talk about them from time to time, which I am not very sure about that actually :)
 I have been playing with Redis and its Java client Jedis lately. It looks very promising. I&rsquo;m making experimental things on it and I really liked it. I will probably use it one of my personal projects for some use cases." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basrikahveci.com/posts/2012-06-20-a-simple-jedis-publish-subscribe-example/" />
-<meta property="article:published_time" content="2012-06-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2012-06-20T00:00:00+00:00" />
+<meta property="og:url" content="https://basri.dev/posts/2012-06-20-a-simple-jedis-publish-subscribe-example/" />
+<meta property="article:published_time" content="2012-06-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2012-06-20T00:00:00&#43;00:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="A Simple Jedis Publish / Subscribe Example"/>
 <meta name="twitter:description" content="Hello again, after more than 4 months :) So many things have changed in my life since my last blog post. I will try to talk about them from time to time, which I am not very sure about that actually :)
@@ -56,7 +56,7 @@ I have been playing with Redis and its Java client Jedis lately. It looks very p
 		<div class="post-header">
 			<h1 class="title">A Simple Jedis Publish / Subscribe Example</h1>
 			<div class="meta">Posted at &mdash; Jun 20, 2012
-			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jedis">jedis</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/publish-subscibe">publish-subscibe</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/redis">redis</a>&nbsp;
+			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jedis">jedis</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/publish-subscibe">publish-subscibe</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/redis">redis</a>&nbsp;
 			</p>
 			
 			</div>
@@ -64,9 +64,13 @@ I have been playing with Redis and its Java client Jedis lately. It looks very p
 
 		<div class="markdown">
 			<p>Hello again, after more than 4 months :) So many things have changed in my life since my last blog post. I will try to talk about them from time to time, which I am not very sure about that actually :)</p>
+
 <p>I have been playing with Redis and its Java client Jedis lately. It looks very promising. I&rsquo;m making experimental things on it and I really liked it. I will probably use it one of my personal projects for some use cases.</p>
+
 <p>Below code is an example for a publish / subscribe use case with Jedis. You need Jedis (my version is 2.0.0) and SLF4J jars in your classpath for running it.</p>
+
 <p>In redis, you can subscribe to multiple channels and when someone publishes messages on those channels, redis notifies you with published messages. Jedis provides this functionality with <code>JedisPubSub</code> abstract class. To handle pub / sub events, you need to extend <code>JedisPubSub</code> class and implement the abstract methods.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#00f">package</span> com.basrikahveci.redis;
 	
 	<span style="color:#00f">import</span> org.slf4j.Logger;
@@ -107,8 +111,11 @@ I have been playing with Redis and its Java client Jedis lately. It looks very p
 	
     	}
 	}</code></pre></div>
+
 <p>Here is my dummy subscriber class. I will subscribe to some channels with this class and get notifications.</p>
+
 <p>My ugly main method is below.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#00f">package</span> com.basrikahveci.redis;
 	
 	<span style="color:#00f">import</span> org.slf4j.Logger;
@@ -152,7 +159,9 @@ I have been playing with Redis and its Java client Jedis lately. It looks very p
         jedisPool.returnResource(publisherJedis);
     }
 }</code></pre></div>
+
 <p>Let me explain it. I am using a <code>JedisPool</code> to get Jedis instances. Jedis class is not thread-safe but <code>JedisPool</code> is thread-safe by the way. I am using 2 Jedis instances, one for publishing messages and one for subscribing to channels. I made the subscription on another thread because it&rsquo;s a blocking operation. I also have a very simple <code>Publisher</code> class which reads from console and publishes them on the given channel. Here it is.</p>
+
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#00f">package</span> com.basrikahveci.redis;
 
 	<span style="color:#00f">import</span> org.slf4j.Logger;
@@ -196,13 +205,17 @@ I have been playing with Redis and its Java client Jedis lately. It looks very p
         	}
 	    }
 	}</code></pre></div>
+
 <p>I simply take user&rsquo;s input from console and publish it on a channel via Jedis client. When user types <code>quit</code>, I cancel the subscription and that triggers the blocked subscription thread to continue.</p>
+
 <p>Key points here are:</p>
+
 <ul>
 <li>Subscribe to channels on separate threads, they will be blocked while you are subscribed. You can subscribe to multiple channels with a single <code>PubSub</code> instance.</li>
 <li>Do not forget that Jedis instances are not thread-safe. For my example code, it is not that important but you should consider it if you will use Jedis.</li>
 <li>Use <code>JedisPool</code> if you will create many Jedis instances and give them back to the pool when you are done with them. By the way, the last arg (0) i passed to <code>JedisPool</code> is for avoiding <code>SocketTimeoutException</code>.</li>
 </ul>
+
 <p>You can get Jedis from <a href="https://github.com/xetorthio/jedis">here</a>.</p>
 
 		</div><div id="disqus_thread"></div>
@@ -225,7 +238,7 @@ I have been playing with Redis and its Java client Jedis lately. It looks very p
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>
