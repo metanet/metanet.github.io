@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>groovy on Ensar Basri Kahveci</title>
-    <link>https://basri.dev/tags/groovy/</link>
+    <link>https://basrikahveci.com/tags/groovy/</link>
     <description>Recent content in groovy on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 02 Sep 2012 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basri.dev/tags/groovy/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basrikahveci.com/tags/groovy/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Embedding Groovy scripts into your Java application</title>
-      <link>https://basri.dev/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/</link>
+      <link>https://basrikahveci.com/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/</link>
       <pubDate>Sun, 02 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/</guid>
+      <guid>https://basrikahveci.com/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/</guid>
       <description>I like Groovy for a lot of things like being easy to learn, its dynamic feature, readable syntax etc. But one of the things I like and utilize most is its embedding feature which helps you to run Groovy scripts in your already-running Java application. If you have a stateful Java application, running arbitrary Groovy scripts to examine your state can be very useful when things screw up on run-time.</description>
     </item>
     

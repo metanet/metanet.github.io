@@ -6,9 +6,9 @@
 	<meta property="og:title" content="Embedding Groovy scripts into your Java application" />
 <meta property="og:description" content="I like Groovy for a lot of things like being easy to learn, its dynamic feature, readable syntax etc. But one of the things I like and utilize most is its embedding feature which helps you to run Groovy scripts in your already-running Java application. If you have a stateful Java application, running arbitrary Groovy scripts to examine your state can be very useful when things screw up on run-time." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basri.dev/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/" />
-<meta property="article:published_time" content="2012-09-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2012-09-02T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://basrikahveci.com/posts/2012-09-02-embedding-groovy-scripts-into-your-java-application/" />
+<meta property="article:published_time" content="2012-09-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2012-09-02T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Embedding Groovy scripts into your Java application"/>
 <meta name="twitter:description" content="I like Groovy for a lot of things like being easy to learn, its dynamic feature, readable syntax etc. But one of the things I like and utilize most is its embedding feature which helps you to run Groovy scripts in your already-running Java application. If you have a stateful Java application, running arbitrary Groovy scripts to examine your state can be very useful when things screw up on run-time."/>
@@ -54,7 +54,7 @@
 		<div class="post-header">
 			<h1 class="title">Embedding Groovy scripts into your Java application</h1>
 			<div class="meta">Posted at &mdash; Sep 2, 2012
-			<p>-&nbsp;<a href="https://basri.dev/tags/groovy">groovy</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jvm">jvm</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/scripting">scripting</a>&nbsp;
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/groovy">groovy</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/jvm">jvm</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/scripting">scripting</a>&nbsp;
 			</p>
 			
 			</div>
@@ -62,11 +62,8 @@
 
 		<div class="markdown">
 			<p>I like Groovy for a lot of things like being easy to learn, its dynamic feature, readable syntax etc. But one of the things I like and utilize most is its embedding feature which helps you to run Groovy scripts in your already-running Java application. If you have a stateful Java application, running arbitrary Groovy scripts to examine your state can be very useful when things screw up on run-time.</p>
-
 <p>Groovy&rsquo;s embedding feature is quite smooth and painless. We tried Mozilla&rsquo;s Rhino before Groovy and I could not warm up to that. It seemed too complex to me. But when I tried Groovy, it took a few minutes to run a Groovy script in the application. I just added a few dependencies, initiated a couple of classes and provided the script.</p>
-
-<p>Groovy guys have explained how you can embed Groovy into your application <a href="http://groovy.codehaus.org/Embedding+Groovy" title="Embedding Groovy" target="_blank">on this page</a> with different methods. I prefer the GroovyShell class. Using Binding instance, I can pass objects I want to access from the script. If you are using a IoC container like Spring, you can pass your <code>ApplicationContext</code>, or you just pass a couple of service classes, or any other classes you want to make use of.</p>
-
+<p>Groovy guys have explained how you can embed Groovy into your application <!-- raw HTML omitted -->on this page<!-- raw HTML omitted --> with different methods. I prefer the GroovyShell class. Using Binding instance, I can pass objects I want to access from the script. If you are using a IoC container like Spring, you can pass your <code>ApplicationContext</code>, or you just pass a couple of service classes, or any other classes you want to make use of.</p>
 <p>It may be useful to catch the output of the script. To do that, you can pass an object like <code>StringWriter</code> via <code>Binding</code> and use that object instance for writing output.</p>
 
 		</div><div id="disqus_thread"></div>
@@ -89,7 +86,7 @@
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

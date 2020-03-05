@@ -1,54 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hazelcast on Ensar Basri Kahveci</title>
-    <link>https://basri.dev/tags/hazelcast/</link>
+    <link>https://basrikahveci.com/tags/hazelcast/</link>
     <description>Recent content in hazelcast on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basri.dev/tags/hazelcast/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basrikahveci.com/tags/hazelcast/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Testing the CP Subsystem with Jepsen</title>
-      <link>https://basri.dev/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/</link>
+      <link>https://basrikahveci.com/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/</link>
       <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
+      <guid>https://basrikahveci.com/posts/2019-06-03-testing-the-cp-subsystem-with-jepsen/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/testing-the-cp-subsystem-with-jepsen/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
 At Hazelcast we take reliability very seriously. With the new CP Subsystem module, Hazelcast has become the first and only IMDG that offers a linearizable distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm. In addition to well-grounded designs and proven algorithms, reliability also requires a substantial amount of testing. We have been working hard to ensure the validity of our consistency claims.</description>
     </item>
     
     <item>
       <title>Distributed Locks are Dead; Long Live Distributed Locks!
 </title>
-      <link>https://basri.dev/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/</link>
+      <link>https://basrikahveci.com/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/</link>
       <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
-“Distributed locks aren’t real”, some like to remind us. “Anyone who’s trying to sell you a distributed lock is selling you sawdust and lies.” This may sound rather bleak, but it doesn’t say that locking itself is impossible in a distributed system: it’s just that all of the system’s components must participate in the protocol. This blog post is the story of how we implemented a distributed locking protocol that gives your components a straightforward way of joining in.</description>
+      <guid>https://basrikahveci.com/posts/2019-04-02-distributed-locks-are-dead-long-live-distributed-locks/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/long-live-distributed-locks/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
+“Distributed locks aren’t real”, &amp;lt;a href=&amp;quot;https://youtu.be/tRc0O9VgzB0?t=1526&amp;rdquo; target=“_blank&amp;quot;&amp;gt;some like to remind us. “Anyone who’s trying to sell you a distributed lock is selling you sawdust and lies.” This may sound rather bleak, but it doesn’t say that locking itself is impossible in a distributed system: it’s just that all of the system’s components must participate in the protocol. This blog post is the story of how we implemented a distributed locking protocol that gives your components a straightforward way of joining in.</description>
     </item>
     
     <item>
       <title>Riding the CP Subsystem</title>
-      <link>https://basri.dev/posts/2019-03-18-riding-the-cp-subsystem/</link>
+      <link>https://basrikahveci.com/posts/2019-03-18-riding-the-cp-subsystem/</link>
       <pubDate>Mon, 18 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2019-03-18-riding-the-cp-subsystem/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
-The CP Subsystem of Hazelcast IDMG 3.12 offers a new linearizable implementation of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. These implementations live alongside AP data structures in the same Hazelcast IMDG cluster (new BFFs, yay!). You can store large data sets on hundreds of Hazelcast members and coordinate your operations using the new safe concurrency primitives that reside in the very same cluster.</description>
+      <guid>https://basrikahveci.com/posts/2019-03-18-riding-the-cp-subsystem/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/riding-the-cp-subsystem/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
+The CP Subsystem of &amp;lt;a href=&amp;quot;https://hazelcast.org/download/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast IDMG 3.12offers a new linearizable implementation of Hazelcast’s concurrency APIs on top of the Raft consensus algorithm. These implementations live alongside AP data structures in the same Hazelcast IMDG cluster (new BFFs, yay!). You can store large data sets on hundreds of Hazelcast members and coordinate your operations using the new safe concurrency primitives that reside in the very same cluster.</description>
     </item>
     
     <item>
       <title>Hazelcast IMDG 3.12 Introduces CP Subsystem</title>
-      <link>https://basri.dev/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/</link>
+      <link>https://basrikahveci.com/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/</link>
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
+      <guid>https://basrikahveci.com/posts/2019-02-26-hazelcast-imdg-312-introduces-c-subsystem/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/hazelcast-imdg-3-12-introduces-cp-subsystem/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
 We put Java locks on steroids! Hazelcast is now the first and only In-Memory Data Grid (IMDG) to offer a linearizable and distributed implementation of the Java concurrency primitives backed by the Raft consensus algorithm. Sounds interesting? Just keep calm and carry on reading…
 Hazelcast IMDG has been offering a set of concurrency APIs for a long time.</description>
     </item>
@@ -56,32 +56,32 @@ Hazelcast IMDG has been offering a set of concurrency APIs for a long time.</des
     <item>
       <title>Hazelcast Jet 0.6: Dynamic Scale out of Streaming Jobs
 </title>
-      <link>https://basri.dev/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</link>
+      <link>https://basrikahveci.com/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</link>
       <pubDate>Mon, 21 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
+      <guid>https://basrikahveci.com/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/hazelcast-jet-0-6-dynamic-scale-streaming-jobs/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
 In Hazelcast Jet 0.5, we introduced fault tolerance for streaming computations. Hazelcast Jet periodically takes snapshots of the state of a running job and stores these snapshots in Hazelcast IMaps. In case of a failure, the job is restarted from the last successful snapshot. Hazelcast Jet 0.6 uses the same snapshotting mechanism to enable dynamic scaling of streaming jobs.</description>
     </item>
     
     <item>
       <title>Processing Guarantees in Hazelcast Jet</title>
-      <link>https://basri.dev/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</link>
+      <link>https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</link>
       <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
+      <guid>https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/processing-guarantees-hazelcast-jet/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
 Stream processing is a paradigm for on-the-fly processing of unbounded data feeds. We have been witnessing that stream processing engines (SPEs) get more attention every day in the era of fast data and become a fundamental component of data processing pipelines. They usually run in distributed settings to be able to cope with the flood of incoming data entries.</description>
     </item>
     
     <item>
       <title>Hazelcast Jet 0.5: Fault Tolerant Stream Processing Made Easy
 </title>
-      <link>https://basri.dev/posts/2017-12-06-hazelcast-jet-05/</link>
+      <link>https://basrikahveci.com/posts/2017-12-06-hazelcast-jet-05/</link>
       <pubDate>Wed, 06 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2017-12-06-hazelcast-jet-05/</guid>
-      <description>I published this post at Hazelcast blog and put a copy here.
+      <guid>https://basrikahveci.com/posts/2017-12-06-hazelcast-jet-05/</guid>
+      <description>I published this post at &amp;lt;a href=&amp;quot;https://hazelcast.com/blog/hazelcast-jet-0-5-fault-tolerant-stateful-stream-processing-made-easy/&amp;rdquo; target=“_blank&amp;quot;&amp;gt;Hazelcast blogand put a copy here.
 Stream processing is an emerging computational paradigm for on-the-fly processing of live data feeds, targeting low latency and high throughput. Streaming applications are usually deployed on multiple servers to achieve these requirements. Since even a single failure may lead to incorrect results or long interruptions in result delivery, fault tolerance is of paramount importance in such long-running distributed applications.</description>
     </item>
     

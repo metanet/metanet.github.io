@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>maven surefire on Ensar Basri Kahveci</title>
-    <link>https://basri.dev/tags/maven-surefire/</link>
+    <link>https://basrikahveci.com/tags/maven-surefire/</link>
     <description>Recent content in maven surefire on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 25 Dec 2011 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://basri.dev/tags/maven-surefire/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://basrikahveci.com/tags/maven-surefire/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Integration Testing with Maven, Jetty and Selenium 2</title>
-      <link>https://basri.dev/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/</link>
+      <link>https://basrikahveci.com/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/</link>
       <pubDate>Sun, 25 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/</guid>
-      <description>For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. Showcase project was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way.</description>
+      <guid>https://basrikahveci.com/posts/2011-12-25-integration-testing-with-maven-jetty-and-selenium-2/</guid>
+      <description>For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. Showcase projectwas already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way.</description>
     </item>
     
   </channel>

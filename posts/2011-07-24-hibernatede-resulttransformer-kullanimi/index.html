@@ -8,9 +8,9 @@
 Ogrenci, Ders, DersKaydi entity&rsquo;lerimiz olduğunu varsayalım. Ogrenci entity&rsquo;miz sistemde kayıtlı öğrencileri, Ders entity&rsquo;si açılan dersleri, DersKaydi entity&rsquo;miz de Ogrenci ile Ders nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.
 Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yaptığı ders adı&gt; ikilisini çekmek isteyelim. OgrenciDTO sınıfımızda da ogrenciAdi ve dersAdi alanlarının olduğunu varsayalım." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basri.dev/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/" />
-<meta property="article:published_time" content="2011-07-24T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2011-07-24T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://basrikahveci.com/posts/2011-07-24-hibernatede-resulttransformer-kullanimi/" />
+<meta property="article:published_time" content="2011-07-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-07-24T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hibernate&#39;de ResultTransformer kullanımı"/>
 <meta name="twitter:description" content="ResultTransformer, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri bean, map, list gibi nesnelere dönüştürmeye yarıyor.
@@ -58,7 +58,7 @@ Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yap
 		<div class="post-header">
 			<h1 class="title">Hibernate&#39;de ResultTransformer kullanımı</h1>
 			<div class="meta">Posted at &mdash; Jul 24, 2011
-			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hibernate">hibernate</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hql">hql</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/orm">orm</a>&nbsp;
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hibernate">hibernate</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hql">hql</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/orm">orm</a>&nbsp;
 			</p>
 			
 			</div>
@@ -66,15 +66,10 @@ Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yap
 
 		<div class="markdown">
 			<p><code>ResultTransformer</code>, adından da az çok anlaşılacağı gibi, Hibernate sorgularından dönen değerleri <code>bean</code>, <code>map</code>, <code>list</code> gibi nesnelere dönüştürmeye yarıyor.</p>
-
 <p><em>Ogrenci</em>, <em>Ders</em>, <em>DersKaydi</em> entity&rsquo;lerimiz olduğunu varsayalım. <em>Ogrenci</em> entity&rsquo;miz sistemde kayıtlı öğrencileri, <em>Ders</em> entity&rsquo;si açılan dersleri, <em>DersKaydi</em> entity&rsquo;miz de <em>Ogrenci</em> ile <em>Ders</em> nesnelerini eşleştiren ve öğrencinin ders kaydına yönelik bilgileri tutan entity olsun.</p>
-
 <p>Yazacağımız sorguyla sadece ihtiyacımız olan <em>&lt;öğrenci adı, kayıt yaptığı ders adı&gt;</em> ikilisini çekmek isteyelim. <em>OgrenciDTO</em> sınıfımızda da <em>ogrenciAdi</em> ve <em>dersAdi</em> alanlarının olduğunu varsayalım.</p>
-
 <p><em>&lt;öğrenci adı, kayıt yaptığı ders adı&gt;</em> bilgisini çekmek için yazacağımız <em>HQL</em> veya <em>Criteria</em> sorgusu default olarak bize bir <code>Object[]</code> listesi döner. Listenin her bir elemanı olan <code>Object[]</code>in ilk elemanı öğrenci adı iken, ikinci elemanı da kayıt yaptığı dersin adı olur. Bu davranışı <em>Criteria</em> veya <em>Query</em> nesnesi üzerinde <code>setResultTransformer(Transformers(Transformers.ALIAS_TO_ENTITY_MAP);</code> çağrısı ile <code>Object[]</code> yerine <code>Map</code> dönecek şekilde değiştirebiliriz. Bu çağrı ile dönen listenin her elemanı <code>Object[]</code> yerine <code>Map</code> olur ve sorgudan dönen  listeden aldığımız map nesnelerinin üzerinde <code>map.get(&quot;ogrenciAdi”);</code> gibi bir çağrı ile öğrenci adı değerine ulaşabiliriz.</p>
-
 <p>Daha da güzeli, sorgudan dönen değerleri doğrudan bir sınıfın alanlarına eşleştirip Hibernate&rsquo;in bizim için sorgudan dönen değerleri nesnelere dönüştürmesini sağlayabiliriz. Az önce bahsettiğim <em>OgrenciDTO</em> nesnesi üzerinde bunu mesela şöyle yapıyoruz.</p>
-
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">OgrenciDTO</span> {
   <span style="color:#00f">private</span> String ogrenciAdi;
   <span style="color:#00f">private</span> String dersAdi;
@@ -83,7 +78,6 @@ Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yap
 
   <span style="color:#008000">// getter, setter metodlar...
 </span><span style="color:#008000"></span>}</code></pre></div>
-
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List ogrencilerinDersleri = s.createCriteria(DersKaydi.class)
   .createAlias(<span style="color:#a31515">&#34;ogrenci&#34;</span>, <span style="color:#a31515">&#34;ogr&#34;</span>).createAlias(<span style="color:#a31515">&#34;ders&#34;</span>, <span style="color:#a31515">&#34;drs&#34;</span>)
   .setProjection(Projections.projectionList()
@@ -92,13 +86,9 @@ Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yap
           )
           .setResultTransformer(Transformers.aliasToBean(OgrenciDTO.class))
           .list();</code></pre></div>
-
 <p>Gördüğünüz gibi <em>DersKaydi</em> sınıfı üzerinde yarattığımız <em>Criteria</em>&lsquo;da öncelikle <em>DersKaydi</em> sınıfının ogrenci ve ders alanlarına <em>alias</em>&lsquo;lar atadık. Sonra öğrenci adı ve ders adı değerleri üzerinde <em>Projection</em> yaparak sorgumuzdan yalnızca bu değerlerin dönmesini sağladık ve son olarak yaptığımız <code>.setResultTransformer(Transformers.aliasToBean(OgrenciDTO.class))</code> çağrısı ile dönen ikilileri üzerinden <em>OgrenciDTO</em> nesneleri yaratılmasını ve değerlerinin atanmasını sağladık.</p>
-
-<p>Hibernate içerisinde bir çok <code>ResultTransformer</code> gerçekleştirimi hazır olarak geliyor. <a title="Hibernate ResultTransformer" href="http://docs.jboss.org/hibernate/core/3.6/javadocs/org/hibernate/transform/ResultTransformer.html" target="_blank">Şu bağlantıdan</a> <code>ResultTransformer</code> gerçekleştirimlerine göz atabilirsiniz.</p>
-
+<p>Hibernate içerisinde bir çok <code>ResultTransformer</code> gerçekleştirimi hazır olarak geliyor. <!-- raw HTML omitted -->Şu bağlantıdan<!-- raw HTML omitted --> <code>ResultTransformer</code> gerçekleştirimlerine göz atabilirsiniz.</p>
 <p>Bilgiyi HQL ile çekseydik de şöyle yapacaktık:</p>
-
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List ogrencilerinDersleri = s.createQuery(
   <span style="color:#a31515">&#34;SELECT dk.ogrenci.ad AS ogrenciAdi, dk.ders.ad AS dersAdi&#34;</span> +
   <span style="color:#a31515">&#34;FROM DersKaydi AS dk&#34;</span>)
@@ -125,7 +115,7 @@ Yazacağımız sorguyla sadece ihtiyacımız olan &lt;öğrenci adı, kayıt yap
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>

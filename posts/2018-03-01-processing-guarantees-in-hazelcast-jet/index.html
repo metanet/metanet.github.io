@@ -4,15 +4,15 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Processing Guarantees in Hazelcast Jet - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="Processing Guarantees in Hazelcast Jet" />
-<meta property="og:description" content="I published this post at Hazelcast blog and put a copy here.
+<meta property="og:description" content="I published this post at &lt;a href=&quot;https://hazelcast.com/blog/processing-guarantees-hazelcast-jet/&rdquo; target=“_blank&quot;&gt;Hazelcast blogand put a copy here.
 Stream processing is a paradigm for on-the-fly processing of unbounded data feeds. We have been witnessing that stream processing engines (SPEs) get more attention every day in the era of fast data and become a fundamental component of data processing pipelines. They usually run in distributed settings to be able to cope with the flood of incoming data entries." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://basri.dev/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/" />
-<meta property="article:published_time" content="2018-03-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-03-01T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://basrikahveci.com/posts/2018-03-01-processing-guarantees-in-hazelcast-jet/" />
+<meta property="article:published_time" content="2018-03-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-03-01T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Processing Guarantees in Hazelcast Jet"/>
-<meta name="twitter:description" content="I published this post at Hazelcast blog and put a copy here.
+<meta name="twitter:description" content="I published this post at &lt;a href=&quot;https://hazelcast.com/blog/processing-guarantees-hazelcast-jet/&rdquo; target=“_blank&quot;&gt;Hazelcast blogand put a copy here.
 Stream processing is a paradigm for on-the-fly processing of unbounded data feeds. We have been witnessing that stream processing engines (SPEs) get more attention every day in the era of fast data and become a fundamental component of data processing pipelines. They usually run in distributed settings to be able to cope with the flood of incoming data entries."/>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
 
@@ -56,68 +56,41 @@ Stream processing is a paradigm for on-the-fly processing of unbounded data feed
 		<div class="post-header">
 			<h1 class="title">Processing Guarantees in Hazelcast Jet</h1>
 			<div class="meta">Posted at &mdash; Mar 1, 2018
-			<p>-&nbsp;<a href="https://basri.dev/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/hazelcast-jet">hazelcast jet</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/stream-processing">stream processing</a>&nbsp;
+			<p>-&nbsp;<a href="https://basrikahveci.com/tags/java">java</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast">hazelcast</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/hazelcast-jet">hazelcast jet</a>&nbsp;-&nbsp;<a href="https://basrikahveci.com/tags/stream-processing">stream processing</a>&nbsp;
 			</p>
 			
 			</div>
 		</div>
 
 		<div class="markdown">
-			
-
-<p><strong><em>I published this post at <a href="https://hazelcast.com/blog/processing-guarantees-hazelcast-jet/" target=“\_blank">Hazelcast blog</a> and put a copy here.</em></strong></p>
-
+			<p><em><strong>I published this post at &lt;a href=&quot;https://hazelcast.com/blog/processing-guarantees-hazelcast-jet/&rdquo; target=“_blank&quot;&gt;Hazelcast blog<!-- raw HTML omitted --> and put a copy here.</strong></em></p>
 <p>Stream processing is a paradigm for on-the-fly processing of unbounded data feeds. We have been witnessing that stream processing engines (SPEs) get more attention every day in the era of fast data and become a fundamental component of data processing pipelines. They usually run in distributed settings to be able to cope with the flood of incoming data entries. Since distributed environments can suffer from various types of failures, reliability of the processing becomes a critical concern for usefulness of SPEs. For this reason, SPEs allow users to tune the processing guarantee that needs to be provided for a streaming computation as a whole.</p>
-
 <p>In this blog post, we take a glance at different processing guarantees that are widely supported by the mainstream SPEs. We first elaborate their semantics, and then discuss how they are realized in Hazelcast Jet.</p>
-
 <p>We define the data processing guarantees that SPEs offer with three modes: <em>at-most-once</em>, <em>at-least-once</em>, and <em>exactly-once</em>.</p>
-
 <h1 id="at-most-once-processing">At-most-once processing</h1>
-
 <p>In this mode, the streaming runtime does not employ any special mechanism to guarantee processing of the incoming items. At-most-once processing basically means that an item can be processed by the system at most once, and can be considered as a best-effort strategy. It allows items to be dropped in case of a failure. For instance, if an SPE host fails before processing an item that is ingested from a source, the item can be lost when the application is recovered from the failure.</p>
-
 <p>At-most-once processing can be preferred when occasional loss of items is acceptable. For instance, a popular video streaming service that displays the most-viewed videos of the last 30 seconds in its homepage can tolerate a few dropped clicks.</p>
-
 <h1 id="at-least-once-processing">At-least-once processing</h1>
-
 <p>The at-least-once processing guarantee ensures that each item is processed at least once, and no item is dropped. It requires the runtime to track each item flowing through the application. Items are processed only once when there is no failure in the system. However, in case of failures or other contingencies, an item that has been already processed can be retransmitted from the source and processed again, leading to inaccurate results. This mode does not require any mechanism to prevent duplicate processing of items. It generally trades off lower latencies to possible duplicated processing of items. Therefore, it is a good fit for use-cases where item loss is prevented and latency matters more than strict correctness. Consider the scenario where an e-commerce website analyzes actions of its customers in real time, and sends a discount notification immediately after a product is removed from the basket if the customer is likely to purchase the product with a lower price. If customers do not complain about duplicate notifications, this application can make use of the at-least-once processing semantics.</p>
-
 <h1 id="exactly-once-processing">Exactly-once processing</h1>
-
 <p>There exists a lot of confusion, misunderstanding, and discussion about the “exactly-once” processing guarantee. One can naively think that the “exactly-once” semantics ensures each item is processed exactly once by the SPE, even in the presence of failures. However, such a guarantee is not possible for arbitrary user code, because user code can be executed partially in case of a failure. Similarly, any operation on an external system cannot be guaranteed to be triggered exactly once. The reason is that at-least once processing is a prerequisite for exactly-once. An item is re-submitted if a failure occurs before its processing is acknowledged. This approach causes duplicate processing if failure occurs after an item is processed but before it is acknowledged.</p>
-
 <p>Exactly-once processing is a good fit for billing and revenue related use cases. SPEs need to clarify semantics of the exactly-once processing guarantee in order to offer useful solutions. In practice, exactly-once processing is implemented in a way that although the processing can occur multiple times in case of failures for some items, result of the duplicate processing is same as if the processing is done only once (i.e., idempotency). For this reason, this processing guarantee is also called effectively-once.</p>
-
 <p>An SPE needs to provide end-to-end support to achieve the exactly-once semantics. The guarantee is broken if any part of the system is unable to provide it. Therefore, SPEs implement the mechanisms to support exactly-once semantics for both processing within the system boundary and side-effects that occur on external systems. Ingestion of an item, updates in the computation state, and any side effect that is triggered on an external system, including emitting output to downstream systems, must be reflected together. Two common approaches are employed under the hood:</p>
-
 <ul>
 <li>In one approach, re-submitted items are checked with a deduplication mechanism to prevent duplicate processing. When an item is processed, changes in the computation state and acknowledgement of the item are committed together, which means that a processed item whose changes are persisted will not be processed again if the item is re-submitted because of a failure.</li>
 <li>The second approach is to take a snapshot of the whole computation state. In case of a failure, SPEs rewind the computation state and input sources from the snapshot, and replay the items.</li>
 </ul>
-
 <p>With these two approaches, exactly-once semantics are preserved as long as a streaming computation occurs solely within the system boundaries of the SPE. However, streaming tasks usually contact external systems as well, for instance, to flush output to a distributed database or a file system. If a single item is re-processed in a failure case, the same output can be written to the file system multiple times. Again, we use idempotency to extend the exactly-once semantics to cover the interactions with external systems.</p>
-
 <h1 id="how-does-hazelcast-jet-realize-processing-guarantees">How does Hazelcast Jet realize processing guarantees?</h1>
-
-<p>Hazelcast Jet follows the second approach described above, and utilizes <a href="https://dl.acm.org/citation.cfm?id=214456" target=“\_blank">the Chandy-Lamport distributed snapshotting algorithm</a> to offer fault tolerance and processing guarantees. It periodically takes snapshots of accumulated processor state. Snapshots are synchronized with the input sources and source offsets are put into the snapshots along with the processor state. A given snapshot represents state of the computation after processing of the input items up to the recorded source offsets. In case of a node failure, Jet restarts the job on the remaining nodes using the last successful snapshot. State of the computation is restored from the snapshot and input sources are rewound to the offsets that are pointed in the snapshot. Then, the processing is resumed from that point. Hazelcast Jet stores snapshots in Hazelcast IMaps and does not have any external dependency for data storage.</p>
-
+<p>Hazelcast Jet follows the second approach described above, and utilizes &lt;a href=&quot;https://dl.acm.org/citation.cfm?id=214456&rdquo; target=“_blank&quot;&gt;the Chandy-Lamport distributed snapshotting algorithm<!-- raw HTML omitted --> to offer fault tolerance and processing guarantees. It periodically takes snapshots of accumulated processor state. Snapshots are synchronized with the input sources and source offsets are put into the snapshots along with the processor state. A given snapshot represents state of the computation after processing of the input items up to the recorded source offsets. In case of a node failure, Jet restarts the job on the remaining nodes using the last successful snapshot. State of the computation is restored from the snapshot and input sources are rewound to the offsets that are pointed in the snapshot. Then, the processing is resumed from that point. Hazelcast Jet stores snapshots in Hazelcast IMaps and does not have any external dependency for data storage.</p>
 <p>Hazelcast Jet allows processing guarantees to be configured on a per job basis. For instance, if a Jet job ingests input items from a non-replayable source and disables snapshotting, then the underlying processing guarantee becomes at-most-once. The snapshotting feature can be enabled for the both at-least-once and exactly-once processing guarantees. When the job is tuned for the at-least-once processing guarantee, then the snapshotting algorithm skips some internal steps to reduce the latency overhead. However, some items, whose processing results are already put into the snapshot, might be processed again after the job is restarted from the snapshot. Last, jobs can be tuned for the exactly-once processing guarantee as well. In this mode, the snapshotting algorithm ensures that an item that was processed before a snapshot is taken will not be processed again if the job is restarted from that snapshot.</p>
-
 <p>The snapshotting approach described above provides the exactly-once semantics for the computation state and input streams. However, we also need to take into account the side effects that occur in external systems. Consider the scenario where a Jet processor prints a log line for each input item. It can happen that this processor prints a log line for an input item, but a Jet node fails before the next snapshot is taken. If the computation is restarted, this processor is fired for the same item again and prints the same log line. Similarly, failures can cause sink processors to dispatch the same output item to the downstream systems multiple times. In order to use the exactly-once processing guarantee, a Jet job must use replayable sources and idempotent sinks. Hazelcast Jet version 0.5 contains replayable Hazelcast IMap and Kafka source implementations, and an idempotent Hazelcast IMap sink implementation.</p>
-
 <h1 id="conclusions">Conclusions</h1>
-
 <p>In this blog post, we presented the processing guarantees that are offered by popular SPEs and elaborated their semantics. We also examined some misconceptions, ambiguity and challenges about the exactly-once processing guarantee. However, there are many other things to consider about the exactly-once semantics, which are not covered in this post. Last, we briefly described how Hazelcast Jet implements these guarantees on top of its in-memory snapshotting feature.</p>
-
 <p>A few blog posts about the exactly-once semantics:</p>
-
 <p><a href="https://fpj.me/2017/07/04/no-consensus-in-exactly-once/">https://fpj.me/2017/07/04/no-consensus-in-exactly-once/</a></p>
-
 <p><a href="https://www.the-paper-trail.org/post/2017-07-28-exactly-not-atomic-broadcast-still-impossible-kafka/">https://www.the-paper-trail.org/post/2017-07-28-exactly-not-atomic-broadcast-still-impossible-kafka/</a></p>
-
 <p><a href="https://bravenewgeek.com/you-cannot-have-exactly-once-delivery-redux/">https://bravenewgeek.com/you-cannot-have-exactly-once-delivery-redux/</a></p>
-
 <p><a href="http://data.alishoker.com/2017/07/notes-on-exactly-once-semantics-in.html">http://data.alishoker.com/2017/07/notes-on-exactly-once-semantics-in.html</a></p>
 
 		</div><div id="disqus_thread"></div>
@@ -140,7 +113,7 @@ Stream processing is a paradigm for on-the-fly processing of unbounded data feed
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div><a href="https://basrikahveci.com/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>
