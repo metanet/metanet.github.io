@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://basri.dev/</loc>
     <lastmod>2019-06-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -14,15 +13,63 @@
   </url>
   
   <url>
+    <loc>https://basri.dev/tags/cap-theorem/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/distributed-locking/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/distributed-locks/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/fencedlock/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/hazelcast/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/hazelcast-imdg/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/hazelcast-imdg-cp-subsystem/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/java/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/jepsen-testing/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://basri.dev/posts/</loc>
     <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/raft-consensus-algorithm/</loc>
+    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/</loc>
     <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -31,73 +78,12 @@
   </url>
   
   <url>
-    <loc>https://basri.dev/tags/cap-theorem/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/distributed-locking/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/distributed-locks/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/fencedlock/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/hazelcast/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/hazelcast-imdg/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/hazelcast-imdg-cp-subsystem/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/java/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/jepsen-testing/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/raft-consensus-algorithm/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>https://basri.dev/talks/2019-java-util-concurrent-for-distributed-coordination/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://basri.dev/talks/</loc>
-    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/talks/2019-java-util-concurrent-for-distributed-coordination/</loc>
     <lastmod>2019-04-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -122,20 +108,18 @@
   </url>
   
   <url>
+    <loc>https://basri.dev/tags/hazelcast-jet/</loc>
+    <lastmod>2018-05-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://basri.dev/posts/2018-05-21-hazelcast-jet-06-dynamic-scale-out-for-streaming-jobs/</loc>
     <lastmod>2018-05-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://basri.dev/tags/hazelcast-jet/</loc>
-    <lastmod>2018-05-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://basri.dev/tags/stream-processing/</loc>
     <lastmod>2018-05-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -171,19 +155,21 @@
   <url>
     <loc>https://basri.dev/tags/netty/</loc>
     <lastmod>2016-01-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/p2p/</loc>
     <lastmod>2016-01-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/peer-to-peer/</loc>
     <lastmod>2016-01-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/k-means-clustering/</loc>
+    <lastmod>2015-06-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -192,21 +178,13 @@
   </url>
   
   <url>
-    <loc>https://basri.dev/tags/k-means-clustering/</loc>
-    <lastmod>2015-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://basri.dev/tags/machine-learning/</loc>
     <lastmod>2015-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/scala/</loc>
     <lastmod>2015-06-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -217,7 +195,6 @@
   <url>
     <loc>https://basri.dev/tags/command-line/</loc>
     <lastmod>2014-10-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -228,19 +205,16 @@
   <url>
     <loc>https://basri.dev/tags/groovy/</loc>
     <lastmod>2012-09-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/jvm/</loc>
     <lastmod>2012-09-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/scripting/</loc>
     <lastmod>2012-09-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -251,19 +225,16 @@
   <url>
     <loc>https://basri.dev/tags/jedis/</loc>
     <lastmod>2012-06-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/publish-subscibe/</loc>
     <lastmod>2012-06-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/redis/</loc>
     <lastmod>2012-06-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -274,37 +245,31 @@
   <url>
     <loc>https://basri.dev/tags/integration-testing/</loc>
     <lastmod>2011-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/jetty/</loc>
     <lastmod>2011-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/maven/</loc>
     <lastmod>2011-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/maven-failsafe/</loc>
     <lastmod>2011-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/maven-surefire/</loc>
     <lastmod>2011-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/selenium/</loc>
     <lastmod>2011-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -315,13 +280,11 @@
   <url>
     <loc>https://basri.dev/tags/spring/</loc>
     <lastmod>2011-10-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/spring-security/</loc>
     <lastmod>2011-10-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -330,26 +293,23 @@
   </url>
   
   <url>
-    <loc>https://basri.dev/posts/2011-10-03-writing-a-custom-facelet-el-function/</loc>
-    <lastmod>2011-10-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://basri.dev/tags/hibernate/</loc>
     <lastmod>2011-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/java-server-faces/</loc>
     <lastmod>2011-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/jsf/</loc>
     <lastmod>2011-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/posts/2011-10-03-writing-a-custom-facelet-el-function/</loc>
+    <lastmod>2011-10-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -360,7 +320,6 @@
   <url>
     <loc>https://basri.dev/tags/ldap/</loc>
     <lastmod>2011-09-29T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -371,7 +330,6 @@
   <url>
     <loc>https://basri.dev/tags/jpa/</loc>
     <lastmod>2011-09-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -392,13 +350,11 @@
   <url>
     <loc>https://basri.dev/tags/hql/</loc>
     <lastmod>2011-07-24T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/orm/</loc>
     <lastmod>2011-07-24T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -414,18 +370,16 @@
   <url>
     <loc>https://basri.dev/tags/jsf-validator/</loc>
     <lastmod>2011-02-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</loc>
-    <lastmod>2011-02-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://basri.dev/tags/slf4j/</loc>
     <lastmod>2011-02-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/posts/2011-02-08-spring-beanlerine-otomatik-olarak-logger-enjekte-etmek/</loc>
+    <lastmod>2011-02-08T00:00:00+00:00</lastmod>
   </url>
   
 </urlset>

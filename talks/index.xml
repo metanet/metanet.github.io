@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Talks on Ensar Basri Kahveci</title>
@@ -19,7 +19,7 @@
       
       <guid>https://basri.dev/talks/2019-java-util-concurrent-for-distributed-coordination/</guid>
       <description>I gave this talk at the following conferences:
- Devoxx Poland, June 2019 IMC Summit Europe - London, June 2019 Riga Dev Days, May 2019 GeeCON Krakow, May 2019 JEEConf Kyiv, April 2019  Abstract The evolution of distributed coordination tools shows that high-level APIs ease implementation of coordination tasks, such as leader election, locking, synchronized actions. For instance, the Chubby paper highlights familiarity of lock-based interfaces. Similarly, Apache Curator hides complexity of ZooKeeper recipes behind Java APIs, while etcd and Consul implement concurrency primitives on their own.</description>
+ Devoxx Ukraine, November 2019 Berlin Expert Days, September 2019 Devoxx Poland, June 2019 IMC Summit Europe - London, June 2019 Riga Dev Days, May 2019 GeeCON Krakow, May 2019 JEEConf Kyiv, April 2019  Abstract The evolution of distributed coordination tools shows that high-level APIs ease implementation of coordination tasks, such as leader election, locking, synchronized actions. For instance, the Chubby paper highlights familiarity of lock-based interfaces.</description>
     </item>
     
     <item>

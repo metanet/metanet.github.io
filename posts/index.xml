@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Ensar Basri Kahveci</title>
@@ -190,7 +190,7 @@ Here, there is a simple EL function implementation that users Spring Security to
       <description>Bugün Hibernate&amp;rsquo;den çok güzel bir Exception yedim. Başta Exception biraz ilginç geldi ama, sebebini anlayınca Hibernate&amp;rsquo;e acayip hak verdim. @Embeddable ile annotate ettiğim bir sınıfı başka bir entity sınıfının içinde @Embedded ile tanımladığımda, Hibernate ayağa kalkarken şu hatayı attı:
  org.hibernate.AnnotationException: A component cannot hold properties split into 2 different tables
  @Embeddable dediğim sınıfın içeriği şuna benzer bişeydi:
-@Embeddablepublic class Details {// ...		// fields	// .</description>
+@Embeddable public class Details { // ...		// fields 	// .</description>
     </item>
     
     <item>

@@ -8,8 +8,8 @@
 BeanFactoryPostProcessor arayüzü ise, Spring IoC container’ının bir başka genişleme noktası." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://basri.dev/posts/2011-07-10-spring-ile-konfigurasyon-degerlerini-property-dosyalarina-almak/" />
-<meta property="article:published_time" content="2011-07-10T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2011-07-10T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2011-07-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-07-10T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring ile konfigürasyon değerlerini property dosyalarına almak"/>
 <meta name="twitter:description" content="Başlık konusunda çok sıkıntı çekiyorum ya. Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegrasyon arayüzleri (interface) ve bu arayüzlerin -out of the box- gerçekleştirimlerini (implementation) sunuyor. BeanPostProcessor bunlardan biri. BeanPostProcessor kullanarak, Spring container’i bir bean’i yaratıp ilklendirdikten (initialize) sonra, bean üzerinde istediğimiz işlemleri gerçekleştirebiliyoruz. Önceki yazılardan birinde bahsettiğim Spring ile Logger enjektesi, bunun bir örneği. BeanPostProcessor gerçekleştirimlerinin bir diğer örneği ise Spring ile gelen RequiredAnnotationBeanPostProcessor sınıfı.
@@ -86,10 +86,10 @@ Spring, bize IoC container’ını genişletmek (extend) için çeşitli entegra
 &lt;/bean&gt;</code></pre></div>
 
 <p><code>dataSource</code> bean’inin property’lerinde, gerçek değerler yerine placeholder değerler verilmiş. Placeholder’ların yerine de <code>dataSource</code>un üstünde tanımlanan <code>PropertyPlaceHolderConfigurer</code> bean’i property dosyasından okuduğu değerleri yerleştiriyor. Örnek olarak <code>jdbc.properties</code> dosyasında bulunan</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">jdbc.driverClassName=org.hsqldb.jdbcDriver
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">jdbc.driverClassName=org.hsqldb.jdbcDriver
 jdbc.url=jdbc:hsqldb:hsql://production:9002
 jdbc.username=sa
-jdbc.password=root</pre></div>
+jdbc.password=root</code></pre></div>
 <p>Değerleri, Spring IoC’u bean’leri yaratmaya başlamadan önce, placeholder değerlerine yerleştiriliyor.</p>
 
 <p>Spring 2.5 ile gelen <code>context namespace</code>i ile, <code>PropertyPlaceHolderConfigurer</code> tanımlamasını <code>&lt;context:property-placeholder location=&quot;classpath:com/foo/jdbc.properties”/&gt;</code> şeklinde yapabiliyoruz. location değeri ise  virgül ile ayrılmış birden fazla property dosyası alabiliyor.</p>

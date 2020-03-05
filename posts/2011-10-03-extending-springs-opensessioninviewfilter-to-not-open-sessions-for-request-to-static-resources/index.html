@@ -7,8 +7,8 @@
 <meta property="og:description" content="If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://basri.dev/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/" />
-<meta property="article:published_time" content="2011-10-03T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2011-10-03T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2011-10-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-10-03T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources"/>
 <meta name="twitter:description" content="If you are using OpenSessionInViewFilter in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with OpenSessionInView filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary."/>
