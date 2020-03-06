@@ -6,6 +6,7 @@
     <description>Recent content on Ensar Basri Kahveci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>© 2020 Ensar Basri Kahveci. All rights reserved.</copyright>
     <lastBuildDate>Sun, 16 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://basri.dev/index.xml" rel="self" type="application/rss+xml" />
@@ -18,8 +19,8 @@
       
       <guid>https://basri.dev/about/</guid>
       <description>Hi,
-My name is Ensar Basri Kahveci. I am a distributed systems engineer. I live in Ankara and work remotely for Hazelcast.
-I have a passion and hands-on experience for distributed systems building. I have grasped the theoretical foundation of distributed systems and developed a &amp;ldquo;distributed thinking&amp;rdquo; approach. I conduct independent research and turn research results into top-class engineering solutions. I own the design, implementation and verification phases, and leverage the industry-standard techniques, frameworks and methodologies.</description>
+My name is Ensar Basri Kahveci. I am a distributed systems software engineer.
+I have a passion and hands-on experience for distributed systems building. I have grasped the theoretical foundation of distributed systems and developed a &amp;ldquo;distributed thinking&amp;rdquo; approach. I conduct independent research and turn research results into top-class engineering solutions. I own the design, implementation and verification phases, and leverage the industry-standard techniques, frameworks and methodologies. I also have a keen eye for revealing problems on existing system designs, and I take initiative to propose and implement improvements.</description>
     </item>
     
     <item>

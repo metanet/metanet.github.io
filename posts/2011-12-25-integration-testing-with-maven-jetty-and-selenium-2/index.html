@@ -12,16 +12,19 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Integration Testing with Maven, Jetty and Selenium 2"/>
 <meta name="twitter:description" content="For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. Showcase project was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way."/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script><script src="/js/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://basri.dev/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://basri.dev/css/main.css" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://basri.dev/js/main.js"></script>
 </head>
 
 <body>
 	<div class="container wrapper post">
 		<div class="header">
-	<h1 class="site-title"> <a href="/" style="color: #333">Ensar Basri Kahveci</a></h1>
+	<h1 class="site-title"><a href="https://basri.dev/">Ensar Basri Kahveci</a></h1>
 	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
 			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
 		</nav>
@@ -53,11 +56,7 @@
 
 		<div class="post-header">
 			<h1 class="title">Integration Testing with Maven, Jetty and Selenium 2</h1>
-			<div class="meta">Posted at &mdash; Dec 25, 2011
-			<p>-&nbsp;<a href="https://basri.dev/tags/integration-testing">integration-testing</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/jetty">jetty</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/maven">maven</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/maven-surefire">maven surefire</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/maven-failsafe">maven failsafe</a>&nbsp;-&nbsp;<a href="https://basri.dev/tags/selenium">selenium</a>&nbsp;
-			</p>
-			
-			</div>
+			<div class="meta">Posted at &mdash; Dec 25, 2011</div>
 		</div>
 
 		<div class="markdown">
@@ -233,7 +232,32 @@ I do not explain the other parts, you can find information about them in plugins
 		&lt;scope&gt;test&lt;/scope&gt;
 	&lt;/dependency&gt;</code></pre></div>
 
-		</div><div id="disqus_thread"></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/integration-testing">integration-testing</a></li>
+								
+								<li><a href="/tags/jetty">jetty</a></li>
+								
+								<li><a href="/tags/maven">maven</a></li>
+								
+								<li><a href="/tags/maven-surefire">maven surefire</a></li>
+								
+								<li><a href="/tags/maven-failsafe">maven failsafe</a></li>
+								
+								<li><a href="/tags/selenium">selenium</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		<div id="disqus_thread"></div>
 <script type="text/javascript">
 	(function () {
 		
@@ -253,10 +277,32 @@ I do not explain the other parts, you can find information about them in plugins
 </div>
 	<div class="footer wrapper">
 	<nav class="nav">
-		<div><a href="https://basri.dev/">Ensar Basri Kahveci</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+
+		<div> © 2020 Ensar Basri Kahveci. All rights reserved.   </div>
+
 		<img src="/basri.png" width="128" height="128" />
 	</nav>
 </div>
+
 
 
 <script type="application/javascript">
@@ -269,6 +315,7 @@ if (!doNotTrack) {
 }
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
+
 <script>feather.replace()</script>
 </body>
 </html>

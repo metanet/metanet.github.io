@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.66.0" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Ensar Basri Kahveci - overly distributed </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="alternate" type="application/rss+xml" href="https://basri.dev/index.xml" title="Ensar Basri Kahveci" />
+	<meta property="og:title" content="Ensar Basri Kahveci" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://basri.dev/" />
+<meta property="og:updated_time" content="2019-06-16T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ensar Basri Kahveci"/>
+<meta name="twitter:description" content=""/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://basri.dev/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://basri.dev/css/main.css" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://basri.dev/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper">
+		<div class="header">
+	<h1 class="site-title"><a href="https://basri.dev/">Ensar Basri Kahveci</a></h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="recent-posts section">
+			<h2 class="section-header">
+				Recent posts
+			</h2>
+			<div class="posts">
+				
+				
+				
+				<div class="post">
+					<div class="meta">Oct 3, 2011</div>
+					<a class="title" href="/posts/2011-10-03-writing-a-custom-facelet-el-function/">Writing a custom Facelet EL function makes authorization check using Spring Security</a> &mdash;
+					<span class="description">
+						
+						It&rsquo;s common that you may want to show some part of your pages to the user with certain roles. Writing a custom Facelet EL function makes doing authorization checks for viewing parts of pages really easy. If you are using Spring Security in the background, you can use its SecurityContext object to get authorities of the user and use them in your EL function implementation.
+Here, there is a simple EL function implementation that users Spring Security to get roles of user and controls if the user has a certain role or not.&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post">
+					<div class="meta">Sep 29, 2011</div>
+					<a class="title" href="/posts/2011-09-29-integrating-spring-security-with-ldap/">Integrating Spring Security with LDAP</a> &mdash;
+					<span class="description">
+						
+						To integrate Spring Security with Ldap, add the dependency to your build path first. You don&rsquo;t have to define the second dependency, it is for using the latest version of spring ldap core.
+&lt;dependency&gt; &lt;groupId&gt;org.springframework.security&lt;/groupId&gt; &lt;artifactId&gt;spring-security-ldap&lt;/artifactId&gt; &lt;version&gt;3.0.5&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.ldap&lt;/groupId&gt; &lt;artifactId&gt;spring-ldap-core&lt;/artifactId&gt; &lt;version&gt;1.3.1.RELEASE&lt;/version&gt; &lt;/dependency&gt; Spring LDAP&rsquo;s LdapTemplate makes doing LDAP operations too much easy. But for simple authentication mechanism, you don&rsquo;t need to use it actually. Although I will talk about LdapTemplate a little bit.&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post">
+					<div class="meta">Sep 22, 2011</div>
+					<a class="title" href="/posts/2011-09-22-hibernate-a-component-cannot-hold-properties-split-into-2-different-tables-hatasi/">Hibernate &#34;A component cannot hold properties split into 2 different tables&#34; hatası</a> &mdash;
+					<span class="description">
+						
+						Bugün Hibernate&rsquo;den çok güzel bir Exception yedim. Başta Exception biraz ilginç geldi ama, sebebini anlayınca Hibernate&rsquo;e acayip hak verdim. @Embeddable ile annotate ettiğim bir sınıfı başka bir entity sınıfının içinde @Embedded ile tanımladığımda, Hibernate ayağa kalkarken şu hatayı attı:
+ org.hibernate.AnnotationException: A component cannot hold properties split into 2 different tables
+ @Embeddable dediğim sınıfın içeriği şuna benzer bişeydi:
+@Embeddable public class Details { // ...		// fields 	// .&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post">
+					<div class="meta">Sep 6, 2011</div>
+					<a class="title" href="/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/">Spring ile bir paket altındaki sınıfları taramak</a> &mdash;
+					<span class="description">
+						
+						Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.
+Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yapmamızı sağlayan sınıflar sağlıyor. Spring’in sunduğu sınıflar ile bir paket altındaki sınıfları tarayabiliyor, sınıfı yüklemeden sınıfın metadatasına, annotationlarına ulaşabiliyor; sınıfı Class.&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post">
+					<div class="meta">Jul 26, 2011</div>
+					<a class="title" href="/posts/2011-07-26-spring-securityde-securitycontexte-ulasmak/">Spring Security’de SecurityContext&#39;e ulaşmak</a> &mdash;
+					<span class="description">
+						
+						Spring Security&rsquo;yle entegre çalışan bir uygulamada, kullanıcıların oturumlarına yönelik bilgiler SecurityContext nesnelerinde tutuluyor. SecurityContext nesneleri ise SecurityContextHolder içerisinde tutuluyor. Varsayılan olarak SecurityContextHolder, SecurityContext nesnelerini ThreadLocal kullanarak saklıyor. Böylelikle aynı thread&rsquo;de çalışan metodlar aynı SecurityContext nesnesine ulaşabiliyorlar. SecurityContextHolderin çalışma modu da istenildiği takdirde değiştirilebiliyor.
+Uygulamanın oturumla alakalı işlerini Spring Security halletse de, bazen oturum açan kullanıcıya yönelik bilgiler bize de gerekebiliyor. Bunun için öncelikle SecurityContext nesnesine ulaşmamız gerekiyor. Onu da şöyle yapabiliyoruz.&hellip;
+						
+					</span>
+				</div>
+				
+				
+
+<ul class="pagination">
+	
+	<li class="page-item page-prev">
+    <a href="/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">← Prev page</span></a>
+	</li>
+	
+	
+	
+	
+<li class="page-item page-next">
+    <a href="/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">Next page →</span></a>
+</li>	
+
+	
+</ul>
+
+
+			</div>
+		</div>
+	</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+
+		<div> © 2020 Ensar Basri Kahveci. All rights reserved.   </div>
+
+		<img src="/basri.png" width="128" height="128" />
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>
