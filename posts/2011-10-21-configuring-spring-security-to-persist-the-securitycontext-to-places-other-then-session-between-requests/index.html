@@ -61,7 +61,7 @@ By default, Spring Security keeps the SecurityContext object in session objects 
 			<div class="meta">Posted at &mdash; Oct 21, 2011</div>
 		</div>
 
-		<div class="markdown">
+		<div class="markdown align-justify">
 			<p>Yeah I agree, I suck at titles :) But, again and again, Spring guys are real badasses :)</p>
 
 <p>By default, Spring Security keeps the <code>SecurityContext</code> object in session objects of user between requests. <code>SecurityContextPersistenceFilter</code> manages this task. When a request comes, it reads the <code>SecurityContext</code> object from a security context repository (which I will mention in a second), puts it to <code>SecurityContextHolder</code> to be used by other filters and the application. And when request is completed, it clears the <code>SecurityContextHolder</code> and puts the <code>SecurityContext</code> to the repository. The repository I mentioned here is the <code>HttpSessionSecurityContextRepository</code> class which is an implementation of <code>SecurityContextRepository</code> interface. This interface is responsible for persisting <code>SecurityContext</code> objects between requests and used by <code>SecurityContextPersistenceFilter</code>.</p>

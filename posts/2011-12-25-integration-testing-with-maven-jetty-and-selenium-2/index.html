@@ -59,7 +59,7 @@
 			<div class="meta">Posted at &mdash; Dec 25, 2011</div>
 		</div>
 
-		<div class="markdown">
+		<div class="markdown align-justify">
 			<p>For the last few days, I was busy with preparing a integration test environment for our PrimeFaces showcase. <a title="PrimeFaces Showcase Project" href="http://primefaces.googlecode.com/svn/examples/trunk/showcase/" target="_blank">Showcase project</a> was already a Maven project, so I made a little research about maven phases, maven plugins, Selenium and Jetty and figured out how can I make things work. You can see similar blog posts on Google about the topic. I looked at most of them and they helped me on the way.</p>
 
 <p>First of all, maven already has 3 phases for integration testing: <code>pre-integration-test</code>, <code>integration-test</code>, <code>post-integration-test</code>. So I thought that on the <code>pre-integration-test</code> I can start Jetty and deploy the showcase, on the <code>integration-test</code> phase I can run the Selenium tests and on the <code>post-integration-test</code> I can stop Jetty. These steps can be done with <a title="Maven Jetty Plugin" href="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin" target="_blank">Maven Jetty Plugin</a> quite easily.</p>

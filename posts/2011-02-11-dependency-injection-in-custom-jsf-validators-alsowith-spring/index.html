@@ -61,7 +61,7 @@ Efenim JSF bize bean&rsquo;lerimiz içerisinde validator metodlar tanımlama imk
 			<div class="meta">Posted at &mdash; Feb 11, 2011</div>
 		</div>
 
-		<div class="markdown">
+		<div class="markdown align-justify">
 			<p>Acayip bir dil in, Türkçe yine out. Dependency Injection&rsquo;ı herkes kafasına göre Türkçeye çevirmiş ama bence en güzel ve geçerlisi <a href="http://www.javaturk.org/?tag=j2ee-nedir" target="_blank">şu abimin dediği</a> &ldquo;bağımlılık zerketme&rdquo;.</p>
 
 <p>Efenim JSF bize bean&rsquo;lerimiz içerisinde validator metodlar tanımlama imkanı sunuyor olsa da, duruma özel validator&rsquo;ları yeniden kullanılabilirlik açısından ayrı sınıflar halinde yazmak bence daha makul. Örneğin bir üye kayıt formunda kullanıcının girdiği eposta adresinin başka birisi tarafından kullanılıyor olup olmadığının kontrolünü formun arkasındaki bean üzerinden ya da ayrı bir (custom) validator üzerinden yapabiliriz. Bu kontrol bize yalnızca üye kayıt esnasında gerekiyorsa bean içinde tanımlamak uygun olabilir, bean ayrıca JSF tarafından yönetildiğinden, asıl sorguyu yapacağımız sınıfı JSF bize inject edecektir ve doğrudan sorgumuzu yapıp işi halledebiliriz. Ama örneğin başka bir kaç noktada daha verilen bir eposta adresinin veritabanında kayıtlı olup olmadığının kontrolü gerekebilir. Bu durumda, işlemi bir (custom) validator sınıfa koymak kod tekrarı yapmamak ve bu sınıfı gerektiği noktalarda kullanabilmek açısından gayet mantıklı.</p>

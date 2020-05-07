@@ -59,7 +59,7 @@
 			<div class="meta">Posted at &mdash; Oct 3, 2011</div>
 		</div>
 
-		<div class="markdown">
+		<div class="markdown align-justify">
 			<p>If you are using <code>OpenSessionInViewFilter</code> in your application, you may be opening sessions for requests which don&rsquo;t actually do any session-related things, simply accessing to css, javascript or image files. When you get your requests like images, js files with static urls not from servlets, the case will not happen. But for example, if you use JSF and map your &ldquo;*.jsf&rdquo; urls to Faces Servlet and filter it with <code>OpenSessionInView</code> filter to avoid lazy loading exceptions in your facelets, JSF fill send requests to your Faces Servlet to load resources like images, css files, js files and you will open session for those request too although not necessary.</p>
 
 <p>To avoid this, it&rsquo;s an option to extend Spring&rsquo;s <code>OpenSessionInViewFilter</code> and ignoring requests of that kind. Thank to Spring guys, it&rsquo;s easy peasy.</p>
