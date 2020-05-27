@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://basri.dev/tags/asyncio/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/concurrency/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/coroutines/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/curio/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/posts/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/python/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/posts/2020-05-25-writing-a-simple-game-with-python-coroutines-match-symbols/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://basri.dev/</loc>
     <lastmod>2019-06-16T00:00:00+00:00</lastmod>
   </url>
@@ -58,17 +98,7 @@
   </url>
   
   <url>
-    <loc>https://basri.dev/posts/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://basri.dev/tags/raft-consensus-algorithm/</loc>
-    <lastmod>2019-06-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/</loc>
     <lastmod>2019-06-03T00:00:00+00:00</lastmod>
   </url>
   
