@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Ensar Basri Kahveci. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://basri.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>asyncio</title>
       <link>https://basri.dev/tags/asyncio/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://basri.dev/tags/asyncio/</guid>
       <description></description>
@@ -24,7 +24,7 @@
     <item>
       <title>concurrency</title>
       <link>https://basri.dev/tags/concurrency/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://basri.dev/tags/concurrency/</guid>
       <description></description>
@@ -33,7 +33,7 @@
     <item>
       <title>coroutines</title>
       <link>https://basri.dev/tags/coroutines/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://basri.dev/tags/coroutines/</guid>
       <description></description>
@@ -42,7 +42,7 @@
     <item>
       <title>curio</title>
       <link>https://basri.dev/tags/curio/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://basri.dev/tags/curio/</guid>
       <description></description>
@@ -51,7 +51,7 @@
     <item>
       <title>python</title>
       <link>https://basri.dev/tags/python/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://basri.dev/tags/python/</guid>
       <description></description>

@@ -7,17 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Ensar Basri Kahveci. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://basri.dev/tags/curio/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Writing a simple game with Python coroutines: Match symbols</title>
-      <link>https://basri.dev/posts/2020-05-25-writing-a-simple-game-with-python-coroutines-match-symbols/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <link>https://basri.dev/posts/2020-05-27-writing-a-simple-game-with-python-coroutines-match-symbols/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://basri.dev/posts/2020-05-25-writing-a-simple-game-with-python-coroutines-match-symbols/</guid>
+      <guid>https://basri.dev/posts/2020-05-27-writing-a-simple-game-with-python-coroutines-match-symbols/</guid>
       <description>I have been writing Python code occasionally here and there, but never learnt Python properly. Thanks to the ongoing coronavirus crisis, we have been under lockdown in Ankara for more than 2 months and I have plenty of time to try new things. So I decided to build a small fun project with Python. It took me only a few days to grasp its fundamentals and start to understand how to get things done in Python.</description>
     </item>
     
