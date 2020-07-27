@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Improved Majority Quorums for Raft - Ensar Basri Kahveci</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Improved Majority Quorums for Raft" />
+<meta property="og:description" content="I analyzed the simple quorums and improved majority quorums settings of FPaxos in the context of Raft consensus algorithm, and had a few interesting findings. I wanted to present my findings in a concise way, So I wrote a short paper for it, titled &#34;Improved Majority Quorums for Raft&#34;. You can check out this blog post to learn more and download the paper.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/" />
+<meta property="article:published_time" content="2020-07-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-07-27T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Improved Majority Quorums for Raft"/>
+<meta name="twitter:description" content="I analyzed the simple quorums and improved majority quorums settings of FPaxos in the context of Raft consensus algorithm, and had a few interesting findings. I wanted to present my findings in a concise way, So I wrote a short paper for it, titled &#34;Improved Majority Quorums for Raft&#34;. You can check out this blog post to learn more and download the paper.
+"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://basri.dev/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://basri.dev/css/main.css" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://basri.dev/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="https://basri.dev/">Ensar Basri Kahveci</a></h1>
+	<div class="site-description"><h2>overly distributed</h2><nav class="nav social">
+			<ul class="flat"><a href="https://twitter.com/metanet" title="Twitter"><i data-feather="twitter"></i></a><a href="https://github.com/metanet" title="Github"><i data-feather="github"></i></a><a href="https://www.linkedin.com/in/basrikahveci/" title="Linkedin"><i data-feather="linkedin"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Improved Majority Quorums for Raft</h1>
+			<div class="meta">Posted at &mdash; Jul 27, 2020</div>
+		</div>
+
+		<div class="markdown align-justify">
+			
+
+<p><strong><em>Disclaimer: I worked on this project in my free time. It is not affiliated,
+associated, endorsed by, or in any way officially connected with my current
+employer Facebook, or any of its subsidiaries or its affiliates.</em></strong></p>
+
+<p>I have been spending a lot of time at home and doing a lot of readings on
+distributed systems during the coronavirus pandemic. Recently I noticed that the
+main observation of Heidi Howard&rsquo;s <a href="https://fpaxos.github.io/"
+target="_blank">Flexible Paxos (FPaxos)</a> work is applicable to Raft. Heidi
+Howard already <a href="https://github.com/fpaxos/raft.tla"
+target="_blank">extended Raft&rsquo;s TLA+ proof</a> for that. There is also a few
+open source Raft implementations that mention FPaxos, but as far as I see nobody
+has implemented the idea yet.</p>
+
+<p>I analyzed the <em>simple quorums</em> and <em>improved majority quorums</em> settings of
+FPaxos in the context of Raft consensus algorithm, and had a few interesting
+findings. I wanted to present my findings in a concise way, so I wrote a short
+paper for it.</p>
+
+<p><strong><em>Improved Majority Quorums for Raft</em></strong></p>
+
+<p><em>Raft has gained widespread adoption in the industry as a newcomer, thanks to
+its pragmatic approach to the distributed consensus problem. Also, its
+resemblance to Paxos allows it to benefit from decades of re- search on Paxos.
+In this work, we study simple quorums and improved majority quorums of FPaxos in
+the context of Raft consensus algorithm. Even-sized clusters are prone to a
+greater risk of unavailability compared to odd-sized clusters because of the
+majority quorum requirement. Our main finding, which applies equally to Raft and
+Multi-Paxos, shows that even-sized clusters can employ improved majority quorums
+to obtain the same degree of availability as odd-sized ones with one less
+server. We also use improved majority quorums to simplify Raft cluster
+membership changes. Our solution minimizes availability gaps during cluster
+membership changes without any extra phase or voting state. We expect existing
+Raft implementations to utilize our findings with quite small code changes.</em></p>
+
+<p>You can <a href="https://bit.ly/307GZSN" target="_blank">click here</a> to
+download the paper.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>My dear wife, <a href="https://twitter.com/cheburashkaF" target="_blank">Fatma
+Kahveci</a>, contributed proof of the equation I present in the paper.</p>
+
+<p>My fellas, <a href="https://twitter.com/mtopolnik" target="_blank">Marko
+Topolnik</a>, <a href="https://twitter.com/mmdogan" target="_blank">Mehmet
+Dogan</a>, and <a href="https://twitter.com/MilanSavic14" target="_blank">Milan
+Savic</a> reviewed multiple drafts of this paper. Marko provided his valuable
+feedback to improve the readability of the paper.</p>
+
+<p>Kudos to all!</p>
+
+<p>Last, all errors belong to me.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/raft">Raft</a></li>
+								
+								<li><a href="/tags/paxos">Paxos</a></li>
+								
+								<li><a href="/tags/flexible-paxos">Flexible Paxos</a></li>
+								
+								<li><a href="/tags/distributed-consensus">Distributed Consensus</a></li>
+								
+								<li><a href="/tags/distributed-computing">Distributed Computing</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'basrikahveci';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+		</ul>
+
+		<div> © 2020 Ensar Basri Kahveci. All rights reserved.   </div>
+
+		<img src="/basri.png" width="128" height="128" />
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-485423-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

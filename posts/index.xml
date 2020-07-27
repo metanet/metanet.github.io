@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Ensar Basri Kahveci. All rights reserved.</copyright>
-    <lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://basri.dev/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Improved Majority Quorums for Raft</title>
+      <link>https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/</guid>
+      <description>Disclaimer: I worked on this project in my free time. It is not affiliated, associated, endorsed by, or in any way officially connected with my current employer Facebook, or any of its subsidiaries or its affiliates.
+I have been spending a lot of time at home and doing a lot of readings on distributed systems during the coronavirus pandemic. Recently I noticed that the main observation of Heidi Howard&amp;rsquo;s Flexible Paxos (FPaxos) work is applicable to Raft.</description>
+    </item>
     
     <item>
       <title>Writing a simple game with Python coroutines: Match symbols</title>

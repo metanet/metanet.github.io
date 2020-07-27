@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://basri.dev/tags/distributed-computing/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/distributed-consensus/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/flexible-paxos/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/paxos/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/posts/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/raft/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://basri.dev/tags/</loc>
+    <lastmod>2020-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://basri.dev/tags/asyncio/</loc>
     <lastmod>2020-05-27T00:00:00+00:00</lastmod>
   </url>
@@ -23,17 +63,7 @@
   </url>
   
   <url>
-    <loc>https://basri.dev/posts/</loc>
-    <lastmod>2020-05-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://basri.dev/tags/python/</loc>
-    <lastmod>2020-05-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://basri.dev/tags/</loc>
     <lastmod>2020-05-27T00:00:00+00:00</lastmod>
   </url>
   

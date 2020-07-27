@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Distributed Computing on Ensar Basri Kahveci</title>
+    <link>https://basri.dev/tags/distributed-computing/</link>
+    <description>Recent content in Distributed Computing on Ensar Basri Kahveci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2020 Ensar Basri Kahveci. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://basri.dev/tags/distributed-computing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Improved Majority Quorums for Raft</title>
+      <link>https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/</guid>
+      <description>Disclaimer: I worked on this project in my free time. It is not affiliated, associated, endorsed by, or in any way officially connected with my current employer Facebook, or any of its subsidiaries or its affiliates.
+I have been spending a lot of time at home and doing a lot of readings on distributed systems during the coronavirus pandemic. Recently I noticed that the main observation of Heidi Howard&amp;rsquo;s Flexible Paxos (FPaxos) work is applicable to Raft.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -64,6 +64,17 @@
 				
 				
 				<div class="post align-justify">
+					<div class="meta">Oct 21, 2011</div>
+					<a class="title" href="/posts/2011-10-21-configuring-spring-security-to-persist-the-securitycontext-to-places-other-then-session-between-requests/">Configuring Spring Security to persist the SecurityContext to places other than session between requests</a> &mdash;
+					<span class="description">
+						
+						Yeah I agree, I suck at titles :) But, again and again, Spring guys are real badasses :)
+By default, Spring Security keeps the SecurityContext object in session objects of user between requests. SecurityContextPersistenceFilter manages this task. When a request comes, it reads the SecurityContext object from a security context repository (which I will mention in a second), puts it to SecurityContextHolder to be used by other filters and the application.&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post align-justify">
 					<div class="meta">Oct 3, 2011</div>
 					<a class="title" href="/posts/2011-10-03-extending-springs-opensessioninviewfilter-to-not-open-sessions-for-request-to-static-resources/">Extending Spring&#39;s OpenSessionInViewFilter to not open sessions for request to static resources</a> &mdash;
 					<span class="description">
@@ -104,17 +115,6 @@ Here, there is a simple EL function implementation that users Spring Security to
  org.hibernate.AnnotationException: A component cannot hold properties split into 2 different tables
  @Embeddable dediğim sınıfın içeriği şuna benzer bişeydi:
 @Embeddable public class Details { // ...		// fields 	// .&hellip;
-						
-					</span>
-				</div>
-				
-				<div class="post align-justify">
-					<div class="meta">Sep 6, 2011</div>
-					<a class="title" href="/posts/2011-09-06-spring-ile-bir-paket-altindaki-siniflari-taramak/">Spring ile bir paket altındaki sınıfları taramak</a> &mdash;
-					<span class="description">
-						
-						Spring, Hibernate gibi bir çok framework; bir paket altındaki sınıfları tarayıp annotation’ları vs. işleyerek bir takım ilklendirmeler, işlemler yapıyor. Bu tarz bir gereksinimle karşılaşıp işe koyulduğumuzda, bunun çok da kolay olmadığını görüyoruz. Reflection Api bize sınıf metadatalarına ulaşmamız için güzellikler sağlasa da, böyle bir işlem için malesef yetersiz kalıyor.
-Neyse ki Spring, bize classpath üzerinde sınıfları tarama gibi işlemler yapmamızı sağlayan sınıflar sağlıyor. Spring’in sunduğu sınıflar ile bir paket altındaki sınıfları tarayabiliyor, sınıfı yüklemeden sınıfın metadatasına, annotationlarına ulaşabiliyor; sınıfı Class.&hellip;
 						
 					</span>
 				</div>

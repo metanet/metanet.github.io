@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>open source on Ensar Basri Kahveci</title>
+    <link>https://basri.dev/tags/open-source/</link>
+    <description>Recent content in open source on Ensar Basri Kahveci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2020 Ensar Basri Kahveci. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://basri.dev/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Introducing MicroRaft</title>
+      <link>https://basri.dev/posts/2020-06-01-introducing-microraft/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://basri.dev/posts/2020-06-01-introducing-microraft/</guid>
+      <description>Disclaimer: MicroRaft is a project I develop on my free time. It is not affiliated, associated, endorsed by, or in any way officially connected with Facebook, or any of its subsidiaries or its affiliates.
+I am pleased to announce the first public release of MicroRaft! MicroRaft is a feature-complete, stable, production-grade and most importantly open-source implementation of the Raft consensus algorithm in Java. MicroRaft can be used for building highly available and strongly-consistent data, metadata and coordination services.</description>
+    </item>
+    
+  </channel>
+</rss>
